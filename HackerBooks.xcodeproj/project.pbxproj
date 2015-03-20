@@ -12,6 +12,7 @@
 		2C3BDCCC1ABC9FE60018CE41 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C3BDCCB1ABC9FE60018CE41 /* Images.xcassets */; };
 		2C3BDCCF1ABC9FE60018CE41 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C3BDCCD1ABC9FE60018CE41 /* LaunchScreen.xib */; };
 		2C3BDCDB1ABC9FE70018CE41 /* HackerBooksTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3BDCDA1ABC9FE70018CE41 /* HackerBooksTests.m */; };
+		2C3BDCE61ABCA11F0018CE41 /* IAABook.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3BDCE51ABCA11E0018CE41 /* IAABook.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +36,8 @@
 		2C3BDCD41ABC9FE60018CE41 /* HackerBooksTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HackerBooksTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C3BDCD91ABC9FE70018CE41 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C3BDCDA1ABC9FE70018CE41 /* HackerBooksTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HackerBooksTests.m; sourceTree = "<group>"; };
+		2C3BDCE41ABCA11E0018CE41 /* IAABook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAABook.h; sourceTree = "<group>"; };
+		2C3BDCE51ABCA11E0018CE41 /* IAABook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAABook.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +61,7 @@
 		2C3BDCB81ABC9FE60018CE41 = {
 			isa = PBXGroup;
 			children = (
+				2C3BDCE71ABCA1240018CE41 /* Models */,
 				2C3BDCC31ABC9FE60018CE41 /* HackerBooks */,
 				2C3BDCD71ABC9FE70018CE41 /* HackerBooksTests */,
 				2C3BDCC21ABC9FE60018CE41 /* Products */,
@@ -109,6 +113,15 @@
 				2C3BDCD91ABC9FE70018CE41 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2C3BDCE71ABCA1240018CE41 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				2C3BDCE41ABCA11E0018CE41 /* IAABook.h */,
+				2C3BDCE51ABCA11E0018CE41 /* IAABook.m */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -211,6 +224,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C3BDCCA1ABC9FE60018CE41 /* AppDelegate.m in Sources */,
+				2C3BDCE61ABCA11F0018CE41 /* IAABook.m in Sources */,
 				2C3BDCC71ABC9FE60018CE41 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
