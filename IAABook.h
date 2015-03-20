@@ -28,6 +28,6 @@
 -(id) initWithTitle: (NSString *) aTitle;
 
 //inicializador a partir de un diccionario JSON
-//-(id) initWithDictionary: (NSDictionary *) aDict;
+-(id) initWithDictionary: (NSDictionary *) aDict;
 
 @end

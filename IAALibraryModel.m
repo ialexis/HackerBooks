@@ -1,0 +1,146 @@
+//
+//  IAALibraryModel.m
+//  HackerBooks
+//
+//  Created by Ivan on 20/3/15.
+//  Copyright (c) 2015 Ivan. All rights reserved.
+//
+
+#import "IAALibraryModel.h"
+
+@implementation IAALibraryModel
+
+
+//sobreescribimos el inicializador para descargar la info del JSON
+
+- (id) init
+{
+    if (self = [super init])
+    {
+        NSURLRequest *request=[NSURLRequest requestWithURL:[NSURL URLWithString:@"https://t.co/K9ziV0z3SJ"]];
+        NSURLResponse *response = [[NSURLResponse alloc]init];
+        NSError *error;
+        NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+        
+        if (data!=nil)
+        {
+            NSArray *JSONObjects = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+            
+            if (JSONObjects!=nil)
+            {
+                for (NSDictionary *dict in JSONObjects)
+                {
+                    //nos aseguramos que el formato del JSON incluye el titulo para evitar algun posible libro en blanco
+                    if  ([dict objectForKey:@"title"]!=nil)
+                    {
+    
+                        IAABook *book = [[IAABook alloc]initWithDictionary:dict];
+                                               
+                    }
+                    
+                }
+            }
+            else
+            {
+                // Se ha producido un error al parsear el JSON
+                NSLog(@"Error al parsear JSON: %@", error.localizedDescription);
+            }
+        }
+        else
+        {
+            // Error al descargar los datos del servidor
+            NSLog(@"Error al descargar datos del servidor: %@", error.localizedDescription);
+        }
+    }
+    return self;
+    
+}
+
+-(void) countTag
+{
+    /*
+     if ([wine.type isEqualToString:RED_WINE_KEY])
+     {
+     if (!self.redWines)
+     {
+     self.redWines = [NSMutableArray arrayWithObject:wine];
+     
+     }
+     else{
+     [self.redWines addObject:wine];
+     }
+     }
+     else if ([wine.type isEqualToString:WHITE_WINE_KEY])
+     {
+     if (!self.whiteWines)
+     {
+     self.whiteWines = [NSMutableArray arrayWithObject:wine];
+     
+     }
+     else{
+     [self.whiteWines addObject:wine];
+     }
+     }
+     else
+     {
+     if (!self.otherWines)
+     {
+     self.otherWines = [NSMutableArray arrayWithObject:wine];
+     
+     }
+     else
+     {
+     [self.otherWines addObject:wine];
+     }
+     
+     
+     }*/
+
+}
+
+-(IAABook *) bookAtIndex: (NSUInteger) index{
+    return nil;
+}
+-(NSMutableArray *) booksAtTitle: (NSString *) title{
+    return nil;
+}
+-(NSMutableArray *) booksAtTag: (NSString *) tag{
+    return nil;
+}
+
+// Array inmutable (NSArray) con todas las
+// distintas temáticas (tags) en orden alfabético.
+// No puede bajo ningún concepto haber ninguna
+-(NSArray*) tags{
+    return nil;
+}
+
+// Cantidad de libros que hay en una temática.
+// Si el tag no existe, debe de devolver cero
+-(NSUInteger) bookCountForTag:(NSString*) tag
+{
+    return 0;
+}
+
+
+// Array inmutable (NSArray) de los libros
+// (instancias de AGTBook) que hay en
+// una temática.
+// Un libro puede estar en una o más
+// temáticas. Si no hay libros para una // temática, ha de devolver nil.
+-(NSArray*) booksForTag: (NSString *) tag
+{
+    return nil;
+}
+
+
+//Un AGTBook para el libro que está en la posición
+//'index' de aquellos bajo un cierto
+//tag. Mira a ver si puedes usar el método anterior
+//para hacer parte de tu trabajo.
+// Si el indice no existe o el tag no existe, ha de devolver nil.
+-(IAABook*) bookForTag:(NSString*) tag atIndex:(NSUInteger) index
+{
+    return nil;
+}
+@end

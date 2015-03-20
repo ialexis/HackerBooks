@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "IAALibraryModel.h"
 
 @interface AppDelegate ()
 
@@ -18,6 +19,12 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+    
+    //creamos el modelo
+    IAALibraryModel *library=[[IAALibraryModel alloc]init];
+    
+    
+    
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;

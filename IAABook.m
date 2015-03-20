@@ -34,5 +34,26 @@
 {
     return [self initWithTitle:aTitle authors:nil tags:nil bookCoverURL:nil bookPDFURL:nil];
 }
-    
+
+
+#pragma mark - inicializador JSON
+-(id)initWithDictionary:(NSDictionary *)aDict
+{
+    return [self initWithTitle:[aDict objectForKey:@"title"]
+                       authors:[self extractAuthorsFromJSONString:[aDict objectForKey:@"authors"]]
+                          tags:[self extractTagsFromJSONString:[aDict objectForKey:@"tags"]]
+                  bookCoverURL:[aDict objectForKey:@"image_url"]
+                    bookPDFURL:[aDict objectForKey:@"pdf_url"]];
+}
+-(NSArray *) extractAuthorsFromJSONString:(NSString *) JSONAuthorsString
+{
+      NSArray *authors = [JSONAuthorsString componentsSeparatedByString:@", "];
+
+    return authors;
+}
+-(NSArray *) extractTagsFromJSONString:(NSString *) JSONTagsString
+{
+    NSArray *tags= [JSONTagsString componentsSeparatedByString:@", "];
+    return tags;
+}
 @end
