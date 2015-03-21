@@ -12,6 +12,7 @@
 
 @property (strong,nonatomic) NSMutableDictionary* tagsDict;
 @property (strong,nonatomic) NSMutableArray* books;
+@property (strong,nonatomic) NSUserDefaults *defaults;
 
 @end
 
@@ -24,57 +25,139 @@
 {
     if (self = [super init])
     {
-        NSURLRequest *request=[NSURLRequest requestWithURL:[NSURL URLWithString:@"https://t.co/K9ziV0z3SJ"]];
-        NSURLResponse *response = [[NSURLResponse alloc]init];
-        NSError *error;
-        NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+        NSArray *JSONObjects = [self recoverJSON: [NSURL URLWithString:@"https://t.co/K9ziV0z3SJ"]];
         
-        if (data!=nil)
+        if (JSONObjects!=nil)
         {
-            NSArray *JSONObjects = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-            
-            if (JSONObjects!=nil)
+            for (NSDictionary *dict in JSONObjects)
             {
-                for (NSDictionary *dict in JSONObjects)
+                //nos aseguramos que el formato del JSON incluye el titulo para evitar algun posible libro en blanco
+                if  ([dict objectForKey:@"title"]!=nil)
                 {
-                    //nos aseguramos que el formato del JSON incluye el titulo para evitar algun posible libro en blanco
-                    if  ([dict objectForKey:@"title"]!=nil)
+                    //cargo el libro
+                    IAABook *book = [[IAABook alloc]initWithDictionary:dict];
+                        
+                    //almaceno el libro en el array de libros
+                    if (!self.books)
                     {
-                        //cargo el libro
-                        IAABook *book = [[IAABook alloc]initWithDictionary:dict];
-                        
-                        //almaceno el libro en el array de libros
-                        if (!self.books)
-                        {
-                            self.books = [NSMutableArray arrayWithObject:book];
+                        self.books = [NSMutableArray arrayWithObject:book];
                             
-                        }
-                        else{
-                            [self.books addObject:book];
-                        }
-                        
-                        //asigno el libro al los distintos listados de etiquetas que le corresponden
-                        [self asignToTagsArray: book];
-                                               
                     }
+                    else{
+                        [self.books addObject:book];
+                    }
+                        
+                    //asigno el libro al los distintos listados de etiquetas que le corresponden
+                    [self asignToTagsArray: book];
                     
                 }
+                    
             }
-            else
-            {
-                // Se ha producido un error al parsear el JSON
-                NSLog(@"Error al parsear JSON: %@", error.localizedDescription);
-            }
-        }
-        else
-        {
-            // Error al descargar los datos del servidor
-            NSLog(@"Error al descargar datos del servidor: %@", error.localizedDescription);
         }
     }
     return self;
     
 }
+
+#pragma mark - JSON
+-(NSArray *) recoverJSON: (NSURL *) aURL
+{
+    //primera ejecucion del programa, descargamos a local JSON
+    //vemos cual es la ruta fisica del directorio de cache
+    
+    self.defaults = [NSUserDefaults standardUserDefaults];
+    
+    if ([self.defaults objectForKey:@"firstExecutionDone"]==nil)
+    {
+        if (![self fistExecutionWithURL:aURL])
+        {
+            // Si no ha terminado bien la primera ejecucion Error al descargar los datos del servidor
+            return nil;
+        }
+    }
+
+    
+    
+    
+    //NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    
+    
+    NSData *data = [NSData dataWithContentsOfFile:[self discoverFileName:aURL]];
+    NSError *error;
+    
+    if (data!=nil)
+    {
+        NSArray *JSONObjects = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+        if (JSONObjects==nil)
+        {
+            // Se ha producido un error al parsear el JSON
+            NSLog(@"Error al parsear JSON: %@", error.localizedDescription);
+        }
+    
+        return JSONObjects;
+    }
+    else
+    {
+        return nil;
+    }
+}
+
+#pragma mark - NSUsersDefaults
+
+- (NSData *) fistExecutionWithURL:(NSURL *) aURL
+{
+    
+    //averiguamos el directorio de documentos de la aplicacion
+    NSString *fileName = [self discoverFileName:aURL];
+    
+    //descargamos el JSON desde internet y lo guardamos en local
+    
+    NSURLRequest *request=[NSURLRequest requestWithURL:aURL];
+    NSURLResponse *response = [[NSURLResponse alloc]init];
+    NSError *error;
+    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    
+    if (data!=nil)
+    {
+        //guardamos el JSON en local
+        [data writeToFile:fileName atomically:TRUE];
+        
+        
+        //marcamos default como que ya se ha realizado la primera ejecucion
+        [self.defaults setObject:@"DONE"
+                     forKey: @"firstExecutionDone"];
+        
+        [self.defaults synchronize];
+        return data;
+    }
+    else
+    {
+        // Error al descargar los datos del servidor
+        NSLog(@"Error al descargar datos del servidor: %@", error.localizedDescription);
+        return nil;
+    }
+    
+}
+- (NSString *) discoverFileName: (NSURL *) aURL
+{
+    //vemos cual es la ruta fisica del directorio de cache
+    NSArray *paths=NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *cachesDirectory=[paths objectAtIndex: 0];
+    
+    //sacamos el nombre teorico que tendria el fichero imagen si estuviera grabado.
+    
+    NSString *nombreFichero = [aURL absoluteString];
+    
+    nombreFichero = [[[nombreFichero stringByReplacingOccurrencesOfString:@"/"withString:@"_"]stringByReplacingOccurrencesOfString:@":" withString:@"_"]stringByReplacingOccurrencesOfString:@"www." withString:@"www_"];
+    
+    NSString *fileName = [NSString stringWithFormat:@"%@/%@",cachesDirectory,nombreFichero];
+    
+    return fileName;
+}
+
+
+#pragma mark - utils
+
 
 -(void) asignToTagsArray: (IAABook*) aBook
 {
