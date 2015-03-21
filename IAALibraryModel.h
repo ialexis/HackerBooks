@@ -11,9 +11,9 @@
 
 @interface IAALibraryModel : NSObject
 
--(IAABook *) bookAtIndex: (NSUInteger) index;
--(NSMutableArray *) booksAtTitle: (NSString *) title;
--(NSMutableArray *) booksAtTag: (NSString *) tag;
+//-(IAABook *) bookAtIndex: (NSUInteger) index;
+//-(NSMutableArray *) booksAtTitle: (NSString *) title;
+//-(NSMutableArray *) booksAtTag: (NSString *) tag;
 
 
 

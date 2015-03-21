@@ -23,7 +23,7 @@
     //creamos el modelo
     IAALibraryModel *library=[[IAALibraryModel alloc]init];
     
-    
+    NSUInteger cantidadLibros= [library booksCount];
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];

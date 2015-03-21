@@ -8,6 +8,13 @@
 
 #import "IAALibraryModel.h"
 
+@interface IAALibraryModel ()
+
+@property (strong,nonatomic) NSMutableDictionary* tagsDict;
+@property (strong,nonatomic) NSMutableArray* books;
+
+@end
+
 @implementation IAALibraryModel
 
 
@@ -33,8 +40,21 @@
                     //nos aseguramos que el formato del JSON incluye el titulo para evitar algun posible libro en blanco
                     if  ([dict objectForKey:@"title"]!=nil)
                     {
-    
+                        //cargo el libro
                         IAABook *book = [[IAABook alloc]initWithDictionary:dict];
+                        
+                        //almaceno el libro en el array de libros
+                        if (!self.books)
+                        {
+                            self.books = [NSMutableArray arrayWithObject:book];
+                            
+                        }
+                        else{
+                            [self.books addObject:book];
+                        }
+                        
+                        //asigno el libro al los distintos listados de etiquetas que le corresponden
+                        [self asignToTagsArray: book];
                                                
                     }
                     
@@ -56,49 +76,29 @@
     
 }
 
--(void) countTag
+-(void) asignToTagsArray: (IAABook*) aBook
 {
-    /*
-     if ([wine.type isEqualToString:RED_WINE_KEY])
-     {
-     if (!self.redWines)
-     {
-     self.redWines = [NSMutableArray arrayWithObject:wine];
-     
-     }
-     else{
-     [self.redWines addObject:wine];
-     }
-     }
-     else if ([wine.type isEqualToString:WHITE_WINE_KEY])
-     {
-     if (!self.whiteWines)
-     {
-     self.whiteWines = [NSMutableArray arrayWithObject:wine];
-     
-     }
-     else{
-     [self.whiteWines addObject:wine];
-     }
-     }
-     else
-     {
-     if (!self.otherWines)
-     {
-     self.otherWines = [NSMutableArray arrayWithObject:wine];
-     
-     }
-     else
-     {
-     [self.otherWines addObject:wine];
-     }
-     
-     
-     }*/
-
+    for (NSString *tag in aBook.tags)
+    {
+        NSMutableArray *booksWithTag = [self.tagsDict objectForKey:tag];
+        
+        if (!booksWithTag)
+        {
+            booksWithTag = [[NSMutableArray alloc]init];
+        }
+        
+        [booksWithTag addObject:aBook];
+        
+        if (self.tagsDict == nil)
+        {
+            self.tagsDict= [[NSMutableDictionary alloc]init];
+        }
+        [self.tagsDict setObject:booksWithTag forKey:tag];
+        
+    }
 }
 
--(IAABook *) bookAtIndex: (NSUInteger) index{
+/*-(IAABook *) bookAtIndex: (NSUInteger) index{
     return nil;
 }
 -(NSMutableArray *) booksAtTitle: (NSString *) title{
@@ -106,20 +106,35 @@
 }
 -(NSMutableArray *) booksAtTag: (NSString *) tag{
     return nil;
-}
+}*/
 
+//cantidad de libros
+-(NSUInteger) booksCount
+{
+    return [self.books count];
+}
 // Array inmutable (NSArray) con todas las
 // distintas temáticas (tags) en orden alfabético.
 // No puede bajo ningún concepto haber ninguna
--(NSArray*) tags{
-    return nil;
+-(NSArray*) tags
+{
+    return [[self.tagsDict allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
 }
 
 // Cantidad de libros que hay en una temática.
 // Si el tag no existe, debe de devolver cero
 -(NSUInteger) bookCountForTag:(NSString*) tag
 {
-    return 0;
+    NSArray* booksWithTagArray = [self.tagsDict objectForKey:tag];
+    
+    if (!booksWithTagArray)
+    {
+        return 0;
+    }
+    else
+    {
+        return [booksWithTagArray count];
+    }
 }
 
 
@@ -127,10 +142,21 @@
 // (instancias de AGTBook) que hay en
 // una temática.
 // Un libro puede estar en una o más
-// temáticas. Si no hay libros para una // temática, ha de devolver nil.
+// temáticas. Si no hay libros para una
+// temática, ha de devolver nil.
 -(NSArray*) booksForTag: (NSString *) tag
 {
-    return nil;
+    NSArray* booksWithTagArray = [self.tagsDict objectForKey:tag];
+    
+    if (!booksWithTagArray)
+    {
+        return nil;
+    }
+    else
+    {
+        return booksWithTagArray;
+    }
+
 }
 
 
@@ -141,6 +167,6 @@
 // Si el indice no existe o el tag no existe, ha de devolver nil.
 -(IAABook*) bookForTag:(NSString*) tag atIndex:(NSUInteger) index
 {
-    return nil;
+    return [[self booksForTag:tag] objectAtIndex:index];
 }
 @end
