@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface IAABook : NSObject
 
@@ -15,6 +16,10 @@
 @property (strong, nonatomic) NSArray *tags;
 @property (strong, nonatomic) NSURL *bookCoverURL;
 @property (strong, nonatomic) NSURL *bookPDFURL;
+@property (strong, nonatomic,readonly) UIImage *bookCover;
+@property (strong, nonatomic,readonly) NSData  *bookPDF;
+
+
 
 
 //iniciador designado

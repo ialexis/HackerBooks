@@ -10,6 +10,8 @@
 
 @implementation IAABook
 
+@synthesize bookCover=_bookCover;
+@synthesize bookPDF=_bookPDF;
 
 #pragma mark - inicializadores
 
@@ -56,4 +58,110 @@
     NSArray *tags= [JSONTagsString componentsSeparatedByString:@", "];
     return tags;
 }
+
+
+
+#pragma mark - overwrite bookCover and bookPDF inicializers
+-(UIImage *) bookCover
+{
+    if (_bookCover==nil)
+    {
+        if(![self isFileDownload:self.bookCoverURL])
+        {
+            // crear un cola
+            dispatch_queue_t loadCovers = dispatch_queue_create("loadCovers", 0);
+            
+            
+            dispatch_async(loadCovers, ^{
+                
+                [self downloadPicture:self.bookCoverURL withFileName:[self discoverFileName:self.bookCoverURL]];
+                
+                NSData *data = [NSData dataWithContentsOfFile:[self discoverFileName:self.bookCoverURL]];
+                
+                
+                // se ejecuta en primer plano
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    _bookCover=[UIImage imageWithData:data];
+                    
+                });
+            });
+            
+            
+        }
+        else
+        {
+            NSData *data = [NSData dataWithContentsOfFile:[self discoverFileName:self.bookCoverURL]];
+            _bookCover=[UIImage imageWithData:data];
+        }
+    }
+    return _bookCover;
+}
+-(NSData *) bookPDF
+{
+    if (_bookPDF==nil)
+    {
+        if(![self isFileDownload:self.bookCoverURL])
+        {
+            // crear un cola
+            dispatch_queue_t loadPDFs = dispatch_queue_create("loadPDFs", 0);
+            
+            
+            dispatch_async(loadPDFs, ^{
+                
+                [self downloadPicture:self.bookPDFURL withFileName:[self discoverFileName:self.bookPDFURL]];
+                
+                _bookPDF = [NSData dataWithContentsOfFile:[self discoverFileName:self.bookCoverURL]];
+                
+            });
+            
+            
+        }
+        else
+        {
+            NSData *data = [NSData dataWithContentsOfFile:[self discoverFileName:self.bookCoverURL]];
+            _bookCover=[UIImage imageWithData:data];
+        }
+    }
+    return _bookPDF;
+}
+- (NSString *) discoverFileName: (NSURL *) aURL
+{
+    //vemos cual es la ruta fisica del directorio de cache
+    NSArray *paths=NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *cachesDirectory=[paths objectAtIndex: 0];
+    
+    //sacamos el nombre teorico que tendria el fichero si estuviera grabado.
+    
+    NSString *nombreFichero = [aURL absoluteString];
+    
+    nombreFichero = [[[nombreFichero stringByReplacingOccurrencesOfString:@"/"withString:@"_"]stringByReplacingOccurrencesOfString:@":" withString:@"_"]stringByReplacingOccurrencesOfString:@"www." withString:@"www_"];
+    
+    NSString *fileName = [NSString stringWithFormat:@"%@/%@",cachesDirectory,nombreFichero];
+    
+    return fileName;
+}
+
+-(BOOL) isFileDownload: (NSURL *) aURL
+{
+    NSString *fileName = [self discoverFileName:aURL];
+    //comprobamos si existe esa ruta
+    
+    NSFileManager *fm = [NSFileManager defaultManager];
+    
+    if ([fm fileExistsAtPath: fileName])
+    {
+        
+        return true;
+    }
+    
+    return false;
+}
+
+- (void) downloadPicture: (NSURL *) aURL withFileName: (NSString *) aFileName
+{
+    //grabamos la imagen
+    NSData *data = [NSData dataWithContentsOfURL:aURL];
+    [data writeToFile:aFileName atomically:TRUE];
+}
+
 @end
