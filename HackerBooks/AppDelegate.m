@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "IAALibraryModel.h"
+#import "IAALibraryTableViewController.h"
 
 @interface AppDelegate ()
 
@@ -21,13 +22,48 @@
     // Override point for customization after application launch.
     
     //creamos el modelo
-    IAALibraryModel *library=[[IAALibraryModel alloc]init];
+    IAALibraryModel *libraryModel=[[IAALibraryModel alloc]init];
+
+    //miramos en que dispositivo estamos
+    UIViewController *rootVC = nil;
     
-    NSUInteger cantidadLibros= [library booksCount];
+    if ([[UIDevice currentDevice]userInterfaceIdiom]==UIUserInterfaceIdiomPad)
+    {
+        //pantalla grande
+        
+      //  rootVC=[self rootViewControllerForPadWithModel:libraryModel];
+        
+        
+    }
+    else{
+        //pantalla pequeña
+        rootVC=[self rootViewControllerForPhoneWithModel:libraryModel];
+        
+    }
+    
+    
+    //asignamos el split como controlador raiz
+    self.window.rootViewController = rootVC;
+
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
+}
+
+-(UIViewController *) rootViewControllerForPhoneWithModel: (IAALibraryModel *)libraryModel
+{
+    //creamos una instancia de los controladores
+     IAALibraryTableViewController *libraryVC = [[IAALibraryTableViewController alloc]initWithLibrary:libraryModel style:UITableViewStylePlain];
+
+    
+    //Creamos un navigation controller para cada controlador
+    
+    UINavigationController *navLibraryVC = [[UINavigationController alloc]initWithRootViewController:libraryVC];
+
+   // libraryVC.delegate=libraryVC.self;
+    
+    return navLibraryVC;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

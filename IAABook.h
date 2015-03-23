@@ -18,6 +18,7 @@
 @property (strong, nonatomic) NSURL *bookPDFURL;
 @property (strong, nonatomic,readonly) UIImage *bookCover;
 @property (strong, nonatomic,readonly) NSData  *bookPDF;
+@property (nonatomic) BOOL isFavorite;
 
 
 
@@ -34,5 +35,9 @@
 
 //inicializador a partir de un diccionario JSON
 -(id) initWithDictionary: (NSDictionary *) aDict;
+
+
+//Marca un libro como favorito
+-(void) markAsFavoriteWithValue: (BOOL) value;
 
 @end

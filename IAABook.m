@@ -44,8 +44,8 @@
     return [self initWithTitle:[aDict objectForKey:@"title"]
                        authors:[self extractAuthorsFromJSONString:[aDict objectForKey:@"authors"]]
                           tags:[self extractTagsFromJSONString:[aDict objectForKey:@"tags"]]
-                  bookCoverURL:[aDict objectForKey:@"image_url"]
-                    bookPDFURL:[aDict objectForKey:@"pdf_url"]];
+                  bookCoverURL:[NSURL URLWithString:[aDict objectForKey:@"image_url"]]
+                    bookPDFURL:[NSURL URLWithString:[aDict objectForKey:@"pdf_url"]]];
 }
 -(NSArray *) extractAuthorsFromJSONString:(NSString *) JSONAuthorsString
 {
@@ -162,6 +162,61 @@
     //grabamos la imagen
     NSData *data = [NSData dataWithContentsOfURL:aURL];
     [data writeToFile:aFileName atomically:TRUE];
+}
+
+//Marca un libro como favorito
+-(void) markAsFavoriteWithValue: (BOOL) value
+{
+    NSMutableArray *favoriteList;
+    NSUserDefaults *defaults= [NSUserDefaults standardUserDefaults];
+    favoriteList= [defaults objectForKey:@"favorites"];
+    if (favoriteList==nil)
+    {
+        favoriteList= [[NSMutableArray alloc]init];
+    }
+    if (value==YES)
+    {
+        [favoriteList addObject:self];
+    }
+    else
+    {
+        [self deleteFromFavoritesArray:favoriteList withTitle:self.title];
+    }
+
+    
+    [defaults setObject: favoriteList forKey:@"favorites"];
+    [defaults synchronize];
+
+    self.isFavorite=value;
+}
+
+//quitamos un titulo de favoritos
+-(NSMutableArray *) deleteFromFavoritesArray: (NSMutableArray *)array withTitle:(NSString *) title
+{
+    for(int i=0;i<[array count];i++)
+    {
+        IAABook *elemento= [array objectAtIndex:i];
+        if (elemento.title==title)
+        {
+            [array removeObjectAtIndex:i];
+            break;
+        }
+    }
+    return array;
+}
+
+-(NSMutableDictionary *) exportBookAsDictiornary:(IAABook *) book
+{
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
+    
+    [dict setObject: book.title forKey:@"title"];
+    [dict setObject: book.authors forKey:@"authors"];
+    [dict setObject: book.tags forKey:@"tags"];
+    [dict setObject: book.bookCoverURL forKey:@"bookCoverURL"];
+    [dict setObject: book.bookPDFURL forKey:@"bookPDFURL"];
+    
+    return dict;
+
 }
 
 @end

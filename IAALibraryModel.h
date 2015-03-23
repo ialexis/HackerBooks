@@ -44,4 +44,18 @@
 // Si el indice no existe o el tag no existe, ha de devolver nil.
 -(IAABook*) bookForTag:(NSString*) tag atIndex:(NSUInteger) index;
 
+//cantidad de Tags que hay en la libreria
+-(NSUInteger) countOfTags;
+
+//Tag en una posicion
+-(NSString *) tagAtIndex: (NSInteger)index;
+
+//Cantidad de libros favoritos
+-(NSUInteger) countOfFavorites;
+
+//recupera un libro de favoritos
+-(IAABook*) bookForFavoriteAtIndex:(NSUInteger) index;
+
+//recupera la lista de libros favoritos
+-(void)loadFavorites;
 @end

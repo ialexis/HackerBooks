@@ -12,6 +12,7 @@
 
 @property (strong,nonatomic) NSMutableDictionary* tagsDict;
 @property (strong,nonatomic) NSMutableArray* books;
+@property (strong,nonatomic) NSMutableArray* favoriteBooks;
 @property (strong,nonatomic) NSUserDefaults *defaults;
 
 @end
@@ -26,7 +27,6 @@
     if (self = [super init])
     {
         NSArray *JSONObjects = [self recoverJSON: [NSURL URLWithString:@"https://t.co/K9ziV0z3SJ"]];
-        
         if (JSONObjects!=nil)
         {
             for (NSDictionary *dict in JSONObjects)
@@ -41,22 +41,22 @@
                     if (!self.books)
                     {
                         self.books = [NSMutableArray arrayWithObject:book];
-                            
                     }
-                    else{
+                    else
+                    {
                         [self.books addObject:book];
                     }
                         
                     //asigno el libro al los distintos listados de etiquetas que le corresponden
                     [self asignToTagsArray: book];
-                    
                 }
-                    
             }
         }
+        
+        //una vez cargados todos los libros, cargamos los que hay en favoritos
+        [self loadFavorites];
     }
     return self;
-    
 }
 
 #pragma mark - JSON
@@ -83,6 +83,7 @@
     
     
     NSData *data = [NSData dataWithContentsOfFile:[self discoverFileName:aURL]];
+
     NSError *error;
     
     if (data!=nil)
@@ -112,10 +113,18 @@
     
     //descargamos el JSON desde internet y lo guardamos en local
     
-    NSURLRequest *request=[NSURLRequest requestWithURL:aURL];
+   
+    
+   /* NSURLRequest *request=[NSURLRequest requestWithURL:aURL];
     NSURLResponse *response = [[NSURLResponse alloc]init];
     NSError *error;
     NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    //NSData *data =[NSData dataWithContentsOfURL:aURL];*/
+    
+    
+    NSError *error = nil; // This so that we can access the error if something goes wrong
+    NSData *data = [NSData dataWithContentsOfURL:aURL options:NSDataReadingMappedIfSafe error:&error];
+    
     
     if (data!=nil)
     {
@@ -164,20 +173,19 @@
     for (NSString *tag in aBook.tags)
     {
         NSMutableArray *booksWithTag = [self.tagsDict objectForKey:tag];
-        
+
         if (!booksWithTag)
         {
             booksWithTag = [[NSMutableArray alloc]init];
         }
         
         [booksWithTag addObject:aBook];
-        
+    
         if (self.tagsDict == nil)
         {
             self.tagsDict= [[NSMutableDictionary alloc]init];
         }
         [self.tagsDict setObject:booksWithTag forKey:tag];
-        
     }
 }
 
@@ -251,5 +259,45 @@
 -(IAABook*) bookForTag:(NSString*) tag atIndex:(NSUInteger) index
 {
     return [[self booksForTag:tag] objectAtIndex:index];
+}
+
+
+
+//Tag en una posicion
+-(NSString *) tagAtIndex: (NSInteger)index
+{
+    return [self.tags objectAtIndex:index];
+}
+
+
+-(NSUInteger) countOfTags
+{
+    return [self.tags count];
+}
+
+
+#pragma mark - Favorites
+
+//recupera la lista de libros favoritos
+-(void)loadFavorites
+{
+    NSUserDefaults *defaults= [NSUserDefaults standardUserDefaults];
+    NSDictionary *favoriteDic = [defaults objectForKey:@"favorites"];
+    self.favoriteBooks=[[NSMutableArray alloc]init];
+    for(id key in favoriteDic) {
+        [self.favoriteBooks addObject:key];
+    }
+    self.favoriteBooks = [defaults objectForKey:@"favorites"];
+}
+//recupera un libro de favoritos
+-(IAABook*) bookForFavoriteAtIndex:(NSUInteger) index
+{
+    return [self.favoriteBooks objectAtIndex:index];
+}
+
+//Cantidad de libros favoritos
+-(NSUInteger) countOfFavorites
+{
+    return [self.favoriteBooks count];
 }
 @end
