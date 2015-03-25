@@ -7,12 +7,22 @@
 //
 
 #import "IAABookViewController.h"
+#import "IAAPDFViewController.h"
+#import "IAALibraryTableViewController.h"
 
 @interface IAABookViewController ()
 
 @end
 
 @implementation IAABookViewController
+
+- (IBAction)showPDF:(id)sender;
+{
+    //creamos la nueva vista y le pasamos el libro
+    IAAPDFViewController *PDFVC = [[IAAPDFViewController alloc]initWithPDF:self.PDF andURL:self.book.bookPDFURL];
+    
+    [self.navigationController pushViewController:PDFVC animated:YES];
+}
 
 -(id) initWithBook: (IAABook *) aBook
 {
@@ -42,6 +52,13 @@
         [self.book markAsFavoriteWithValue:YES];
     }
     [self syncViewModel];
+    
+    // Enviar notificación
+    NSNotification *notificationFavoriteBook = [NSNotification notificationWithName:DID_SELECT_FAVORITE_BOOK_NOTIFICATION_NAME
+                                                      object:self
+                                                    userInfo:@{@"BOOK": self.book}];
+    [[NSNotificationCenter defaultCenter] postNotification:notificationFavoriteBook];
+
   
 
 }
@@ -83,14 +100,33 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
+#pragma mark - UISplitViewControllerDelegate
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)splitViewController:(UISplitViewController *)svc
+     willHideViewController:(UIViewController *)aViewController
+          withBarButtonItem:(UIBarButtonItem *)barButtonItem
+       forPopoverController:(UIPopoverController *)pc
+{
+    self.navigationItem.rightBarButtonItem = barButtonItem;
 }
-*/
+
+- (void)splitViewController:(UISplitViewController *)svc
+     willShowViewController:(UIViewController *)aViewController
+  invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
+{
+    self.navigationItem.rightBarButtonItem = nil;
+}
+
+
+#pragma mark -  IAAWineryTableViewControllerDelegate
+
+-(void) IAALibraryTableViewController: (IAALibraryTableViewController *) aLibraryVC
+                        didSelectBook:(IAABook *) aBook
+
+{
+    self.book = aBook;
+    [self syncViewModel];
+}
+
 
 @end

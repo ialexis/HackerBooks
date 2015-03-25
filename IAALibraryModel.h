@@ -12,10 +12,12 @@
 @interface IAALibraryModel : NSObject
 
 //-(IAABook *) bookAtIndex: (NSUInteger) index;
-//-(NSMutableArray *) booksAtTitle: (NSString *) title;
+
 //-(NSMutableArray *) booksAtTag: (NSString *) tag;
 
 
+//recupera un libro por su titulo
+-(IAABook *) bookWithTitle: (NSString *) title;
 
 //Número total de libros
 -(NSUInteger) booksCount;
@@ -54,7 +56,7 @@
 -(NSUInteger) countOfFavorites;
 
 //recupera un libro de favoritos
--(IAABook*) bookForFavoriteAtIndex:(NSUInteger) index;
+-(IAABook*) favoriteBookAtIndex:(NSUInteger) index;
 
 //recupera la lista de libros favoritos
 -(void)loadFavorites;

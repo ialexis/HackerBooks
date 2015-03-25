@@ -10,9 +10,10 @@
 
 @interface IAALibraryModel ()
 
-@property (strong,nonatomic) NSMutableDictionary* tagsDict;
-@property (strong,nonatomic) NSMutableArray* books;
-@property (strong,nonatomic) NSMutableArray* favoriteBooks;
+@property (strong,nonatomic) NSMutableDictionary* tagsAndBooksDict;
+//@property (strong,nonatomic) NSMUtableArray* books;
+@property (strong,nonatomic) NSMutableDictionary* books;
+@property (strong,nonatomic) NSMutableDictionary* favoriteBooksTitles;
 @property (strong,nonatomic) NSUserDefaults *defaults;
 
 @end
@@ -26,6 +27,11 @@
 {
     if (self = [super init])
     {
+        //antes de nada cargamos los libros que hay en favoritos
+        [self loadFavorites];
+        
+        
+        
         NSArray *JSONObjects = [self recoverJSON: [NSURL URLWithString:@"https://t.co/K9ziV0z3SJ"]];
         if (JSONObjects!=nil)
         {
@@ -34,18 +40,22 @@
                 //nos aseguramos que el formato del JSON incluye el titulo para evitar algun posible libro en blanco
                 if  ([dict objectForKey:@"title"]!=nil)
                 {
+                    //miro si es un libro favorito
+                    BOOL isFavoriteBook = [self.favoriteBooksTitles objectForKey:[dict objectForKey:@"title"]];
                     //cargo el libro
-                    IAABook *book = [[IAABook alloc]initWithDictionary:dict];
+                    IAABook *book = [[IAABook alloc]initWithDictionary:dict andMarkAsFavorite:isFavoriteBook];
                         
                     //almaceno el libro en el array de libros
                     if (!self.books)
                     {
-                        self.books = [NSMutableArray arrayWithObject:book];
+                        //self.books = [NSMutableArray arrayWithObject:book];
+                        self.books = [[NSMutableDictionary alloc]init];
                     }
-                    else
-                    {
-                        [self.books addObject:book];
-                    }
+                    [self.books setValue:book forKey:book.title];
+                  //  else
+                  //  {
+                  //      [self.books addObject:book];
+                  //  }
                         
                     //asigno el libro al los distintos listados de etiquetas que le corresponden
                     [self asignToTagsArray: book];
@@ -53,8 +63,7 @@
             }
         }
         
-        //una vez cargados todos los libros, cargamos los que hay en favoritos
-        [self loadFavorites];
+
     }
     return self;
 }
@@ -164,15 +173,20 @@
     return fileName;
 }
 
-
 #pragma mark - utils
+
+//recupera un libro por su titulo
+-(IAABook *) bookWithTitle: (NSString *) title
+{
+    return [self.books objectForKey:title];
+}
 
 
 -(void) asignToTagsArray: (IAABook*) aBook
 {
     for (NSString *tag in aBook.tags)
     {
-        NSMutableArray *booksWithTag = [self.tagsDict objectForKey:tag];
+        NSMutableArray *booksWithTag = [self.tagsAndBooksDict objectForKey:tag];
 
         if (!booksWithTag)
         {
@@ -181,11 +195,11 @@
         
         [booksWithTag addObject:aBook];
     
-        if (self.tagsDict == nil)
+        if (self.tagsAndBooksDict == nil)
         {
-            self.tagsDict= [[NSMutableDictionary alloc]init];
+            self.tagsAndBooksDict= [[NSMutableDictionary alloc]init];
         }
-        [self.tagsDict setObject:booksWithTag forKey:tag];
+        [self.tagsAndBooksDict setObject:booksWithTag forKey:tag];
     }
 }
 
@@ -209,14 +223,14 @@
 // No puede bajo ningún concepto haber ninguna
 -(NSArray*) tags
 {
-    return [[self.tagsDict allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    return [[self.tagsAndBooksDict allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
 }
 
 // Cantidad de libros que hay en una temática.
 // Si el tag no existe, debe de devolver cero
 -(NSUInteger) bookCountForTag:(NSString*) tag
 {
-    NSArray* booksWithTagArray = [self.tagsDict objectForKey:tag];
+    NSArray* booksWithTagArray = [self.tagsAndBooksDict objectForKey:tag];
     
     if (!booksWithTagArray)
     {
@@ -237,7 +251,7 @@
 // temática, ha de devolver nil.
 -(NSArray*) booksForTag: (NSString *) tag
 {
-    NSArray* booksWithTagArray = [self.tagsDict objectForKey:tag];
+    NSArray* booksWithTagArray = [self.tagsAndBooksDict objectForKey:tag];
     
     if (!booksWithTagArray)
     {
@@ -282,22 +296,33 @@
 -(void)loadFavorites
 {
     NSUserDefaults *defaults= [NSUserDefaults standardUserDefaults];
-    NSDictionary *favoriteDic = [defaults objectForKey:@"favorites"];
-    self.favoriteBooks=[[NSMutableArray alloc]init];
-    for(id key in favoriteDic) {
-        [self.favoriteBooks addObject:key];
-    }
-    self.favoriteBooks = [defaults objectForKey:@"favorites"];
+    //NSDictionary *favoriteDic = [defaults objectForKey:@"favorites"];
+    self.favoriteBooksTitles=[[NSMutableDictionary alloc]init];
+
+    self.favoriteBooksTitles = [defaults objectForKey:@"favorites"];
 }
 //recupera un libro de favoritos
--(IAABook*) bookForFavoriteAtIndex:(NSUInteger) index
+-(IAABook*) favoriteBookAtIndex:(NSUInteger) index
 {
-    return [self.favoriteBooks objectAtIndex:index];
+    int i=0;
+    for (NSString* key in self.favoriteBooksTitles)
+    {
+        //id value = [self.favoriteBooksTitles objectForKey:key];
+        if (i==index)
+        {
+            return [self bookWithTitle:key];
+            break;
+            
+        }
+        i++;
+    }
+    return nil;//[self.favoriteBooks objectAtIndex:index];
+    //[self.favoriteBooks ob];
 }
 
 //Cantidad de libros favoritos
 -(NSUInteger) countOfFavorites
 {
-    return [self.favoriteBooks count];
+    return [self.favoriteBooksTitles count];
 }
 @end

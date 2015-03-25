@@ -11,9 +11,21 @@
 #import "IAALibraryCellTableViewCell.h"
 #import "IAABookViewController.h"
 
-@interface IAALibraryTableViewController : UITableViewController 
+@class IAALibraryTableViewController;
+
+@protocol IAALibraryTableViewControllerDelegate <NSObject>
+
+-(void) IAALibraryTableViewController: (IAALibraryTableViewController *) aLibraryVC
+                    didSelectBook:(IAABook *) aBook;
+
+@end
+
+@interface IAALibraryTableViewController : UITableViewController <IAALibraryTableViewControllerDelegate>
 
 @property (strong,nonatomic) IAALibraryModel *modelLibrary;
+@property (weak, nonatomic) id<IAALibraryTableViewControllerDelegate> delegate;
+
+- (IAABook *)lastSelectedBook;
 
 -(id) initWithLibrary: (IAALibraryModel *) aLibrary
               style: (UITableViewStyle) aStyle;

@@ -20,13 +20,16 @@
             authors: (NSArray *)  arrayOfAuthors
                tags: (NSArray *)  arrayOfTags
        bookCoverURL: (NSURL *) aBookCoverURL
-         bookPDFURL: (NSURL *) aBookPDFURL{
+         bookPDFURL: (NSURL *) aBookPDFURL
+         isFavorite:(BOOL)aIsFavorite
+{
     if (self=[super init]) {
         _title = aTitle;
         _authors=arrayOfAuthors;
         _tags=arrayOfTags;
         _bookCoverURL=aBookCoverURL;
         _bookPDFURL=aBookPDFURL;
+        _isFavorite=aIsFavorite;
     }
     return self;
 }
@@ -34,18 +37,29 @@
 //iniciador de conveniencia
 -(id) initWithTitle: (NSString *) aTitle
 {
-    return [self initWithTitle:aTitle authors:nil tags:nil bookCoverURL:nil bookPDFURL:nil];
+    return [self initWithTitle:aTitle authors:nil tags:nil bookCoverURL:nil bookPDFURL:nil isFavorite:false];
 }
 
 
 #pragma mark - inicializador JSON
+-(id)initWithDictionary:(NSDictionary *)aDict andMarkAsFavorite: (BOOL) aIsFavorite
+{
+    return [self initWithTitle:[aDict objectForKey:@"title"]
+                       authors:[self extractAuthorsFromJSONString:[aDict objectForKey:@"authors"]]
+                          tags:[self extractTagsFromJSONString:[aDict objectForKey:@"tags"]]
+                  bookCoverURL:[NSURL URLWithString:[aDict objectForKey:@"image_url"]]
+                    bookPDFURL:[NSURL URLWithString:[aDict objectForKey:@"pdf_url"]]
+                    isFavorite:aIsFavorite];
+}
+
 -(id)initWithDictionary:(NSDictionary *)aDict
 {
     return [self initWithTitle:[aDict objectForKey:@"title"]
                        authors:[self extractAuthorsFromJSONString:[aDict objectForKey:@"authors"]]
                           tags:[self extractTagsFromJSONString:[aDict objectForKey:@"tags"]]
                   bookCoverURL:[NSURL URLWithString:[aDict objectForKey:@"image_url"]]
-                    bookPDFURL:[NSURL URLWithString:[aDict objectForKey:@"pdf_url"]]];
+                    bookPDFURL:[NSURL URLWithString:[aDict objectForKey:@"pdf_url"]]
+                    isFavorite:false];
 }
 -(NSArray *) extractAuthorsFromJSONString:(NSString *) JSONAuthorsString
 {
@@ -74,7 +88,7 @@
             
             dispatch_async(loadCovers, ^{
                 
-                [self downloadPicture:self.bookCoverURL withFileName:[self discoverFileName:self.bookCoverURL]];
+                [self downloadFile:self.bookCoverURL withFileName:[self discoverFileName:self.bookCoverURL]];
                 
                 NSData *data = [NSData dataWithContentsOfFile:[self discoverFileName:self.bookCoverURL]];
                 
@@ -100,15 +114,20 @@
 {
     if (_bookPDF==nil)
     {
-        if(![self isFileDownload:self.bookCoverURL])
+        if(![self isFileDownload:self.bookPDFURL])
         {
+            
+          //  [self downloadFile:self.bookPDFURL withFileName:[self discoverFileName:self.bookPDFURL]];
+            
+           // _bookPDF = [NSData dataWithContentsOfFile:[self discoverFileName:self.bookCoverURL]];
+            
             // crear un cola
             dispatch_queue_t loadPDFs = dispatch_queue_create("loadPDFs", 0);
             
             
             dispatch_async(loadPDFs, ^{
                 
-                [self downloadPicture:self.bookPDFURL withFileName:[self discoverFileName:self.bookPDFURL]];
+                [self downloadFile:self.bookPDFURL withFileName:[self discoverFileName:self.bookPDFURL]];
                 
                 _bookPDF = [NSData dataWithContentsOfFile:[self discoverFileName:self.bookCoverURL]];
                 
@@ -119,7 +138,7 @@
         else
         {
             NSData *data = [NSData dataWithContentsOfFile:[self discoverFileName:self.bookCoverURL]];
-            _bookCover=[UIImage imageWithData:data];
+            _bookPDF=data;
         }
     }
     return _bookPDF;
@@ -157,7 +176,7 @@
     return false;
 }
 
-- (void) downloadPicture: (NSURL *) aURL withFileName: (NSString *) aFileName
+- (void) downloadFile: (NSURL *) aURL withFileName: (NSString *) aFileName
 {
     //grabamos la imagen
     NSData *data = [NSData dataWithContentsOfURL:aURL];
@@ -165,29 +184,33 @@
 }
 
 //Marca un libro como favorito
--(void) markAsFavoriteWithValue: (BOOL) value
+-(void) markAsFavoriteWithValue: (BOOL) favoriteValue
 {
-    NSMutableArray *favoriteList;
+    NSMutableDictionary *favoriteList;
     NSUserDefaults *defaults= [NSUserDefaults standardUserDefaults];
     favoriteList= [defaults objectForKey:@"favorites"];
+    
     if (favoriteList==nil)
     {
-        favoriteList= [[NSMutableArray alloc]init];
+        favoriteList= [[NSMutableDictionary alloc]init];
     }
-    if (value==YES)
+    
+    
+    
+    if (favoriteValue==YES)
     {
-        [favoriteList addObject:self];
+        [favoriteList setObject:@"YES" forKey:self.title];
     }
     else
     {
-        [self deleteFromFavoritesArray:favoriteList withTitle:self.title];
+        [favoriteList removeObjectForKey:self.title];
     }
 
     
     [defaults setObject: favoriteList forKey:@"favorites"];
     [defaults synchronize];
 
-    self.isFavorite=value;
+    self.isFavorite=favoriteValue;
 }
 
 //quitamos un titulo de favoritos

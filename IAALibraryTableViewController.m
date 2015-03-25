@@ -38,13 +38,32 @@
 
 -(void) viewDidAppear:(BOOL)animated
 {
+    // Alta en notificaciones
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(favoritesDidChange:)
+                                                 name:DID_SELECT_FAVORITE_BOOK_NOTIFICATION_NAME
+                                               object:nil];
+
    // [self.modelLibrary loadFavorites];
 }
 
+-(void) viewWillDisappear:(BOOL)animated
+{
+    // Baja en notificaciones
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark -  Notifications
+
+- (void)favoritesDidChange:(NSNotification *)aNotification
+{
+    [self.tableView reloadData];
+}
+
 
 #pragma mark - Table view data source
 
@@ -102,7 +121,7 @@
     
     if (indexPath.section==0)
     {
-        book=[self.modelLibrary bookForFavoriteAtIndex:indexPath.row];
+        book=[self.modelLibrary favoriteBookAtIndex:indexPath.row];
         cell.bookFavoriteImage.highlighted=YES;
         cell.bookFavoriteImage.image = [UIImage imageNamed:@"726-star"];
         cell.bookFavoriteImage.highlightedImage= [UIImage imageNamed:@"726-star-selected"];
@@ -145,39 +164,6 @@
 }
 
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 
 #pragma mark - Table view delegate
@@ -190,20 +176,30 @@
     
     IAABook *book =nil;
     
+    
     if (indexPath.section==0)
     {
         //cell.bookFavoriteImage.highlighted=YES;
-        book=[self.modelLibrary bookForFavoriteAtIndex:indexPath.row];
+        book=[self.modelLibrary favoriteBookAtIndex:indexPath.row];
     }
     else
     {
         book=[self.modelLibrary bookForTag:[self.modelLibrary tagAtIndex:indexPath.section-1] atIndex:indexPath.row];
     }
     
+    // Avisar al delegado
+    [self.delegate IAALibraryTableViewController:self didSelectBook:book];
+
+    /*
     //creamos la nueva vista y le pasamos el libro
     IAABookViewController *bookVB = [[IAABookViewController alloc]initWithBook:book];
     
     [self.navigationController pushViewController:bookVB animated:YES];
+    
+    */
+    
+    [self saveLastSelectedBookAtSection:indexPath.section
+                                    row:indexPath.row];
 }
 
 /*
@@ -215,5 +211,88 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+#pragma mark -  NSUserDefaults
+
+- (NSDictionary *)setDefaults
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    // Por defecto, mostraremos el primero de los tintos
+    NSDictionary *defaultWineCoords = @{@"SECTION" : @1, @"ROW" : @0};
+    
+    // lo asignamos
+    [defaults setObject:defaultWineCoords
+                 forKey:@"LAST_BOOK_SELECTED"];
+    // guardamos por si las moscas
+    [defaults synchronize];
+    
+    return defaultWineCoords;
+    
+}
+
+- (void)saveLastSelectedBookAtSection:(NSUInteger)section row:(NSUInteger)row
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:@{@"SECTION" : @(section),
+                          @"ROW"     : @(row)}
+                 forKey:@"LAST_BOOK_SELECTED"];
+    
+    [defaults synchronize]; // Por si acaso, que Murphy acecha.
+}
+
+- (IAABook *)lastSelectedBook
+{
+    NSIndexPath *indexPath = nil;
+    NSDictionary *coords = nil;
+    
+    coords = [[NSUserDefaults standardUserDefaults] objectForKey:@"LAST_BOOK_SELECTED"];
+    
+    if (coords == nil) {
+        // No hay nada bajo la clave LAST_BOOK_SELECTED.
+        // Esto quiere decir que es la primera vez que se llama a la App
+        // Ponemos un valor por defecto: el primero de los libros del listado de Tags
+        coords = [self setDefaults];
+    }else{
+        // Ya hay algo, es decir, en algún momento se guardó.
+        // No hay nada en especial que hacer.
+    }
+    
+    // Transformamos esas coordenadas en un indexpath
+    indexPath = [NSIndexPath indexPathForRow:[[coords objectForKey: @"ROW"] integerValue]
+                                   inSection:[[coords objectForKey: @"SECTION"] integerValue]];
+    
+    // devolvemos el libro en cuestión
+    
+    IAABook *book =nil;
+    
+    if (indexPath.section==0)
+    {
+        //cell.bookFavoriteImage.highlighted=YES;
+        book=[self.modelLibrary favoriteBookAtIndex:indexPath.row];
+    }
+    else
+    {
+        book=[self.modelLibrary bookForTag:[self.modelLibrary tagAtIndex:indexPath.section-1] atIndex:indexPath.row];
+    }
+    
+
+    
+    return book;
+}
+
+#pragma mark -  IAALibraryTableViewControllerDelegate
+
+-(void) IAALibraryTableViewController: (IAALibraryTableViewController *) aLibraryVC
+                        didSelectBook:(IAABook *) aBook
+{
+    // Crear el controlador
+    IAABookViewController *bookVC = [[IAABookViewController alloc] initWithBook:aBook];
+    
+    // Hacer un push
+    [self.navigationController pushViewController:bookVC
+                                         animated:YES];
+}
+
 
 @end

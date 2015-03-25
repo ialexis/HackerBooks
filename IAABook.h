@@ -28,10 +28,15 @@
             authors: (NSArray *)  arrayOfAuthors
                tags: (NSArray *)  arrayOfTags
        bookCoverURL: (NSURL *) aBookCoverURL
-         bookPDFURL: (NSURL *) aBookPDFURL;
+         bookPDFURL: (NSURL *) aBookPDFURL
+         isFavorite: (BOOL) aIsFavorite;
 
 //iniciador de conveniencia
 -(id) initWithTitle: (NSString *) aTitle;
+
+
+//inicializador a partir de un diccionario JSON marcando como favoritos los libros favoritos
+-(id) initWithDictionary: (NSDictionary *) aDict andMarkAsFavorite: (BOOL) aIsFavorite;
 
 //inicializador a partir de un diccionario JSON
 -(id) initWithDictionary: (NSDictionary *) aDict;

@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "IAALibraryModel.h"
 #import "IAALibraryTableViewController.h"
+#import "IAABookViewController.h"
 
 @interface AppDelegate ()
 
@@ -31,7 +32,7 @@
     {
         //pantalla grande
         
-      //  rootVC=[self rootViewControllerForPadWithModel:libraryModel];
+        rootVC=[self rootViewControllerForPadWithModel:libraryModel];
         
         
     }
@@ -61,10 +62,36 @@
     
     UINavigationController *navLibraryVC = [[UINavigationController alloc]initWithRootViewController:libraryVC];
 
-   // libraryVC.delegate=libraryVC.self;
+    libraryVC.delegate=libraryVC.self;
     
     return navLibraryVC;
 }
+
+- (UIViewController *)rootViewControllerForPadWithModel: (IAALibraryModel *)libraryModel
+
+{
+    // Controladores
+    IAALibraryTableViewController *libraryVC = [[IAALibraryTableViewController alloc]initWithLibrary:libraryModel style:UITableViewStylePlain];
+    
+    IAABookViewController *bookVC = [[IAABookViewController alloc] initWithBook:[libraryVC lastSelectedBook]];
+    
+    // Combinadores
+    UINavigationController *BookNav = [[UINavigationController alloc] initWithRootViewController:bookVC];
+    
+    UINavigationController *libraryNav
+    = [[UINavigationController alloc] initWithRootViewController:libraryVC];
+    
+    UISplitViewController *splitVC = [[UISplitViewController alloc] init];
+    splitVC.viewControllers = @[libraryNav, BookNav];
+    
+    
+    // Delegados
+    splitVC.delegate = bookVC;
+    libraryVC.delegate = bookVC;
+    
+    return splitVC;
+}
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

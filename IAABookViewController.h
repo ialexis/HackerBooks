@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "IAABook.h"
+#import "IAALibraryTableViewController.h"
 
-@interface IAABookViewController : UIViewController
+#define DID_SELECT_FAVORITE_BOOK_NOTIFICATION_NAME @"newFavoriteBookSelected"
+
+@interface IAABookViewController : UIViewController <UISplitViewControllerDelegate,IAALibraryTableViewControllerDelegate>
 
 @property (strong, nonatomic) IAABook *book;
 @property (weak, nonatomic) IBOutlet UIImageView *bookCoverImage;
@@ -21,6 +24,8 @@
 
 
 -(id) initWithBook: (IAABook *) aBook;
+
+- (IBAction)showPDF:(id)sender;
 
 - (IBAction)setFavorite:(id)sender;
 @end
