@@ -38,6 +38,7 @@
 
 -(void) viewDidAppear:(BOOL)animated
 {
+    [super viewWillAppear:TRUE];
     // Alta en notificaciones
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(favoritesDidChange:)

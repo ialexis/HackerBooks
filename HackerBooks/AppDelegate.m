@@ -87,7 +87,7 @@
     
     // Delegados
     splitVC.delegate = bookVC;
-    libraryVC.delegate = bookVC;
+    //libraryVC.delegate = bookVC;
     
     return splitVC;
 }
