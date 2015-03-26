@@ -7,6 +7,7 @@
 //
 
 #import "IAALibraryTableViewController.h"
+#import "IAABookViewController.h"
 
 @interface IAALibraryTableViewController ()
 

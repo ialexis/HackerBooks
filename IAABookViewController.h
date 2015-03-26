@@ -10,7 +10,7 @@
 #import "IAABook.h"
 #import "IAALibraryTableViewController.h"
 
-@interface IAABookViewController : UIViewController <UISplitViewControllerDelegate,IAALibraryTableViewControllerDelegate>
+@interface IAABookViewController : UIViewController <UISplitViewControllerDelegate,IAALibraryTableViewControllerDelegate >
 
 #define DID_SELECT_FAVORITE_BOOK_NOTIFICATION_NAME @"newFavoriteBookSelected"
 
