@@ -38,7 +38,7 @@
 
 -(void) viewDidAppear:(BOOL)animated
 {
-    [super viewWillAppear:TRUE];
+    [super viewDidAppear:animated];
     // Alta en notificaciones
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(favoritesDidChange:)
@@ -50,6 +50,8 @@
 
 -(void) viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
+    
     // Baja en notificaciones
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
