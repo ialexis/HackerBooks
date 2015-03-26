@@ -219,16 +219,16 @@
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    // Por defecto, mostraremos el primero de los tintos
-    NSDictionary *defaultWineCoords = @{@"SECTION" : @1, @"ROW" : @0};
+    // Por defecto, mostraremos el primero de la seccion de libros (obviando la de favoritos por si no hubiera aun ninguno)
+    NSDictionary *defaultBooksCoords = @{@"SECTION" : @1, @"ROW" : @0};
     
     // lo asignamos
-    [defaults setObject:defaultWineCoords
+    [defaults setObject:defaultBooksCoords
                  forKey:@"LAST_BOOK_SELECTED"];
     // guardamos por si las moscas
     [defaults synchronize];
     
-    return defaultWineCoords;
+    return defaultBooksCoords;
     
 }
 

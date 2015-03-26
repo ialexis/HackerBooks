@@ -8,8 +8,9 @@
 
 #import "AppDelegate.h"
 #import "IAALibraryModel.h"
-#import "IAALibraryTableViewController.h"
+
 #import "IAABookViewController.h"
+#import "IAALibraryTableViewController.h"
 
 @interface AppDelegate ()
 
@@ -84,10 +85,13 @@
     UISplitViewController *splitVC = [[UISplitViewController alloc] init];
     splitVC.viewControllers = @[libraryNav, BookNav];
     
+    //añadirmos esta linea para que muestre el boton del splitview cuando este en horizontal.
+    BookNav.topViewController.navigationItem.leftBarButtonItem = splitVC.displayModeButtonItem;
+
     
     // Delegados
     splitVC.delegate = bookVC;
-    //libraryVC.delegate = bookVC;
+    libraryVC.delegate = bookVC;
     
     return splitVC;
 }

@@ -101,24 +101,20 @@
 }
 
 #pragma mark - UISplitViewControllerDelegate
-
-- (void)splitViewController:(UISplitViewController *)svc
-     willHideViewController:(UIViewController *)aViewController
-          withBarButtonItem:(UIBarButtonItem *)barButtonItem
-       forPopoverController:(UIPopoverController *)pc
+-(void) splitViewController:(UISplitViewController *)svc willChangeToDisplayMode:(UISplitViewControllerDisplayMode)displayMode
 {
-    self.navigationItem.rightBarButtonItem = barButtonItem;
+    
+    if (displayMode == UISplitViewControllerDisplayModePrimaryHidden)
+    {
+        self.navigationItem.leftBarButtonItem = svc.displayModeButtonItem;
+    }
+    else if (displayMode == UISplitViewControllerDisplayModeAllVisible)
+    {
+        self.navigationItem.rightBarButtonItem = nil;
+    }
 }
 
-- (void)splitViewController:(UISplitViewController *)svc
-     willShowViewController:(UIViewController *)aViewController
-  invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
-{
-    self.navigationItem.rightBarButtonItem = nil;
-}
-
-
-#pragma mark -  IAAWineryTableViewControllerDelegate
+#pragma mark -  IAALibrartTableViewControllerDelegate
 
 -(void) IAALibraryTableViewController: (IAALibraryTableViewController *) aLibraryVC
                         didSelectBook:(IAABook *) aBook
