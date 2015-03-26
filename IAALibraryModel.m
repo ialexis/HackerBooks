@@ -41,7 +41,7 @@
                 if  ([dict objectForKey:@"title"]!=nil)
                 {
                     //miro si es un libro favorito
-                    BOOL isFavoriteBook = [self.favoriteBooksTitles objectForKey:[dict objectForKey:@"title"]];
+                    BOOL isFavoriteBook = !![self.favoriteBooksTitles objectForKey:[dict objectForKey:@"title"]];
                     //cargo el libro
                     IAABook *book = [[IAABook alloc]initWithDictionary:dict andMarkAsFavorite:isFavoriteBook];
                         
