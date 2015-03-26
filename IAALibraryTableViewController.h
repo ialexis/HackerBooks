@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "IAALibraryModel.h"
 #import "IAALibraryCellTableViewCell.h"
-#import "IAABookViewController.h"
+
 
 @class IAALibraryTableViewController;
 
