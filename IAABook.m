@@ -211,7 +211,19 @@
     [defaults synchronize];
 
     self.isFavorite=favoriteValue;
+    
+    
+    // Enviar notificación
+    NSNotification *notificationFavoriteBook = [NSNotification notificationWithName:DID_SELECT_FAVORITE_BOOK_NOTIFICATION_NAME
+                                                                             object:self
+                                                                           userInfo:@{@"BOOK": self}];
+    [[NSNotificationCenter defaultCenter] postNotification:notificationFavoriteBook];
+    
+    
+
 }
+
+
 
 //quitamos un titulo de favoritos
 -(NSMutableArray *) deleteFromFavoritesArray: (NSMutableArray *)array withTitle:(NSString *) title

@@ -53,14 +53,7 @@
     }
     [self syncViewModel];
     
-    // Enviar notificación
-    NSNotification *notificationFavoriteBook = [NSNotification notificationWithName:DID_SELECT_FAVORITE_BOOK_NOTIFICATION_NAME
-                                                      object:self
-                                                    userInfo:@{@"BOOK": self.book}];
-    [[NSNotificationCenter defaultCenter] postNotification:notificationFavoriteBook];
-
-  
-
+   
 }
 
 - (void)viewDidLoad {

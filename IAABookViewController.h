@@ -12,7 +12,6 @@
 
 @interface IAABookViewController : UIViewController <UISplitViewControllerDelegate,IAALibraryTableViewControllerDelegate >
 
-#define DID_SELECT_FAVORITE_BOOK_NOTIFICATION_NAME @"newFavoriteBookSelected"
 
 @property (strong, nonatomic) IAABook *book;
 @property (weak, nonatomic) IBOutlet UIImageView *bookCoverImage;
