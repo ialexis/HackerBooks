@@ -33,7 +33,7 @@
     
     
     dispatch_async(loadPDFs, ^{
-        [libraryModel downloadPDS];
+        [libraryModel downloadPDFS];
 
         });
 

@@ -35,9 +35,15 @@
                         <rect key="frame" x="289" y="8" width="25" height="27"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                     </imageView>
+                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" id="3Vv-HI-1AW">
+                        <rect key="frame" x="24" y="12" width="20" height="20"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </activityIndicatorView>
                 </subviews>
             </tableViewCellContentView>
             <connections>
+                <outlet property="activityIndicator" destination="3Vv-HI-1AW" id="fhy-cB-Ihk"/>
                 <outlet property="bookAuthors" destination="Qjn-hj-8EE" id="LZy-cq-kQG"/>
                 <outlet property="bookCoverImage" destination="Zo8-uB-bvk" id="dKa-c7-rzg"/>
                 <outlet property="bookFavoriteImage" destination="pi3-z6-rm6" id="Qyy-yt-UlY"/>

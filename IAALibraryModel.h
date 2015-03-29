@@ -63,5 +63,5 @@
 
 
 //descarga los PDFs
--(void)downloadPDS;
+-(void)downloadPDFS;
 @end

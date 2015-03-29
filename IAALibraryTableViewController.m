@@ -166,8 +166,39 @@
 
     //sincronizamos vista y modelo
     cell.bookTitle.text=book.title;
-    cell.bookCoverImage.image=book.bookCover;
     cell.bookAuthors.text = [book.authors componentsJoinedByString:@", "];
+    
+    
+    //cargamos la imagen
+    
+    [cell.activityIndicator startAnimating];
+    
+    // crear un cola
+    dispatch_queue_t loadCovers = dispatch_queue_create("loadCovers", 0);
+    
+    
+    dispatch_async(loadCovers, ^{
+        UIImage *img= [UIImage imageWithData:book.bookCover];
+        
+        
+        // se ejecuta en primer plano
+        dispatch_async(dispatch_get_main_queue(), ^{
+            cell.bookCoverImage.image=img;
+            
+             [cell.activityIndicator stopAnimating];
+            
+        });
+    });
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
     return cell;
     
 

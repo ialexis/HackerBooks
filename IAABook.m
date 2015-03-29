@@ -78,12 +78,15 @@
 
 
 #pragma mark - overwrite bookCover and bookPDF inicializers
--(UIImage *) bookCover
+-(NSData *) bookCover
 {
     if (_bookCover==nil)
     {
         if(![self isFileDownload:self.bookCoverURL])
         {
+          
+            
+            /*
             // crear un cola
             dispatch_queue_t loadCovers = dispatch_queue_create("loadCovers", 0);
             
@@ -101,13 +104,18 @@
                     
                 });
             });
+            */
+            [self downloadFile:self.bookCoverURL withFileName:[self discoverFileName:self.bookCoverURL]];
             
+            NSData *data = [NSData dataWithContentsOfFile:[self discoverFileName:self.bookCoverURL]];
+            _bookCover=data;
+
             
         }
         else
         {
             NSData *data = [NSData dataWithContentsOfFile:[self discoverFileName:self.bookCoverURL]];
-            _bookCover=[UIImage imageWithData:data];
+            _bookCover=data;
         }
     }
     return _bookCover;

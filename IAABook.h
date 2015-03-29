@@ -16,7 +16,7 @@
 @property (strong, nonatomic) NSArray *tags;
 @property (strong, nonatomic) NSURL *bookCoverURL;
 @property (strong, nonatomic) NSURL *bookPDFURL;
-@property (strong, nonatomic,readonly) UIImage *bookCover;
+@property (strong, nonatomic,readonly) NSData *bookCover;
 @property (strong, nonatomic,readonly) NSString *bookPDFFileName;
 
 @property (strong, nonatomic,readonly) NSData  *bookPDF;

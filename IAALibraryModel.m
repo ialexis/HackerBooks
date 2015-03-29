@@ -176,7 +176,7 @@
 #pragma mark - utils
 
 //descarga los PDFs
--(void)downloadPDS
+-(void)downloadPDFS
 {
     for (NSString* key in self.books)
     {
