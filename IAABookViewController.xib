@@ -10,7 +10,6 @@
                 <outlet property="bookCoverImage" destination="YBb-ey-Ecj" id="vrv-Pu-ONS"/>
                 <outlet property="bookTagsLabel" destination="m3U-z0-Xta" id="MF0-Cf-NNz"/>
                 <outlet property="bookTitleLabel" destination="PPk-6y-Dcc" id="Pdm-MO-Wb0"/>
-                <outlet property="favoriteButton" destination="yw0-b6-Ex2" id="GFV-tw-gdS"/>
                 <outlet property="toolbarButtomReadBook" destination="1U7-wi-XaB" id="QOD-sJ-gIk"/>
                 <outlet property="toolbarButtonMarkAsFavorite" destination="P7F-Yz-xSr" id="gmt-Fl-CIZ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -54,26 +53,6 @@
                     <rect key="frame" x="414" y="134" width="22" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="yw0-b6-Ex2">
-                    <rect key="frame" x="75" y="548" width="144" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="Poner como Favorito">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="setFavorite:" destination="-1" eventType="touchUpInside" id="6gV-l2-nC2"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Nki-Pc-j6t">
-                    <rect key="frame" x="249" y="548" width="105" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="Leer">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="showPDF:" destination="-1" eventType="touchUpInside" id="G69-2n-5c4"/>
-                    </connections>
-                </button>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="YBb-ey-Ecj">
                     <rect key="frame" x="74" y="98" width="332" height="442"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

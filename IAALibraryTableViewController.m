@@ -128,29 +128,31 @@
     if (indexPath.section==0)
     {
         book=[self.modelLibrary favoriteBookAtIndex:indexPath.row];
-        cell.bookFavoriteImage.highlighted=YES;
-        cell.bookFavoriteImage.image = [UIImage imageNamed:@"726-star"];
-        cell.bookFavoriteImage.highlightedImage= [UIImage imageNamed:@"726-star-selected"];
-
+        
     }
     else
     {
         book=[self.modelLibrary bookForTag:[self.modelLibrary tagAtIndex:indexPath.section-1] atIndex:indexPath.row];
-        cell.bookFavoriteImage.highlighted=false;
-        cell.bookFavoriteImage.image = [UIImage imageNamed:@"721-bookmarks"];
-        cell.bookFavoriteImage.highlightedImage= [UIImage imageNamed:@"721-bookmarks-selected"];
+        
     }
     
+    //si es favorito ponemos una estrella negra, si no una blanca
+    if (book.isFavorite)
+    {
+        cell.bookFavoriteImage.highlighted=YES;
+        cell.bookFavoriteImage.image = [UIImage imageNamed:@"726-star"];
+        cell.bookFavoriteImage.highlightedImage= [UIImage imageNamed:@"726-star-selected"];
+    }
+    else
+    {   cell.bookFavoriteImage.highlighted=false;
+        cell.bookFavoriteImage.image = [UIImage imageNamed:@"726-star"];
+        cell.bookFavoriteImage.highlightedImage= [UIImage imageNamed:@"726-star"];
+        
+    }
+
     
-    
-    //Añadimos los datos a cada uno de los elementos de nuestra celda
-   /* cell.disclosureImage.image = [UIImage imageNamed:@"miImagenDisclosure"];
-    cell.titulo.text=@"Nombre";
-    cell.subtitulo.text=@"Descripcion";
-    cell.imagen.image = [UIImage imageNamed:@"721-bookmarks"];
-    cell.fondoImagen.image=[UIImage imageNamed:@"miImagenFondo"];
-    */
-    
+
+    //sincronizamos vista y modelo
     cell.bookTitle.text=book.title;
     cell.bookCoverImage.image=book.bookCover;
     cell.bookAuthors.text = [book.authors componentsJoinedByString:@", "];
