@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "IAABook.h"
 
-@interface IAAPDFViewController : UIViewController
+@interface IAAPDFViewController : UIViewController <UIWebViewDelegate>
 @property (strong,nonatomic) IAABook *book;
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityView;
 
 -(id) initWithBook: (IAABook *) aBook;
 @end

@@ -71,7 +71,7 @@
 - (void)syncViewModel
 {
     self.title =self.book.title;
-    self.bookCoverImage.image=self.book.bookCover;
+    self.bookCoverImage.image=[UIImage imageWithData:self.book.bookCover];
     self.bookTitleLabel.text=self.book.title;
     self.bookAuthorsLabel.text= [self.book.authors componentsJoinedByString:@", "];
     self.bookTagsLabel.text= [self.book.tags componentsJoinedByString:@", "];
