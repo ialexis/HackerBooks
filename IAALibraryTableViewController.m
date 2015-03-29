@@ -192,13 +192,6 @@
 
     
     
-    
-    
-    
-    
-    
-    
-    
     return cell;
     
 
@@ -214,7 +207,12 @@
     return 50;
 }
 
-
+-(void) dealloc
+{
+    //nos damos de baja de la notificacion
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+}
 
 
 #pragma mark - Table view delegate

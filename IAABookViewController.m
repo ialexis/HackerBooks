@@ -67,27 +67,65 @@
     
     [self syncViewModel];
     
+
+    // si estamos en landscape, añadimos la vista que tenemos para landscape
+    if (UIDeviceOrientationIsLandscape([[UIDevice currentDevice] orientation]))
+    {
+        [self addLandscapeView];
+    }
 }
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    if (UIInterfaceOrientationIsLandscape(fromInterfaceOrientation))
+    {
+        // venimos de estar en horizontal
+        [self.LandscapeView removeFromSuperview];
+    }
+    else {
+        // venimos de estar en vertical
+        [self addLandscapeView];
+    }
+}
+
+- (void)addLandscapeView
+{
+    [self.view addSubview:self.LandscapeView];
+}
+
+
+
+
+
 - (void)syncViewModel
 {
     self.title =self.book.title;
+    
+    
+    //sincronizamos vista vertical
     self.bookCoverImage.image=[UIImage imageWithData:self.book.bookCover];
     self.bookTitleLabel.text=self.book.title;
     self.bookAuthorsLabel.text= [self.book.authors componentsJoinedByString:@", "];
     self.bookTagsLabel.text= [self.book.tags componentsJoinedByString:@", "];
-    //self.PDF=self.book.bookPDF;
-    
+
+    //sincronizamos vista horizontal
+    self.bookCoverImageLandscape.image=[UIImage imageWithData:self.book.bookCover];
+    self.bookTitleLabelLandscape.text=self.book.title;
+    self.bookAuthorsLabelLanscape.text= [self.book.authors componentsJoinedByString:@", "];
+    self.bookTagsLabelLandscape.text= [self.book.tags componentsJoinedByString:@", "];
     
     
     if (self.book.isFavorite)
     {
        // [self.favoriteButton setTitle:@"Quitar de Favoritos" forState:UIControlStateNormal];
         [self.toolbarButtonMarkAsFavorite setTitle:@"Quitar de Favoritos"];
+        [self.toolbarButtonMarkAsFavoriteLandscape setTitle:@"Quitar de Favoritos"];
     }
     else
     {
        // [self.favoriteButton setTitle:@"Poner como Favorito" forState:UIControlStateNormal];
         [self.toolbarButtonMarkAsFavorite setTitle:@"Poner como Favorito"];
+        [self.toolbarButtonMarkAsFavoriteLandscape setTitle:@"Poner como Favorito"];
     }
 
 }

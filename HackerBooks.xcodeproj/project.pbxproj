@@ -39,6 +39,8 @@
 		2CF055B31ABECBC400CDDEFF /* 779-users-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CF055AF1ABECBC400CDDEFF /* 779-users-selected@2x.png */; };
 		2CF055B41ABECBC400CDDEFF /* 779-users.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CF055B01ABECBC400CDDEFF /* 779-users.png */; };
 		2CF055B51ABECBC400CDDEFF /* 779-users@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CF055B11ABECBC400CDDEFF /* 779-users@2x.png */; };
+		2CFB033A1AC8B30E001520AD /* ibooks_logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CFB03391AC8B30E001520AD /* ibooks_logo@2x.png */; };
+		2CFB033C1AC8B315001520AD /* ibooks_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CFB033B1AC8B315001520AD /* ibooks_logo.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +98,8 @@
 		2CF055AF1ABECBC400CDDEFF /* 779-users-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "779-users-selected@2x.png"; sourceTree = "<group>"; };
 		2CF055B01ABECBC400CDDEFF /* 779-users.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "779-users.png"; sourceTree = "<group>"; };
 		2CF055B11ABECBC400CDDEFF /* 779-users@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "779-users@2x.png"; sourceTree = "<group>"; };
+		2CFB03391AC8B30E001520AD /* ibooks_logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ibooks_logo@2x.png"; sourceTree = "<group>"; };
+		2CFB033B1AC8B315001520AD /* ibooks_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ibooks_logo.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -210,6 +214,8 @@
 		2CF0559B1ABE306F00CDDEFF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2CFB033B1AC8B315001520AD /* ibooks_logo.png */,
+				2CFB03391AC8B30E001520AD /* ibooks_logo@2x.png */,
 				2CF055AE1ABECBC400CDDEFF /* 779-users-selected.png */,
 				2CF055AF1ABECBC400CDDEFF /* 779-users-selected@2x.png */,
 				2CF055B01ABECBC400CDDEFF /* 779-users.png */,
@@ -349,6 +355,7 @@
 				2CF055AA1ABECB3800CDDEFF /* 747-tag-selected.png in Resources */,
 				2CF055811ABDCE8500CDDEFF /* IAALibraryTableViewController.xib in Resources */,
 				2C3BDCCC1ABC9FE60018CE41 /* Images.xcassets in Resources */,
+				2CFB033C1AC8B315001520AD /* ibooks_logo.png in Resources */,
 				2CF055991ABE306700CDDEFF /* 726-star.png in Resources */,
 				2CF055A21ABE47F200CDDEFF /* IAABookViewController~iphone.xib in Resources */,
 				2CF055B41ABECBC400CDDEFF /* 779-users.png in Resources */,
@@ -357,6 +364,7 @@
 				2CF055B21ABECBC400CDDEFF /* 779-users-selected.png in Resources */,
 				2CF0558A1ABE2E7000CDDEFF /* IAALibraryCellTableViewCell.xib in Resources */,
 				2CF055B31ABECBC400CDDEFF /* 779-users-selected@2x.png in Resources */,
+				2CFB033A1AC8B30E001520AD /* ibooks_logo@2x.png in Resources */,
 				2CF055951ABE306700CDDEFF /* 721-bookmarks.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

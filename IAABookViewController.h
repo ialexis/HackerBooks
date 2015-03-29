@@ -12,6 +12,7 @@
 
 @interface IAABookViewController : UIViewController <UISplitViewControllerDelegate,IAALibraryTableViewControllerDelegate >
 
+//properties portraid
 
 @property (strong, nonatomic) IAABook *book;
 @property (weak, nonatomic) IBOutlet UIImageView *bookCoverImage;
@@ -23,6 +24,19 @@
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *toolbarButtonMarkAsFavorite;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *toolbarButtomReadBook;
+
+
+//properties Landscape
+@property (strong, nonatomic) IBOutlet UIView *LandscapeView;
+@property (weak, nonatomic) IBOutlet UIImageView *bookCoverImageLandscape;
+@property (weak, nonatomic) IBOutlet UILabel *bookTitleLabelLandscape;
+@property (weak, nonatomic) IBOutlet UILabel *bookAuthorsLabelLanscape;
+@property (weak, nonatomic) IBOutlet UILabel *bookTagsLabelLandscape;
+
+
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *toolbarButtonMarkAsFavoriteLandscape;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *toolbarButtomReadBookLandscape;
+
 
 -(id) initWithBook: (IAABook *) aBook;
 
