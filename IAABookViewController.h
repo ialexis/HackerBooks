@@ -21,6 +21,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
 @property (strong,nonatomic) NSData *PDF;
 
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *toolbarButtonMarkAsFavorite;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *toolbarButtomReadBook;
 
 -(id) initWithBook: (IAABook *) aBook;
 

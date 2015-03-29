@@ -11,6 +11,8 @@
                 <outlet property="bookTagsLabel" destination="m3U-z0-Xta" id="MF0-Cf-NNz"/>
                 <outlet property="bookTitleLabel" destination="PPk-6y-Dcc" id="Pdm-MO-Wb0"/>
                 <outlet property="favoriteButton" destination="yw0-b6-Ex2" id="GFV-tw-gdS"/>
+                <outlet property="toolbarButtomReadBook" destination="1U7-wi-XaB" id="QOD-sJ-gIk"/>
+                <outlet property="toolbarButtonMarkAsFavorite" destination="P7F-Yz-xSr" id="gmt-Fl-CIZ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -76,6 +78,23 @@
                     <rect key="frame" x="74" y="98" width="332" height="442"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="Ccl-9w-yax">
+                    <rect key="frame" x="0.0" y="980" width="768" height="44"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <items>
+                        <barButtonItem title="Poner como Favorito" id="P7F-Yz-xSr">
+                            <connections>
+                                <action selector="setFavorite:" destination="-1" id="6ox-M2-Rnz"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="mtH-Fz-XeC"/>
+                        <barButtonItem title="Leer" id="1U7-wi-XaB">
+                            <connections>
+                                <action selector="showPDF:" destination="-1" id="1sH-R2-7MP"/>
+                            </connections>
+                        </barButtonItem>
+                    </items>
+                </toolbar>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <point key="canvasLocation" x="315" y="363"/>
