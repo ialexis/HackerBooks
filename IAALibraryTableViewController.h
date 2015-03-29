@@ -24,6 +24,7 @@
 
 @property (strong,nonatomic) IAALibraryModel *modelLibrary;
 @property (weak, nonatomic) id<IAALibraryTableViewControllerDelegate> delegate;
+@property (strong, nonatomic) IBOutlet UITableView *libraryTableView;
 
 - (IAABook *)lastSelectedBook;
 

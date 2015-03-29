@@ -60,4 +60,8 @@
 
 //recupera la lista de libros favoritos
 -(void)loadFavorites;
+
+
+//descarga los PDFs
+-(void)downloadPDS;
 @end

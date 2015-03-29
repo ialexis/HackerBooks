@@ -19,7 +19,7 @@
 - (IBAction)showPDF:(id)sender;
 {
     //creamos la nueva vista y le pasamos el libro
-    IAAPDFViewController *PDFVC = [[IAAPDFViewController alloc]initWithPDF:self.PDF andURL:self.book.bookPDFURL];
+    IAAPDFViewController *PDFVC = [[IAAPDFViewController alloc]initWithBook:self.book];
     
     [self.navigationController pushViewController:PDFVC animated:YES];
 }
@@ -70,11 +70,12 @@
 }
 - (void)syncViewModel
 {
+    self.title =self.book.title;
     self.bookCoverImage.image=self.book.bookCover;
     self.bookTitleLabel.text=self.book.title;
     self.bookAuthorsLabel.text= [self.book.authors componentsJoinedByString:@", "];
     self.bookTagsLabel.text= [self.book.tags componentsJoinedByString:@", "];
-    self.PDF=self.book.bookPDF;
+    //self.PDF=self.book.bookPDF;
     
     
     

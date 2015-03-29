@@ -7,6 +7,8 @@
 //
 
 #import "IAABook.h"
+#import "Settings.h"
+
 
 @implementation IAABook
 
@@ -110,38 +112,39 @@
     }
     return _bookCover;
 }
+
+
+-(NSString *)bookPDFFileName
+{
+    return [self discoverFileName:self.bookPDFURL];
+}
+
 -(NSData *) bookPDF
 {
-    if (_bookPDF==nil)
+    if([self isFileDownload:self.bookPDFURL])
     {
+        return [NSData dataWithContentsOfFile:[self discoverFileName:self.bookPDFURL]];
+    }
+    else
+    {
+        [self bookPDFDownload];
+        return [NSData dataWithContentsOfFile:[self discoverFileName:self.bookPDFURL]];
+
+    }
+}
+
+
+-(void) bookPDFDownload
+{
+   
         if(![self isFileDownload:self.bookPDFURL])
         {
-            
-          //  [self downloadFile:self.bookPDFURL withFileName:[self discoverFileName:self.bookPDFURL]];
-            
-           // _bookPDF = [NSData dataWithContentsOfFile:[self discoverFileName:self.bookCoverURL]];
-            
-            // crear un cola
-            dispatch_queue_t loadPDFs = dispatch_queue_create("loadPDFs", 0);
-            
-            
-            dispatch_async(loadPDFs, ^{
-                
-                [self downloadFile:self.bookPDFURL withFileName:[self discoverFileName:self.bookPDFURL]];
-                
-                _bookPDF = [NSData dataWithContentsOfFile:[self discoverFileName:self.bookCoverURL]];
-                
-            });
-            
+        
+            [self downloadFile:self.bookPDFURL withFileName:self.bookPDFFileName];
+
             
         }
-        else
-        {
-            NSData *data = [NSData dataWithContentsOfFile:[self discoverFileName:self.bookCoverURL]];
-            _bookPDF=data;
-        }
-    }
-    return _bookPDF;
+    
 }
 - (NSString *) discoverFileName: (NSURL *) aURL
 {
@@ -178,8 +181,30 @@
 
 - (void) downloadFile: (NSURL *) aURL withFileName: (NSString *) aFileName
 {
-    //grabamos la imagen
+    
+    
+    // Load pdf into NSData
+    NSError *error;
+    NSData *data = [NSData dataWithContentsOfURL:aURL
+                                            options:kNilOptions
+                                              error:&error];
+    if(data==nil){
+        // Error when loading pdf
+        NSLog(@"Error %@ when loading data within the browser",error.localizedDescription);
+    }
+    
+    
+    /*
+    
+    //grabamos el archivo
+ 
+    
     NSData *data = [NSData dataWithContentsOfURL:aURL];
+    
+  //  NSData *data = [self.PDF dataUsingEncoding:NSUTF8StringEncoding];
+     
+     */
+
     [data writeToFile:aFileName atomically:TRUE];
 }
 
@@ -188,7 +213,7 @@
 {
     NSMutableDictionary *favoriteList;
     NSUserDefaults *defaults= [NSUserDefaults standardUserDefaults];
-    favoriteList= [defaults objectForKey:@"favorites"];
+    favoriteList= [[defaults objectForKey:@"favorites"] mutableCopy];
     
     if (favoriteList==nil)
     {

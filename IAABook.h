@@ -17,11 +17,13 @@
 @property (strong, nonatomic) NSURL *bookCoverURL;
 @property (strong, nonatomic) NSURL *bookPDFURL;
 @property (strong, nonatomic,readonly) UIImage *bookCover;
+@property (strong, nonatomic,readonly) NSString *bookPDFFileName;
+
 @property (strong, nonatomic,readonly) NSData  *bookPDF;
 @property (nonatomic) BOOL isFavorite;
 
 
-#define DID_SELECT_FAVORITE_BOOK_NOTIFICATION_NAME @"newFavoriteBookSelected"
+
 
 
 
@@ -46,5 +48,13 @@
 
 //Marca un libro como favorito
 -(void) markAsFavoriteWithValue: (BOOL) value;
+
+
+//devuelve el nombre del fichero que tendra un pdf de un libro
+- (NSString *) discoverFileName: (NSURL *) aURL;
+
+
+//descarga el pdf
+-(void) bookPDFDownload;
 
 @end

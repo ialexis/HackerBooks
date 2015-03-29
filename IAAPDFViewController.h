@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "IAABook.h"
 
 @interface IAAPDFViewController : UIViewController
-@property (strong,nonatomic) NSData *PDF;
-@property (strong,nonatomic) NSURL *PDFURL;
+@property (strong,nonatomic) IAABook *book;
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 
--(id) initWithPDF: (NSData *) aPDF andURL: (NSURL *) aURLPDF;
+-(id) initWithBook: (IAABook *) aBook;
 @end

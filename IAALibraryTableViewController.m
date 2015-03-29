@@ -8,6 +8,7 @@
 
 #import "IAALibraryTableViewController.h"
 #import "IAABookViewController.h"
+#import "Settings.h"
 
 @interface IAALibraryTableViewController ()
 
@@ -49,9 +50,9 @@
    // [self.modelLibrary loadFavorites];
 }
 
--(void) viewWillDisappear:(BOOL)animated
+-(void) viewDidDisappear:(BOOL)animated
 {
-    [super viewWillDisappear:animated];
+    [super viewDidDisappear:animated];
     
     // Baja en notificaciones
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -65,7 +66,8 @@
 
 - (void)favoritesDidChange:(NSNotification *)aNotification
 {
-    [self.tableView reloadData];
+    [self.modelLibrary loadFavorites];
+    [self.libraryTableView reloadData];
 }
 
 
@@ -87,7 +89,7 @@
         
         
         return cantidad;
-        return [self.modelLibrary countOfFavorites];
+       // return [self.modelLibrary countOfFavorites];
     }
     else
     {
@@ -194,6 +196,14 @@
     // Avisar al delegado
     [self.delegate IAALibraryTableViewController:self didSelectBook:book];
 
+    
+    //mandamos una notificacion
+    
+    NSNotification *notificationSelectNewCharacter = [NSNotification notificationWithName:DID_SELECT_NEW_BOOK_NOTIFICATION_NAME object:self                                                                                 userInfo:@{@"NEW_BOOK": book}];
+    
+    [[NSNotificationCenter defaultCenter] postNotification:notificationSelectNewCharacter];
+    
+    
     /*
     //creamos la nueva vista y le pasamos el libro
     IAABookViewController *bookVB = [[IAABookViewController alloc]initWithBook:book];

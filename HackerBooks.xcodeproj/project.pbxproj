@@ -52,6 +52,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2C0256BD1AC8377100F9BBC0 /* Settings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Settings.h; path = ../Settings.h; sourceTree = "<group>"; };
 		2C3BDCC11ABC9FE60018CE41 /* HackerBooks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HackerBooks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C3BDCC51ABC9FE60018CE41 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C3BDCC61ABC9FE60018CE41 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -141,6 +142,7 @@
 			children = (
 				2C3BDCC81ABC9FE60018CE41 /* AppDelegate.h */,
 				2C3BDCC91ABC9FE60018CE41 /* AppDelegate.m */,
+				2C0256BD1AC8377100F9BBC0 /* Settings.h */,
 				2C3BDCCB1ABC9FE60018CE41 /* Images.xcassets */,
 				2C3BDCCD1ABC9FE60018CE41 /* LaunchScreen.xib */,
 				2C3BDCC41ABC9FE60018CE41 /* Supporting Files */,

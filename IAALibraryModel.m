@@ -175,6 +175,17 @@
 
 #pragma mark - utils
 
+//descarga los PDFs
+-(void)downloadPDS
+{
+    for (NSString* key in self.books)
+    {
+        IAABook *book = [self bookWithTitle:key];
+        [book bookPDFDownload];
+    }
+}
+
+
 //recupera un libro por su titulo
 -(IAABook *) bookWithTitle: (NSString *) title
 {

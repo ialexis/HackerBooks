@@ -7,6 +7,7 @@
 //
 
 #import "IAAPDFViewController.h"
+#import "Settings.h"
 
 @interface IAAPDFViewController ()
 
@@ -15,12 +16,11 @@
 @implementation IAAPDFViewController
 
 
--(id) initWithPDF: (NSData *) aPDF andURL:(NSURL *)aURLPDF
+-(id) initWithBook: (IAABook *) aBook
 {
     if (self=[super init])
     {
-        _PDF=aPDF;
-        _PDFURL=aURLPDF;
+        _book=aBook;
     }
     return self;
     
@@ -35,10 +35,34 @@
 {
     [super viewWillAppear:YES];
     
- //   NSData *data = [html dataUsingEncoding:NSUTF8StringEncoding];
+    
+    
+ //   NSData *data = [self.PDF dataUsingEncoding:NSUTF8StringEncoding];
  //   [webView loadData:data MIMEType:@"application/xhtml+xml" textEncodingName:@"utf-8" baseURL:baseUrl];
-      [self.webView loadData:self.PDF MIMEType: @"application/pdf" textEncodingName:@"UTF-8" baseURL:nil];
+    
+    
+    
+    [self syncWithModel];
+
+    //nos damos de alta en la notificacion de aviso cuando se cambie de personaje
+    NSNotificationCenter *nCenter = [NSNotificationCenter defaultCenter];
+    [nCenter addObserver:self
+                selector:@selector (notifyBookDidChange:)
+                    name:DID_SELECT_NEW_BOOK_NOTIFICATION_NAME
+                  object:nil];
+    
+
 }
+
+
+-(void) syncWithModel
+{
+    
+    NSData *data = [NSData dataWithContentsOfFile:[self.book bookPDFFileName]];
+    
+    [self.webView loadData:data MIMEType:@"application/pdf" textEncodingName:@"utf-8" baseURL:[NSURL URLWithString:@"https://"]];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -54,5 +78,19 @@
     // Pass the selected object to the new view controller.
 }
 */
+#pragma mark - notifications
+
+-(void) notifyBookDidChange: (NSNotification *) notification
+{
+    NSDictionary *dict = [notification userInfo];
+    
+    IAABook *newbook = [dict objectForKey:@"NEW_BOOK"];
+    
+    //actualizamos el modelo
+    self.book=newbook;
+    
+    //Sincronizamos vista y modelo
+    [self syncWithModel];
+}
 
 @end

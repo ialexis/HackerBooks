@@ -25,6 +25,20 @@
     
     //creamos el modelo
     IAALibraryModel *libraryModel=[[IAALibraryModel alloc]init];
+    
+    
+    
+    // crear un cola para descargar los pdfs del modelo
+    dispatch_queue_t loadPDFs = dispatch_queue_create("loadPDFs", 0);
+    
+    
+    dispatch_async(loadPDFs, ^{
+        [libraryModel downloadPDS];
+
+        });
+
+    
+    
 
     //miramos en que dispositivo estamos
     UIViewController *rootVC = nil;
