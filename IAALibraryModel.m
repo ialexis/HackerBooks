@@ -308,9 +308,9 @@
 {
     NSUserDefaults *defaults= [NSUserDefaults standardUserDefaults];
     //NSDictionary *favoriteDic = [defaults objectForKey:@"favorites"];
-    self.favoriteBooksTitles=[[NSMutableDictionary alloc]init];
+    
 
-    self.favoriteBooksTitles = [defaults objectForKey:@"favorites"];
+    self.favoriteBooksTitles = [[defaults objectForKey:@"favorites"]mutableCopy];
 }
 //recupera un libro de favoritos
 -(IAABook*) favoriteBookAtIndex:(NSUInteger) index

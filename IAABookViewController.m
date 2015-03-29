@@ -81,12 +81,12 @@
     
     if (self.book.isFavorite)
     {
-        [self.favoriteButton setTitle:@"Quitar de Favoritos" forState:UIControlStateNormal];
+       // [self.favoriteButton setTitle:@"Quitar de Favoritos" forState:UIControlStateNormal];
         [self.toolbarButtonMarkAsFavorite setTitle:@"Quitar de Favoritos"];
     }
     else
     {
-        [self.favoriteButton setTitle:@"Poner como Favorito" forState:UIControlStateNormal];
+       // [self.favoriteButton setTitle:@"Poner como Favorito" forState:UIControlStateNormal];
         [self.toolbarButtonMarkAsFavorite setTitle:@"Poner como Favorito"];
     }
 

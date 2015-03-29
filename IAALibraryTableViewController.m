@@ -36,18 +36,28 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-}
+   }
 
--(void) viewDidAppear:(BOOL)animated
+-(void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
+    
+    [super viewWillAppear:YES];
+    [self.modelLibrary loadFavorites];
+    
     // Alta en notificaciones
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(favoritesDidChange:)
                                                  name:DID_SELECT_FAVORITE_BOOK_NOTIFICATION_NAME
                                                object:nil];
 
-   // [self.modelLibrary loadFavorites];
+}
+
+-(void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+
+
+ 
 }
 
 -(void) viewDidDisappear:(BOOL)animated
@@ -55,8 +65,10 @@
     [super viewDidDisappear:animated];
     
     // Baja en notificaciones
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+   // [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
