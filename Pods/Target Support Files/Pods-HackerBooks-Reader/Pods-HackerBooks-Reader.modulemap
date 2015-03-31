@@ -1,0 +1,6 @@
+framework module Reader {
+  umbrella header "Pods-HackerBooks-Reader-umbrella.h"
+
+  export *
+  module * { export * }
+}
