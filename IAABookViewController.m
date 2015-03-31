@@ -10,6 +10,9 @@
 #import "IAAPDFViewController.h"
 #import "IAALibraryTableViewController.h"
 
+#import "Pods/Reader/Sources/ReaderDocument.h"
+#import "Pods/Reader/Sources/ReaderViewController.h"
+
 @interface IAABookViewController ()
 
 @end
@@ -18,6 +21,9 @@
 
 - (IBAction)showPDF:(id)sender;
 {
+    
+    
+    
     //creamos la nueva vista y le pasamos el libro
     IAAPDFViewController *PDFVC = [[IAAPDFViewController alloc]initWithBook:self.book];
     
