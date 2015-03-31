@@ -10,7 +10,12 @@
 #import "IAABook.h"
 #import "IAALibraryTableViewController.h"
 
-@interface IAABookViewController : UIViewController <UISplitViewControllerDelegate,IAALibraryTableViewControllerDelegate >
+//#import "Pods/Reader/Sources/ReaderDocument.h"
+// #import "Pods/Reader/Sources/ReaderViewController.h"
+#import "IAANewPDFReederViewController.h"
+#import "IAANewPDFReaderDocument.h"
+
+@interface IAABookViewController : UIViewController <UISplitViewControllerDelegate,IAALibraryTableViewControllerDelegate,ReaderViewControllerDelegate>
 
 //properties portraid
 

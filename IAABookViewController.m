@@ -10,10 +10,12 @@
 #import "IAAPDFViewController.h"
 #import "IAALibraryTableViewController.h"
 
-#import "Pods/Reader/Sources/ReaderDocument.h"
-#import "Pods/Reader/Sources/ReaderViewController.h"
+
 
 @interface IAABookViewController ()
+
+@property (strong,nonatomic) IAANewPDFReederViewController *readerVC;
+@property (nonatomic) BOOL showingPDF;
 
 @end
 
@@ -23,11 +25,38 @@
 {
     
     
-    
+    /*
     //creamos la nueva vista y le pasamos el libro
     IAAPDFViewController *PDFVC = [[IAAPDFViewController alloc]initWithBook:self.book];
     
-    [self.navigationController pushViewController:PDFVC animated:YES];
+    [self.navigationController pushViewController:PDFVC animated:YES];*/
+    
+    [self callToPDF];
+   
+}
+
+-(void) callToPDF
+{
+    //Se usa el frameword vfrReader importado mediante cocoapods.
+
+    
+    
+    
+    //IAANewPDFReaderDocument *readerDoc = [[IAANewPDFReaderDocument alloc]initWithFilePath:self.book.bookPDFFileName password:nil];
+
+    IAANewPDFReaderDocument *readerDoc = [[IAANewPDFReaderDocument alloc]initWithBook:self.book];
+
+    
+    
+    //self.readerVC = [[ReaderViewController alloc]initWithReaderDocument:readerDoc];
+    self.readerVC = [[IAANewPDFReederViewController alloc]initWithReaderDocument:readerDoc];
+    self.readerVC.delegate = self;
+    
+    [self.navigationController.navigationBar setHidden:YES];
+    [self.navigationController pushViewController:self.readerVC animated:YES];
+    
+    self.showingPDF = YES;
+
 }
 
 -(id) initWithBook: (IAABook *) aBook
@@ -162,7 +191,25 @@
 {
     self.book = aBook;
     [self syncViewModel];
+    
+ 
+    if (self.showingPDF)
+    {
+        [self callToPDF];
+        
+
+    }
+  
 }
 
+#pragma mark - ReaderViewControllerDelegate
+
+-(void) dismissReaderViewController:(ReaderViewController *)viewController
+{
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    //[self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController.navigationBar setHidden:NO];
+    self.showingPDF = NO;
+}
 
 @end
