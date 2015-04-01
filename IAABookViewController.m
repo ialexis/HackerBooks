@@ -200,12 +200,12 @@
     [self syncViewModel];
     
  
-    if (self.showingPDF)
+   /* if (self.showingPDF)
     {
         [self callToPDF];
         
 
-    }
+    }*/
   
 }
 

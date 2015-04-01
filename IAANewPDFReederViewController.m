@@ -73,29 +73,34 @@
 
 -(void) notifyBookDidChange: (NSNotification *) notification
 {
-    /*
     NSDictionary *dict = [notification userInfo];
     
     IAABook *newbook = [dict objectForKey:@"NEW_BOOK"];
     
     IAANewPDFReaderDocument *readerDoc = [[IAANewPDFReaderDocument alloc]initWithBook:newbook];
     
+    
+    
+    if ([[UIDevice currentDevice]userInterfaceIdiom]==UIUserInterfaceIdiomPad)
+    {
+        
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+    else
+    {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    [self.navigationController.navigationBar setHidden:NO];
+    
+    
+    
+    //self.readerVC = [[ReaderViewController alloc]initWithReaderDocument:readerDoc];
     IAANewPDFReederViewController *readerVC = [[IAANewPDFReederViewController alloc]initWithReaderDocument:readerDoc];
     readerVC.delegate = self.delegate;
     
-      // [self.navigationController popViewControllerAnimated:YES];
-    
-   // [self dismissViewControllerAnimated:YES completion: nil];
-    
-    [self.navigationController.navigationBar setHidden:NO];
+    [self.navigationController.navigationBar setHidden:YES];
     [self.navigationController pushViewController:readerVC animated:YES];
-   [self.navigationController.navigationBar setHidden:YES];
     
-    //self.readerVC = [[ReaderViewController alloc]initWithReaderDocument:readerDoc];
-   // self.readerVC = [[IAANewPDFReederViewController alloc]initWithReaderDocument:readerDoc];
-     
-     */
+
 }
-
-
 @end
