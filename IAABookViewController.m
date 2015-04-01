@@ -104,15 +104,22 @@
     
 
     // si estamos en landscape, añadimos la vista que tenemos para landscape
-    if (UIDeviceOrientationIsLandscape([[UIDevice currentDevice] orientation]))
+  /*  if (UIDeviceOrientationIsLandscape([[UIDevice currentDevice] orientation]))
     {
         [self addLandscapeView];
     }
+    */
+    
+    if (([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft)||([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight))
+        {
+            [self addLandscapeView];
+
+        }
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
-    if (UIInterfaceOrientationIsLandscape(fromInterfaceOrientation))
+   /* if (UIInterfaceOrientationIsLandscape(fromInterfaceOrientation))
     {
         // venimos de estar en horizontal
         [self.LandscapeView removeFromSuperview];
@@ -120,7 +127,18 @@
     else {
         // venimos de estar en vertical
         [self addLandscapeView];
+    }*/
+    
+    if (([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft)||([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight))
+    {
+        [self addLandscapeView];
+        
     }
+    else
+    {
+        [self.LandscapeView removeFromSuperview];
+    }
+
 }
 
 - (void)addLandscapeView
