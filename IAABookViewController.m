@@ -206,8 +206,15 @@
 
 -(void) dismissReaderViewController:(ReaderViewController *)viewController
 {
-    [self.navigationController popToRootViewControllerAnimated:YES];
-    //[self.navigationController popViewControllerAnimated:YES];
+    if ([[UIDevice currentDevice]userInterfaceIdiom]==UIUserInterfaceIdiomPad)
+    {
+
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+    else
+    {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
     [self.navigationController.navigationBar setHidden:NO];
     self.showingPDF = NO;
 }

@@ -26,6 +26,11 @@
 #pragma mark - init
 -(id) initWithBook: (IAABook *) book
 {
+    
+    
+    NSData *data = book.bookPDF;
+
+    
     if (self == [super initWithFilePath:book.bookPDFFileName password:nil])
     {
         
