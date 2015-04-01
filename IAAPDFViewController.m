@@ -21,6 +21,7 @@
     if (self=[super init])
     {
         _book=aBook;
+        self.title=aBook.title;
     }
     return self;
     
@@ -81,7 +82,7 @@
         });
 
         
-        
+       self.title=self.book.title;
         
 
 
