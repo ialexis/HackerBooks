@@ -31,7 +31,7 @@ Los datos descargados de portada y PDF los guardo en el directorio de cache de l
 
 **Extras**
 
-a) Funcionalidades que añadiria: barra de progreso en cada celda mientras carga los libros, descarga en segundo plano de todo el contenido, mejorar la carga del pdf desde vfrReader para que no se quede congelada la app si no esta descargado previamente el archivo. Mejorar el diseño. Otra posible mejora es permitir que el usuario marque como favorito los libros sin necesidad de entrar en el libro.
+a) Funcionalidades que añadiria: Se me ocurre una barra de progreso en cada celda mientras carga los libros, descarga en segundo plano de todo el contenido, mejorar la carga del pdf desde vfrReader para que no se quede congelada la app si no esta descargado previamente el archivo. Mejorar el diseño. Otra posible mejora es permitir que el usuario marque como favorito los libros sin necesidad de entrar en el libro.
 
 b) "Frikis Crazys Books, los libros que todo friki necesita", aunque conociendo a Apple a la hora de subirla seguro que me pide un documento que certifique que tengo derecho para publicar esos libros (ma ha pasado ya con otra App).
 
