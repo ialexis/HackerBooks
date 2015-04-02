@@ -17,7 +17,7 @@ Los datos descargados de portada y PDF los guardo en el directorio de cache de l
 
 **Tabla de libros**
 
-*Como almaceno los libros favoritos:* Los almaceno en un diccionario que guardo en NSDefauts, dicho diccionario se va actualizando cada vez que hay algun cambio en algun libro (un libro es marcado como favorito o desmarcado como tal).
+*Como almaceno los libros favoritos:* Los almaceno en un diccionario que guardo en NSDefauts, dicho diccionario se va actualizando cada vez que hay algun cambio en algun libro (un libro es marcado como favorito o desmarcado como tal). 
 
 *¿Se me ocurre mas de una forma de hacerlo?* si, se podria hacer tambien almacenandolo en un array o de forma mas optima usando bases de datos (preferiblemente coredata=, pero como eso no lo hemos visto todavia he optado por guardar el modelo en forma del fichero JSON original y los favoritos en un diccionario para poder buscarlos rapidamente por titulo en un momento dado.
 
@@ -28,4 +28,12 @@ Los datos descargados de portada y PDF los guardo en el directorio de cache de l
 **Controlador de PDF**
 
 ¿como se cuando el usuario cambia de libro? mediante una notificacion a la que suscribo el controlador del PDF. La tabla solo puede tener un delegado al que avisar cuando se cambia de libro, y este es o bien ella misma (Caso iphone) o bien la vista del libro (caso de tener un splitview en un iPad), por tanto para avisar a una tercera vista solo esta la opcion de la notificacion.
+
+**Extras**
+
+a) Funcionalidades que añadiria: barra de progreso en cada celda mientras carga los libros, descarga en segundo plano de todo el contenido, mejorar la carga del pdf desde vfrReader para que no se quede congelada la app si no esta descargado previamente el archivo. Mejorar el diseño. Otra posible mejora es permitir que el usuario marque como favorito los libros sin necesidad de entrar en el libro.
+
+b) "Frikis Crazys Books, los libros que todo friki necesita", aunque conociendo a Apple a la hora de subirla seguro que me pide un documento que certifique que tengo derecho para publicar esos libros (ma ha pasado ya con otra App).
+
+c) "Cocking Books",  para libros de cocina, o "Star Wars Books", que no necesita explicación.
 

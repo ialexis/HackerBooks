@@ -129,22 +129,27 @@
 
 -(NSData *) bookPDF
 {
+    
     if([self isFileDownload:self.bookPDFURL])
     {
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         return [NSData dataWithContentsOfFile:[self discoverFileName:self.bookPDFURL]];
+        
     }
     else
     {
         [self bookPDFDownload];
+        
         return [NSData dataWithContentsOfFile:[self discoverFileName:self.bookPDFURL]];
 
     }
+
 }
 
 
 -(void) bookPDFDownload
 {
-   
+   [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
         if(![self isFileDownload:self.bookPDFURL])
         {
         
@@ -152,6 +157,7 @@
 
             
         }
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     
 }
 - (NSString *) discoverFileName: (NSURL *) aURL

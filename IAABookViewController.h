@@ -26,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *bookTagsLabel;
 @property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
 @property (strong,nonatomic) NSData *PDF;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *toolbarButtonMarkAsFavorite;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *toolbarButtomReadBook;
@@ -37,6 +38,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *bookTitleLabelLandscape;
 @property (weak, nonatomic) IBOutlet UILabel *bookAuthorsLabelLanscape;
 @property (weak, nonatomic) IBOutlet UILabel *bookTagsLabelLandscape;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorLandscape;
 
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *toolbarButtonMarkAsFavoriteLandscape;
