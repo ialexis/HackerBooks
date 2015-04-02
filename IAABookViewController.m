@@ -30,19 +30,18 @@
     IAAPDFViewController *PDFVC = [[IAAPDFViewController alloc]initWithBook:self.book];
     
     [self.navigationController pushViewController:PDFVC animated:YES];*/
-    
+    //ponemos el indicador de actividad visible
+    [self.activityIndicator startAnimating];
+    [self.activityIndicatorLandscape startAnimating];
     [self callToPDF];
    
 }
 
 -(void) callToPDF
 {
-    //Se usa el frameword vfrReader importado mediante cocoapods.
+    
 
-    
-    
-    
-    //IAANewPDFReaderDocument *readerDoc = [[IAANewPDFReaderDocument alloc]initWithFilePath:self.book.bookPDFFileName password:nil];
+    //Se usa el frameword vfrReader importado mediante cocoapods.
 
     IAANewPDFReaderDocument *readerDoc = [[IAANewPDFReaderDocument alloc]initWithBook:self.book];
 
@@ -56,18 +55,13 @@
     [self.navigationController pushViewController:self.readerVC animated:YES];
     
     self.showingPDF = YES;
+    [self.activityIndicator stopAnimating];
+    [self.activityIndicatorLandscape stopAnimating];
 
 }
 
 -(id) initWithBook: (IAABook *) aBook
 {
-   /* NSString *nibName = nil;
-    if ([[UIDevice currentDevice]userInterfaceIdiom]==UIUserInterfaceIdiomPhone)
-    {
-        nibName = @"IAABookViewControlleriPhone";
-    }*/
-    
-  //  if (self = [super initWithNibName:nibName bundle:nil]) {
 
     if (self = [super init]) {
         _book = aBook;

@@ -38,8 +38,7 @@
                 selector:@selector (notifyBookDidChange:)
                     name:DID_SELECT_NEW_BOOK_NOTIFICATION_NAME
                   object:nil];
-    
-    
+
 }
 
 
@@ -73,6 +72,7 @@
 
 -(void) notifyBookDidChange: (NSNotification *) notification
 {
+    [self showActivityIndicator];
     NSDictionary *dict = [notification userInfo];
     
     IAABook *newbook = [dict objectForKey:@"NEW_BOOK"];
@@ -103,4 +103,16 @@
     
 
 }
+
+-(void) showActivityIndicator
+{
+    //Create and add the Activity Indicator to splashView
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    activityIndicator.alpha = 1.0;
+    activityIndicator.center = self.view.center;
+    activityIndicator.hidesWhenStopped = NO;
+    [super.view addSubview:activityIndicator];
+    [activityIndicator startAnimating];
+}
+
 @end

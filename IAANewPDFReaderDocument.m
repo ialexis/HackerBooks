@@ -28,8 +28,7 @@
 {
     
     
-    NSData *data = book.bookPDF;
-
+    [book bookPDFDownload];
     
     if (self == [super initWithFilePath:book.bookPDFFileName password:nil])
     {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="6751" systemVersion="14D113c" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="6751" systemVersion="14D127a" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
@@ -7,6 +7,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="IAABookViewController">
             <connections>
                 <outlet property="LandscapeView" destination="E3N-UE-Unn" id="8fx-Cy-nvg"/>
+                <outlet property="activityIndicator" destination="uK5-u5-epa" id="PR9-Jf-PSd"/>
+                <outlet property="activityIndicatorLandscape" destination="Cyb-yq-qUc" id="Kjq-kY-9Vm"/>
                 <outlet property="bookAuthorsLabel" destination="1uI-1y-s6U" id="rDc-EG-Rah"/>
                 <outlet property="bookAuthorsLabelLanscape" destination="mHU-eL-FKF" id="Y4O-ku-Pkg"/>
                 <outlet property="bookCoverImage" destination="YBb-ey-Ecj" id="CGi-po-buq"/>
@@ -80,6 +82,11 @@
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" id="uK5-u5-epa">
+                    <rect key="frame" x="366" y="493" width="37" height="37"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="color" cocoaTouchSystemColor="darkTextColor"/>
+                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <point key="canvasLocation" x="303" y="50"/>
@@ -142,6 +149,11 @@
                         </barButtonItem>
                     </items>
                 </toolbar>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" id="Cyb-yq-qUc">
+                    <rect key="frame" x="336" y="358" width="37" height="37"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="color" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
