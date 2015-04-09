@@ -1,12 +1,12 @@
-#import "IAABook.h"
+#import "IAAPDF.h"
 
-@interface IAABook ()
+@interface IAAPDF ()
 
 // Private interface goes here.
 
 @end
 
-@implementation IAABook
+@implementation IAAPDF
 
 // Custom logic goes here.
 

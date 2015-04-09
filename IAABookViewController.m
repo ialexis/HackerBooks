@@ -85,11 +85,14 @@
     
     if (([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft)||([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight))
     {
+       // [self.portraidView removeFromSuperview];
         [self addLandscapeView];
+
         
     }
     else
     {
+      //  [self addPortraitView];
         [self.LandscapeView removeFromSuperview];
     }
     
@@ -97,10 +100,13 @@
 
 - (void)addLandscapeView
 {
-    [self.view addSubview:self.LandscapeView];
+    [self.view.superview addSubview:self.LandscapeView];
 }
 
-
+- (void)addPortraitView
+{
+    [self.view.superview addSubview:self.portraidView];
+}
 
 
 - (void)syncViewModel

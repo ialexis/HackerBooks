@@ -12,10 +12,14 @@
 		2C3BDCCC1ABC9FE60018CE41 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C3BDCCB1ABC9FE60018CE41 /* Images.xcassets */; };
 		2C3BDCCF1ABC9FE60018CE41 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C3BDCCD1ABC9FE60018CE41 /* LaunchScreen.xib */; };
 		2C3BDCDB1ABC9FE70018CE41 /* HackerBooksTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3BDCDA1ABC9FE70018CE41 /* HackerBooksTests.m */; };
-		2C3BDCE61ABCA11F0018CE41 /* IAABook.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3BDCE51ABCA11E0018CE41 /* IAABook.m */; };
-		2C3BDCEA1ABCA8120018CE41 /* IAALibraryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3BDCE91ABCA8120018CE41 /* IAALibraryModel.m */; };
 		2C6C4F281AC2C8CE0085B9E1 /* IAAPDFViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C4F261AC2C8CE0085B9E1 /* IAAPDFViewController.m */; };
 		2C6C4F291AC2C8CE0085B9E1 /* IAAPDFViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C6C4F271AC2C8CE0085B9E1 /* IAAPDFViewController.xib */; };
+		2CD16DBD1AD680A700213583 /* AGTCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD16DBC1AD680A700213583 /* AGTCoreDataStack.m */; };
+		2CD16DC01AD6847C00213583 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2CD16DBE1AD6847C00213583 /* Model.xcdatamodeld */; };
+		2CD16DC91AD68F4B00213583 /* _IAABook.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD16DC21AD68F4B00213583 /* _IAABook.m */; };
+		2CD16DCA1AD68F4B00213583 /* _IAAPDF.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD16DC41AD68F4B00213583 /* _IAAPDF.m */; };
+		2CD16DCB1AD68F4B00213583 /* IAABook.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD16DC61AD68F4B00213583 /* IAABook.m */; };
+		2CD16DCC1AD68F4B00213583 /* IAAPDF.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD16DC81AD68F4B00213583 /* IAAPDF.m */; };
 		2CF055801ABDCE8500CDDEFF /* IAALibraryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF0557E1ABDCE8500CDDEFF /* IAALibraryTableViewController.m */; };
 		2CF055811ABDCE8500CDDEFF /* IAALibraryTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CF0557F1ABDCE8500CDDEFF /* IAALibraryTableViewController.xib */; };
 		2CF055891ABE2E7000CDDEFF /* IAALibraryCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF055871ABE2E7000CDDEFF /* IAALibraryCellTableViewCell.m */; };
@@ -65,13 +69,20 @@
 		2C3BDCD41ABC9FE60018CE41 /* HackerBooksTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HackerBooksTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C3BDCD91ABC9FE70018CE41 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C3BDCDA1ABC9FE70018CE41 /* HackerBooksTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HackerBooksTests.m; sourceTree = "<group>"; };
-		2C3BDCE41ABCA11E0018CE41 /* IAABook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAABook.h; sourceTree = "<group>"; };
-		2C3BDCE51ABCA11E0018CE41 /* IAABook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAABook.m; sourceTree = "<group>"; };
-		2C3BDCE81ABCA8120018CE41 /* IAALibraryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAALibraryModel.h; sourceTree = "<group>"; };
-		2C3BDCE91ABCA8120018CE41 /* IAALibraryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAALibraryModel.m; sourceTree = "<group>"; };
 		2C6C4F251AC2C8CE0085B9E1 /* IAAPDFViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAAPDFViewController.h; sourceTree = "<group>"; };
 		2C6C4F261AC2C8CE0085B9E1 /* IAAPDFViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAAPDFViewController.m; sourceTree = "<group>"; };
 		2C6C4F271AC2C8CE0085B9E1 /* IAAPDFViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IAAPDFViewController.xib; sourceTree = "<group>"; };
+		2CD16DBB1AD680A700213583 /* AGTCoreDataStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGTCoreDataStack.h; sourceTree = "<group>"; };
+		2CD16DBC1AD680A700213583 /* AGTCoreDataStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGTCoreDataStack.m; sourceTree = "<group>"; };
+		2CD16DBF1AD6847C00213583 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		2CD16DC11AD68F4B00213583 /* _IAABook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _IAABook.h; sourceTree = "<group>"; };
+		2CD16DC21AD68F4B00213583 /* _IAABook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _IAABook.m; sourceTree = "<group>"; };
+		2CD16DC31AD68F4B00213583 /* _IAAPDF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _IAAPDF.h; sourceTree = "<group>"; };
+		2CD16DC41AD68F4B00213583 /* _IAAPDF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _IAAPDF.m; sourceTree = "<group>"; };
+		2CD16DC51AD68F4B00213583 /* IAABook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAABook.h; sourceTree = "<group>"; };
+		2CD16DC61AD68F4B00213583 /* IAABook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAABook.m; sourceTree = "<group>"; };
+		2CD16DC71AD68F4B00213583 /* IAAPDF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAAPDF.h; sourceTree = "<group>"; };
+		2CD16DC81AD68F4B00213583 /* IAAPDF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAAPDF.m; sourceTree = "<group>"; };
 		2CF0557D1ABDCE8500CDDEFF /* IAALibraryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAALibraryTableViewController.h; sourceTree = "<group>"; };
 		2CF0557E1ABDCE8500CDDEFF /* IAALibraryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAALibraryTableViewController.m; sourceTree = "<group>"; };
 		2CF0557F1ABDCE8500CDDEFF /* IAALibraryTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IAALibraryTableViewController.xib; sourceTree = "<group>"; };
@@ -183,10 +194,17 @@
 		2C3BDCE71ABCA1240018CE41 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				2C3BDCE41ABCA11E0018CE41 /* IAABook.h */,
-				2C3BDCE51ABCA11E0018CE41 /* IAABook.m */,
-				2C3BDCE81ABCA8120018CE41 /* IAALibraryModel.h */,
-				2C3BDCE91ABCA8120018CE41 /* IAALibraryModel.m */,
+				2CD16DBB1AD680A700213583 /* AGTCoreDataStack.h */,
+				2CD16DBC1AD680A700213583 /* AGTCoreDataStack.m */,
+				2CD16DC11AD68F4B00213583 /* _IAABook.h */,
+				2CD16DC21AD68F4B00213583 /* _IAABook.m */,
+				2CD16DC31AD68F4B00213583 /* _IAAPDF.h */,
+				2CD16DC41AD68F4B00213583 /* _IAAPDF.m */,
+				2CD16DC51AD68F4B00213583 /* IAABook.h */,
+				2CD16DC61AD68F4B00213583 /* IAABook.m */,
+				2CD16DC71AD68F4B00213583 /* IAAPDF.h */,
+				2CD16DC81AD68F4B00213583 /* IAAPDF.m */,
+				2CD16DBE1AD6847C00213583 /* Model.xcdatamodeld */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -383,12 +401,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CD16DCC1AD68F4B00213583 /* IAAPDF.m in Sources */,
+				2CD16DBD1AD680A700213583 /* AGTCoreDataStack.m in Sources */,
+				2CD16DCB1AD68F4B00213583 /* IAABook.m in Sources */,
+				2CD16DC91AD68F4B00213583 /* _IAABook.m in Sources */,
+				2CD16DCA1AD68F4B00213583 /* _IAAPDF.m in Sources */,
 				2C3BDCCA1ABC9FE60018CE41 /* AppDelegate.m in Sources */,
-				2C3BDCEA1ABCA8120018CE41 /* IAALibraryModel.m in Sources */,
-				2C3BDCE61ABCA11F0018CE41 /* IAABook.m in Sources */,
 				2CF055891ABE2E7000CDDEFF /* IAALibraryCellTableViewCell.m in Sources */,
 				2CF055801ABDCE8500CDDEFF /* IAALibraryTableViewController.m in Sources */,
 				2C6C4F281AC2C8CE0085B9E1 /* IAAPDFViewController.m in Sources */,
+				2CD16DC01AD6847C00213583 /* Model.xcdatamodeld in Sources */,
 				2CF0559F1ABE47C600CDDEFF /* IAABookViewController.m in Sources */,
 				2C3BDCC71ABC9FE60018CE41 /* main.m in Sources */,
 			);
@@ -587,6 +609,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		2CD16DBE1AD6847C00213583 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				2CD16DBF1AD6847C00213583 /* Model.xcdatamodel */,
+			);
+			currentVersion = 2CD16DBF1AD6847C00213583 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 2C3BDCB91ABC9FE60018CE41 /* Project object */;
 }
