@@ -2,18 +2,25 @@
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7549" systemVersion="14D131" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Book" representedClassName="IAABook" syncable="YES">
         <attribute name="authors" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="coverImage" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <attribute name="coverURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isFavorite" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="pdfURL" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="tags" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" attributeType="String" indexed="YES" syncable="YES"/>
         <relationship name="pdf" maxCount="1" deletionRule="Cascade" destinationEntity="PDF" inverseName="book" inverseEntity="PDF" syncable="YES"/>
+        <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Tag" inverseName="books" inverseEntity="Tag" syncable="YES"/>
     </entity>
     <entity name="PDF" representedClassName="IAAPDF" syncable="YES">
         <attribute name="pdfData" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <relationship name="book" maxCount="1" deletionRule="Nullify" destinationEntity="Book" inverseName="pdf" inverseEntity="Book" syncable="YES"/>
     </entity>
+    <entity name="Tag" representedClassName="IAATag" syncable="YES">
+        <attribute name="tag" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="books" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Book" inverseName="tags" inverseEntity="Book" syncable="YES"/>
+    </entity>
     <elements>
-        <element name="Book" positionX="-63" positionY="-18" width="128" height="135"/>
+        <element name="Book" positionX="-63" positionY="-18" width="128" height="165"/>
         <element name="PDF" positionX="-54" positionY="27" width="128" height="75"/>
+        <element name="Tag" positionX="-36" positionY="72" width="128" height="75"/>
     </elements>
 </model>

@@ -45,11 +45,11 @@
 {
     if (self.book.isFavorite)
     {
-        [self.book markAsFavoriteWithValue:NO];
+    //    [self.book markAsFavoriteWithValue:NO];
     }
     else
     {
-        [self.book markAsFavoriteWithValue:YES];
+     //   [self.book markAsFavoriteWithValue:YES];
     }
     [self syncViewModel];
     
@@ -114,6 +114,8 @@
     self.title =self.book.title;
     
     
+/*
+    ()
     //sincronizamos vista vertical
     self.bookCoverImage.image=[UIImage imageWithData:self.book.bookCover];
     self.bookTitleLabel.text=self.book.title;
@@ -125,7 +127,7 @@
     self.bookTitleLabelLandscape.text=self.book.title;
     self.bookAuthorsLabelLanscape.text= [self.book.authors componentsJoinedByString:@", "];
     self.bookTagsLabelLandscape.text= [self.book.tags componentsJoinedByString:@", "];
-    
+    */
     
     if (self.book.isFavorite)
     {

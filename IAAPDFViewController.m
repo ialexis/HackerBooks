@@ -69,7 +69,7 @@
     
     
     dispatch_async(loadPDF, ^{
-        NSData *data = self.book.bookPDF;
+        NSData *data = self.book.pdf;
 
             
             // se ejecuta en primer plano

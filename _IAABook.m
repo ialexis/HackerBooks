@@ -5,14 +5,16 @@
 
 const struct IAABookAttributes IAABookAttributes = {
 	.authors = @"authors",
+	.coverImage = @"coverImage",
 	.coverURL = @"coverURL",
+	.isFavorite = @"isFavorite",
 	.pdfURL = @"pdfURL",
-	.tags = @"tags",
 	.title = @"title",
 };
 
 const struct IAABookRelationships IAABookRelationships = {
 	.pdf = @"pdf",
+	.tags = @"tags",
 };
 
 @implementation IAABookID
@@ -41,20 +43,57 @@ const struct IAABookRelationships IAABookRelationships = {
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 
+	if ([key isEqualToString:@"isFavoriteValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"isFavorite"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+
 	return keyPaths;
 }
 
 @dynamic authors;
 
+@dynamic coverImage;
+
 @dynamic coverURL;
 
-@dynamic pdfURL;
+@dynamic isFavorite;
 
-@dynamic tags;
+- (BOOL)isFavoriteValue {
+	NSNumber *result = [self isFavorite];
+	return [result boolValue];
+}
+
+- (void)setIsFavoriteValue:(BOOL)value_ {
+	[self setIsFavorite:@(value_)];
+}
+
+- (BOOL)primitiveIsFavoriteValue {
+	NSNumber *result = [self primitiveIsFavorite];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveIsFavoriteValue:(BOOL)value_ {
+	[self setPrimitiveIsFavorite:@(value_)];
+}
+
+@dynamic pdfURL;
 
 @dynamic title;
 
 @dynamic pdf;
+
+@dynamic tags;
+
+- (NSMutableSet*)tagsSet {
+	[self willAccessValueForKey:@"tags"];
+
+	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"tags"];
+
+	[self didAccessValueForKey:@"tags"];
+	return result;
+}
 
 @end
 
