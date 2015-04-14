@@ -34,6 +34,7 @@
         <relationship name="annotation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Annotation" inverseName="photo" inverseEntity="Annotation" syncable="YES"/>
     </entity>
     <entity name="Tag" representedClassName="IAATag" syncable="YES">
+        <attribute name="priority" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
         <attribute name="tag" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
         <relationship name="books" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Book" inverseName="tags" inverseEntity="Book" syncable="YES"/>
     </entity>
@@ -43,6 +44,6 @@
         <element name="Location" positionX="205" positionY="318" width="128" height="105"/>
         <element name="PDF" positionX="268" positionY="-18" width="128" height="75"/>
         <element name="Photo" positionX="477" positionY="348" width="128" height="75"/>
-        <element name="Tag" positionX="34" positionY="276" width="128" height="75"/>
+        <element name="Tag" positionX="34" positionY="276" width="128" height="88"/>
     </elements>
 </model>

@@ -4,6 +4,7 @@
 @import CoreData;
 
 extern const struct IAATagAttributes {
+	__unsafe_unretained NSString *priority;
 	__unsafe_unretained NSString *tag;
 } IAATagAttributes;
 
@@ -21,6 +22,10 @@ extern const struct IAATagRelationships {
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 @property (nonatomic, readonly, strong) IAATagID* objectID;
+
+@property (nonatomic, strong) NSDecimalNumber* priority;
+
+//- (BOOL)validatePriority:(id*)value_ error:(NSError**)error_;
 
 @property (nonatomic, strong) NSString* tag;
 
@@ -41,6 +46,9 @@ extern const struct IAATagRelationships {
 @end
 
 @interface _IAATag (CoreDataGeneratedPrimitiveAccessors)
+
+- (NSDecimalNumber*)primitivePriority;
+- (void)setPrimitivePriority:(NSDecimalNumber*)value;
 
 - (NSString*)primitiveTag;
 - (void)setPrimitiveTag:(NSString*)value;

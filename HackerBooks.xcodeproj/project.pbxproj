@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C0C04CA1ADDC4E200186658 /* _IAAAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C04C51ADDC4E200186658 /* _IAAAnnotation.m */; };
+		2C0C04CB1ADDC4E200186658 /* _IAALocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C04C71ADDC4E200186658 /* _IAALocation.m */; };
+		2C0C04CC1ADDC4E200186658 /* _IAAPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C04C91ADDC4E200186658 /* _IAAPhoto.m */; };
+		2C0C04D31ADDC53000186658 /* IAAAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C04CE1ADDC53000186658 /* IAAAnnotation.m */; };
+		2C0C04D41ADDC53000186658 /* IAALocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C04D01ADDC53000186658 /* IAALocation.m */; };
+		2C0C04D51ADDC53000186658 /* IAAPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C04D21ADDC53000186658 /* IAAPhoto.m */; };
 		2C3BDCC71ABC9FE60018CE41 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3BDCC61ABC9FE60018CE41 /* main.m */; };
 		2C3BDCCA1ABC9FE60018CE41 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3BDCC91ABC9FE60018CE41 /* AppDelegate.m */; };
 		2C3BDCCC1ABC9FE60018CE41 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C3BDCCB1ABC9FE60018CE41 /* Images.xcassets */; };
@@ -62,6 +68,18 @@
 
 /* Begin PBXFileReference section */
 		2C0256BD1AC8377100F9BBC0 /* Settings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Settings.h; path = ../Settings.h; sourceTree = "<group>"; };
+		2C0C04C41ADDC4E200186658 /* _IAAAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _IAAAnnotation.h; sourceTree = "<group>"; };
+		2C0C04C51ADDC4E200186658 /* _IAAAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _IAAAnnotation.m; sourceTree = "<group>"; };
+		2C0C04C61ADDC4E200186658 /* _IAALocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _IAALocation.h; sourceTree = "<group>"; };
+		2C0C04C71ADDC4E200186658 /* _IAALocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _IAALocation.m; sourceTree = "<group>"; };
+		2C0C04C81ADDC4E200186658 /* _IAAPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _IAAPhoto.h; sourceTree = "<group>"; };
+		2C0C04C91ADDC4E200186658 /* _IAAPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _IAAPhoto.m; sourceTree = "<group>"; };
+		2C0C04CD1ADDC53000186658 /* IAAAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAAAnnotation.h; sourceTree = "<group>"; };
+		2C0C04CE1ADDC53000186658 /* IAAAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAAAnnotation.m; sourceTree = "<group>"; };
+		2C0C04CF1ADDC53000186658 /* IAALocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAALocation.h; sourceTree = "<group>"; };
+		2C0C04D01ADDC53000186658 /* IAALocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAALocation.m; sourceTree = "<group>"; };
+		2C0C04D11ADDC53000186658 /* IAAPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAAPhoto.h; sourceTree = "<group>"; };
+		2C0C04D21ADDC53000186658 /* IAAPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAAPhoto.m; sourceTree = "<group>"; };
 		2C3BDCC11ABC9FE60018CE41 /* HackerBooks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HackerBooks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C3BDCC51ABC9FE60018CE41 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C3BDCC61ABC9FE60018CE41 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -214,6 +232,12 @@
 				2CD16DC81AD68F4B00213583 /* IAAPDF.m */,
 				2CD16DE31ADB1A8700213583 /* IAATag.h */,
 				2CD16DE41ADB1A8700213583 /* IAATag.m */,
+				2C0C04CD1ADDC53000186658 /* IAAAnnotation.h */,
+				2C0C04CE1ADDC53000186658 /* IAAAnnotation.m */,
+				2C0C04CF1ADDC53000186658 /* IAALocation.h */,
+				2C0C04D01ADDC53000186658 /* IAALocation.m */,
+				2C0C04D11ADDC53000186658 /* IAAPhoto.h */,
+				2C0C04D21ADDC53000186658 /* IAAPhoto.m */,
 				2CD16DBE1AD6847C00213583 /* Model.xcdatamodeld */,
 			);
 			name = Models;
@@ -239,6 +263,12 @@
 				2CD16DC41AD68F4B00213583 /* _IAAPDF.m */,
 				2CD16DE11ADB1A8700213583 /* _IAATag.h */,
 				2CD16DE21ADB1A8700213583 /* _IAATag.m */,
+				2C0C04C41ADDC4E200186658 /* _IAAAnnotation.h */,
+				2C0C04C51ADDC4E200186658 /* _IAAAnnotation.m */,
+				2C0C04C61ADDC4E200186658 /* _IAALocation.h */,
+				2C0C04C71ADDC4E200186658 /* _IAALocation.m */,
+				2C0C04C81ADDC4E200186658 /* _IAAPhoto.h */,
+				2C0C04C91ADDC4E200186658 /* _IAAPhoto.m */,
 			);
 			name = "Machines Files";
 			sourceTree = "<group>";
@@ -435,14 +465,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C0C04D51ADDC53000186658 /* IAAPhoto.m in Sources */,
+				2C0C04D31ADDC53000186658 /* IAAAnnotation.m in Sources */,
 				2CD16DDF1ADADC0700213583 /* UIViewController+Navigation.m in Sources */,
+				2C0C04CA1ADDC4E200186658 /* _IAAAnnotation.m in Sources */,
 				2CD16DCC1AD68F4B00213583 /* IAAPDF.m in Sources */,
 				2CD16DE61ADB1A8700213583 /* IAATag.m in Sources */,
 				2CD16DBD1AD680A700213583 /* AGTCoreDataStack.m in Sources */,
 				2CD16DD61ADAD20F00213583 /* AGTCoreDataTableViewController.m in Sources */,
 				2CD16DCB1AD68F4B00213583 /* IAABook.m in Sources */,
+				2C0C04CC1ADDC4E200186658 /* _IAAPhoto.m in Sources */,
 				2CD16DC91AD68F4B00213583 /* _IAABook.m in Sources */,
 				2CD16DCA1AD68F4B00213583 /* _IAAPDF.m in Sources */,
+				2C0C04D41ADDC53000186658 /* IAALocation.m in Sources */,
 				2C3BDCCA1ABC9FE60018CE41 /* AppDelegate.m in Sources */,
 				2CF055891ABE2E7000CDDEFF /* IAALibraryCellTableViewCell.m in Sources */,
 				2C6C4F281AC2C8CE0085B9E1 /* IAAPDFViewController.m in Sources */,
@@ -450,6 +485,7 @@
 				2CD16DC01AD6847C00213583 /* Model.xcdatamodeld in Sources */,
 				2CF0559F1ABE47C600CDDEFF /* IAABookViewController.m in Sources */,
 				2CD16DDC1ADAD33200213583 /* IAALibraryTableViewController.m in Sources */,
+				2C0C04CB1ADDC4E200186658 /* _IAALocation.m in Sources */,
 				2C3BDCC71ABC9FE60018CE41 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

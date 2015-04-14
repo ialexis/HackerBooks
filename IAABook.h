@@ -11,5 +11,7 @@
 +(instancetype) bookWithTitle: (NSString *)title context:(NSManagedObjectContext *) context;
 +(instancetype) bookWithDictionary: (NSDictionary *)aDict context:(NSManagedObjectContext *) context;
 
+-(NSString *) tagsDescription;
+
 
 @end

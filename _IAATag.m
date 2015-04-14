@@ -4,6 +4,7 @@
 #import "_IAATag.h"
 
 const struct IAATagAttributes IAATagAttributes = {
+	.priority = @"priority",
 	.tag = @"tag",
 };
 
@@ -39,6 +40,8 @@ const struct IAATagRelationships IAATagRelationships = {
 
 	return keyPaths;
 }
+
+@dynamic priority;
 
 @dynamic tag;
 

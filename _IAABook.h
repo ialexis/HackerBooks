@@ -13,10 +13,12 @@ extern const struct IAABookAttributes {
 } IAABookAttributes;
 
 extern const struct IAABookRelationships {
+	__unsafe_unretained NSString *annotations;
 	__unsafe_unretained NSString *pdf;
 	__unsafe_unretained NSString *tags;
 } IAABookRelationships;
 
+@class IAAAnnotation;
 @class IAAPDF;
 @class IAATag;
 
@@ -57,6 +59,10 @@ extern const struct IAABookRelationships {
 
 //- (BOOL)validateTitle:(id*)value_ error:(NSError**)error_;
 
+@property (nonatomic, strong) NSSet *annotations;
+
+- (NSMutableSet*)annotationsSet;
+
 @property (nonatomic, strong) IAAPDF *pdf;
 
 //- (BOOL)validatePdf:(id*)value_ error:(NSError**)error_;
@@ -64,6 +70,14 @@ extern const struct IAABookRelationships {
 @property (nonatomic, strong) NSSet *tags;
 
 - (NSMutableSet*)tagsSet;
+
+@end
+
+@interface _IAABook (AnnotationsCoreDataGeneratedAccessors)
+- (void)addAnnotations:(NSSet*)value_;
+- (void)removeAnnotations:(NSSet*)value_;
+- (void)addAnnotationsObject:(IAAAnnotation*)value_;
+- (void)removeAnnotationsObject:(IAAAnnotation*)value_;
 
 @end
 
@@ -97,6 +111,9 @@ extern const struct IAABookRelationships {
 
 - (NSString*)primitiveTitle;
 - (void)setPrimitiveTitle:(NSString*)value;
+
+- (NSMutableSet*)primitiveAnnotations;
+- (void)setPrimitiveAnnotations:(NSMutableSet*)value;
 
 - (IAAPDF*)primitivePdf;
 - (void)setPrimitivePdf:(IAAPDF*)value;

@@ -120,13 +120,15 @@
     self.bookCoverImage.image=self.book.imageBookCover;
     self.bookTitleLabel.text=self.book.title;
     self.bookAuthorsLabel.text=self.book.authors;
-    self.bookTagsLabel.text= [[self.book.tags allObjects]componentsJoinedByString:@", "];
+    //self.bookTagsLabel.text= [[self.book.tags allObjects]componentsJoinedByString:@", "];
+     self.bookTagsLabel.text = [self.book tagsDescription];
 
     //sincronizamos vista horizontal
     self.bookCoverImageLandscape.image=self.book.imageBookCover;
     self.bookTitleLabelLandscape.text=self.book.title;
     self.bookAuthorsLabelLanscape.text= self.book.authors;
-    self.bookTagsLabelLandscape.text= [[self.book.tags allObjects]componentsJoinedByString:@", "];
+   // self.bookTagsLabelLandscape.text= [[self.book.tags allObjects]componentsJoinedByString:@", "];
+    self.bookTagsLabelLandscape.text = [self.book tagsDescription];
     
     
     if (self.book.isFavorite)

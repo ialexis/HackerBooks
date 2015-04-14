@@ -40,16 +40,17 @@
     
     NSArray *tags= [[aDict objectForKey:@"tags"]componentsSeparatedByString:@", "];
     
-    NSMutableArray *allTags=[NSMutableArray new];
+   // NSMutableArray *allTags=[NSMutableArray new];
     
     [tags enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         NSLog(@"tag %lu:%@",(unsigned long)idx,obj);
         
       IAATag *tag = [IAATag tagWithName:obj book:book context:book.managedObjectContext];
         
-        [allTags addObject:tag];
+       // [allTags addObject:tag];
+      [book addTagsObject:tag];
     }];
-    book.tags = [NSSet setWithArray:allTags];
+    //book.tags = [NSSet setWithArray:allTags];
     //[book addTagsObject:tag];
     book.coverURL=[aDict objectForKey:@"image_url"];
     book.pdfURL=[aDict objectForKey:@"pdf_url"];
@@ -97,6 +98,22 @@
 {
     NSArray *tags= [JSONTagsString componentsSeparatedByString:@", "];
     return tags;
+}
+
+-(NSString *) tagsDescription{
+    
+   
+    NSArray *array = [self.tags allObjects];
+    NSMutableArray *arrayTags = [NSMutableArray new];
+    
+    for (int i=0; i<[array count]; i++)
+    {
+        IAATag *t =[array objectAtIndex:i];
+        [arrayTags addObject: t.tag];
+    }
+    
+    return [arrayTags componentsJoinedByString:@", "];
+    
 }
 
 @end

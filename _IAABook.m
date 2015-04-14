@@ -13,6 +13,7 @@ const struct IAABookAttributes IAABookAttributes = {
 };
 
 const struct IAABookRelationships IAABookRelationships = {
+	.annotations = @"annotations",
 	.pdf = @"pdf",
 	.tags = @"tags",
 };
@@ -81,6 +82,17 @@ const struct IAABookRelationships IAABookRelationships = {
 @dynamic pdfURL;
 
 @dynamic title;
+
+@dynamic annotations;
+
+- (NSMutableSet*)annotationsSet {
+	[self willAccessValueForKey:@"annotations"];
+
+	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"annotations"];
+
+	[self didAccessValueForKey:@"annotations"];
+	return result;
+}
 
 @dynamic pdf;
 
