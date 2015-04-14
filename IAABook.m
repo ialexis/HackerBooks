@@ -1,4 +1,6 @@
 #import "IAABook.h"
+#import "IAAPDF.h"
+#import "IAATag.h"
 
 @interface IAABook ()
 
@@ -33,30 +35,36 @@
      IAABook *book = [self insertInManagedObjectContext:context];
     
     book.title=[aDict objectForKey:@"title"];
-   // book.authors=[self extractAuthorsFromJSONString:[aDict objectForKey:@"authors"]];
-  //  book.tags=[[aDict objectForKey:@"tags"]componentsSeparatedByString:@", "];
+    book.authors=[aDict objectForKey:@"authors"];
+    //NSArray *tags= [NSSet setWithArray:[[aDict objectForKey:@"tags"]componentsSeparatedByString:@", "]];
+    
+    NSArray *tags= [[aDict objectForKey:@"tags"]componentsSeparatedByString:@", "];
+    
+    [tags enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        NSLog(@"tag %lu:%@",(unsigned long)idx,obj);
+        
+        [IAATag tagWithName:obj book:book context:book.managedObjectContext];
+            
+    }];
+    
+ 
+
+    
     book.coverURL=[aDict objectForKey:@"image_url"];
     book.pdfURL=[aDict objectForKey:@"pdf_url"];
-
+    book.pdf=[IAAPDF insertInManagedObjectContext:context];
+    
+ 
     return book;
 }
 
-//-(UIImage *) image{
+-(UIImage *) imageBookCover{
     
-    // Convertir la NSData en UIImage
-//    return [UIImage imageWithData:self.coverImage];
-//}
-
-
--(NSData *) coverImage
-{
+    
     if (self.coverImage==nil)
     {
-        if(![self isFileDownload:[NSURL URLWithString:self.coverURL]])
-        {
-            
-            
-            // crear un cola
+            /*
+             // crear un cola
              dispatch_queue_t loadCovers = dispatch_queue_create("loadCovers", 0);
              
              
@@ -73,23 +81,27 @@
              
              });
              });
-            
-            /*
-            [self downloadFile:self.bookCoverURL withFileName:[self discoverFileName:self.bookCoverURL]];
-            
-            NSData *data = [NSData dataWithContentsOfFile:[self discoverFileName:self.bookCoverURL]];
-            _bookCover=data;
-            
-            */
-        }
-        else
+             */
+        
+        
+        // Load url image into NSData
+        NSError *error;
+        NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.coverURL]
+                                             options:kNilOptions
+                                               error:&error];
+        if(data==nil)
         {
-            NSData *data = [NSData dataWithContentsOfFile:[self discoverFileName:[NSURL URLWithString:self.coverURL]]];
-            self.coverImage=data;
+            // Error when loading pdf
+            NSLog(@"Error %@ when loading data within the browser",error.localizedDescription);
         }
+        self.coverImage=data;
     }
-    return self.coverImage;
+
+    
+    // Convertir la NSData en UIImage
+    return [UIImage imageWithData:self.coverImage];
 }
+
 
 #pragma mark - utils
 
@@ -105,52 +117,4 @@
     return tags;
 }
 
-- (NSString *) discoverFileName: (NSURL *) aURL
-{
-    //vemos cual es la ruta fisica del directorio de cache
-    NSArray *paths=NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-    NSString *cachesDirectory=[paths objectAtIndex: 0];
-    
-    //sacamos el nombre teorico que tendria el fichero si estuviera grabado.
-    
-    NSString *nombreFichero = [aURL absoluteString];
-    
-    nombreFichero = [[[nombreFichero stringByReplacingOccurrencesOfString:@"/"withString:@"_"]stringByReplacingOccurrencesOfString:@":" withString:@"_"]stringByReplacingOccurrencesOfString:@"www." withString:@"www_"];
-    
-    NSString *fileName = [NSString stringWithFormat:@"%@/%@",cachesDirectory,nombreFichero];
-    
-    return fileName;
-}
-
--(BOOL) isFileDownload: (NSURL *) aURL
-{
-    NSString *fileName = [self discoverFileName:aURL];
-    //comprobamos si existe esa ruta
-    
-    NSFileManager *fm = [NSFileManager defaultManager];
-    
-    if ([fm fileExistsAtPath: fileName])
-    {
-        
-        return true;
-    }
-    
-    return false;
-}
-
-- (void) downloadFile: (NSURL *) aURL withFileName: (NSString *) aFileName
-{
-    
-    
-    // Load pdf into NSData
-    NSError *error;
-    NSData *data = [NSData dataWithContentsOfURL:aURL
-                                         options:kNilOptions
-                                           error:&error];
-    if(data==nil){
-        // Error when loading pdf
-        NSLog(@"Error %@ when loading data within the browser",error.localizedDescription);
-    }
-    [data writeToFile:aFileName atomically:TRUE];
-}
 @end

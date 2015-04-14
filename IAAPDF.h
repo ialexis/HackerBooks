@@ -4,4 +4,6 @@
 @interface IAAPDF : _IAAPDF {}
 // Custom logic goes here.
 
+@property (nonatomic, strong) NSData *pdf;
+
 @end

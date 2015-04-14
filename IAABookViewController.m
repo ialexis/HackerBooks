@@ -8,7 +8,7 @@
 
 #import "IAABookViewController.h"
 #import "IAAPDFViewController.h"
-#import "IAALibraryTableViewController.h"
+//#import "IAALibraryTableViewController.h"
 
 @interface IAABookViewController ()
 
@@ -114,20 +114,20 @@
     self.title =self.book.title;
     
     
-/*
-    ()
+
+    
     //sincronizamos vista vertical
-    self.bookCoverImage.image=[UIImage imageWithData:self.book.bookCover];
+    self.bookCoverImage.image=self.book.imageBookCover;
     self.bookTitleLabel.text=self.book.title;
-    self.bookAuthorsLabel.text= [self.book.authors componentsJoinedByString:@", "];
-    self.bookTagsLabel.text= [self.book.tags componentsJoinedByString:@", "];
+    self.bookAuthorsLabel.text=self.book.authors;
+    self.bookTagsLabel.text= [[self.book.tags allObjects]componentsJoinedByString:@", "];
 
     //sincronizamos vista horizontal
-    self.bookCoverImageLandscape.image=[UIImage imageWithData:self.book.bookCover];
+    self.bookCoverImageLandscape.image=self.book.imageBookCover;
     self.bookTitleLabelLandscape.text=self.book.title;
-    self.bookAuthorsLabelLanscape.text= [self.book.authors componentsJoinedByString:@", "];
-    self.bookTagsLabelLandscape.text= [self.book.tags componentsJoinedByString:@", "];
-    */
+    self.bookAuthorsLabelLanscape.text= self.book.authors;
+    self.bookTagsLabelLandscape.text= [[self.book.tags allObjects]componentsJoinedByString:@", "];
+    
     
     if (self.book.isFavorite)
     {

@@ -7,6 +7,7 @@
 //
 
 #import "IAAPDFViewController.h"
+#import "IAAPDF.h"
 #import "Settings.h"
 
 @interface IAAPDFViewController ()
@@ -69,7 +70,7 @@
     
     
     dispatch_async(loadPDF, ^{
-        NSData *data = self.book.pdf;
+        NSData *data = self.book.pdf.pdf;
 
             
             // se ejecuta en primer plano

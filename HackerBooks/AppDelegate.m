@@ -10,6 +10,7 @@
 #import "AGTCoreDataStack.h"
 #import "UIViewController+Navigation.h"
 #import "IAABook.h"
+#import "IAATag.h"
 
 #import "IAABookViewController.h"
 #import "IAALibraryTableViewController.h"
@@ -51,88 +52,76 @@
     NSFetchedResultsController *fc = [[NSFetchedResultsController alloc]
                                       initWithFetchRequest:req
                                       managedObjectContext:self.stack.context
-                                      sectionNameKeyPath:nil
+                                      sectionNameKeyPath:@"tags.tag"
                                       cacheName:nil];
 
     
     //Creamos el controlador
     
-    IAALibraryTableViewController *lVC = [[IAALibraryTableViewController alloc]initWithFetchedResultsController:fc style:UITableViewStylePlain];
-    
-    
-
-    
-    // crear un cola para descargar los pdfs del modelo
-    dispatch_queue_t loadPDFs = dispatch_queue_create("loadPDFs", 0);
-    
-    
-    dispatch_async(loadPDFs, ^{
-   //     [libraryModel downloadPDFS];
-
-        });
-
-    
+   // IAALibraryTableViewController *lVC = [[IAALibraryTableViewController alloc]initWithFetchedResultsController:fc style:UITableViewStylePlain];
     
 
     //miramos en que dispositivo estamos
     UIViewController *rootVC = nil;
     
-        rootVC=lVC;
+   //     rootVC=lVC;
     
     
     if ([[UIDevice currentDevice]userInterfaceIdiom]==UIUserInterfaceIdiomPad)
     {
         //pantalla grande
         
-     //   rootVC=[self rootViewControllerForPadWithModel:libraryModel];
-        
+        rootVC=[self rootViewControllerForPadWithModel:fc];
         
     }
+    
     else{
         //pantalla pequeña
-     //   rootVC=[self rootViewControllerForPhoneWithModel:libraryModel];
+        rootVC=[self rootViewControllerForPhoneWithModel:fc];
         
     }
     
     
     //asignamos el split como controlador raiz
-    self.window.rootViewController = [rootVC wrappedInNavigation];
+    self.window.rootViewController = rootVC;
 
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
 }
-/*
 
--(UIViewController *) rootViewControllerForPhoneWithModel: (IAALibraryModel *)libraryModel
+
+-(UIViewController *) rootViewControllerForPhoneWithModel: (NSFetchedResultsController *)fc
 {
-    //creamos una instancia de los controladores
-     IAALibraryTableViewController *libraryVC = [[IAALibraryTableViewController alloc]initWithLibrary:libraryModel style:UITableViewStylePlain];
+    //Creamos el controlador
+    
+    IAALibraryTableViewController *lVC = [[IAALibraryTableViewController alloc]initWithFetchedResultsController:fc style:UITableViewStylePlain];
 
     
     //Creamos un navigation controller para cada controlador
     
-    UINavigationController *navLibraryVC = [[UINavigationController alloc]initWithRootViewController:libraryVC];
+  //  UINavigationController *navLibraryVC = [[UINavigationController alloc]initWithRootViewController:libraryVC];
 
-    libraryVC.delegate=libraryVC.self;
+    lVC.delegate=lVC.self;
     
-    return navLibraryVC;
+    return [lVC wrappedInNavigation];
 }
 
-- (UIViewController *)rootViewControllerForPadWithModel: (IAALibraryModel *)libraryModel
+- (UIViewController *)rootViewControllerForPadWithModel: (NSFetchedResultsController *)fc
 
 {
     // Controladores
-    IAALibraryTableViewController *libraryVC = [[IAALibraryTableViewController alloc]initWithLibrary:libraryModel style:UITableViewStylePlain];
+    IAALibraryTableViewController *lVC = [[IAALibraryTableViewController alloc]initWithFetchedResultsController:fc style:UITableViewStylePlain];
+
     
-    IAABookViewController *bookVC = [[IAABookViewController alloc] initWithBook:[libraryVC lastSelectedBook]];
+   // IAABookViewController *bookVC = [[IAABookViewController alloc] initWithBook:[lVC lastSelectedBook]];
+     IAABookViewController *bookVC = [[IAABookViewController alloc] initWithBook:nil];
     
     // Combinadores
     UINavigationController *BookNav = [[UINavigationController alloc] initWithRootViewController:bookVC];
     
-    UINavigationController *libraryNav
-    = [[UINavigationController alloc] initWithRootViewController:libraryVC];
+    UINavigationController *libraryNav = [[UINavigationController alloc] initWithRootViewController:lVC];
     
     UISplitViewController *splitVC = [[UISplitViewController alloc] init];
     splitVC.viewControllers = @[libraryNav, BookNav];
@@ -143,12 +132,12 @@
     
     // Delegados
     splitVC.delegate = bookVC;
-    libraryVC.delegate = bookVC;
+    lVC.delegate = bookVC;
     
     return splitVC;
 }
 
-*/
+
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.

@@ -8,6 +8,12 @@
 
 @implementation IAATag
 
-// Custom logic goes here.
++(instancetype) tagWithName: (NSString *)name book: (IAABook *) book context: (NSManagedObjectContext *) context;
+{
+    IAATag *t=[self insertInManagedObjectContext:context];
+    t.tag = name;
+    return t;
+}
+
 
 @end

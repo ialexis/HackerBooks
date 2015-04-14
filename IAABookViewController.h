@@ -9,10 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "IAABook.h"
 
+#import "IAALibraryTableViewController.h"
 
-//@interface IAABookViewController : UIViewController <UISplitViewControllerDelegate,IAALibraryTableViewControllerDelegate >
+@interface IAABookViewController : UIViewController <UISplitViewControllerDelegate,IAALibraryTableViewControllerDelegate >
 
-@interface IAABookViewController : UIViewController <UISplitViewControllerDelegate>
+//@interface IAABookViewController : UIViewController <UISplitViewControllerDelegate>
 
 
 @property (strong, nonatomic) IAABook *book;

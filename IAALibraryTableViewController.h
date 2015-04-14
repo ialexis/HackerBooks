@@ -8,6 +8,16 @@
 
 #import "AGTCoreDataTableViewController.h"
 
-@interface IAALibraryTableViewController : AGTCoreDataTableViewController
+@class IAALibraryTableViewController;
+@class IAABook;
 
+@protocol IAALibraryTableViewControllerDelegate <NSObject>
+
+-(void) IAALibraryTableViewController: (IAALibraryTableViewController *) aLibraryVC
+                        didSelectBook:(IAABook *) aBook;
+
+@end
+@interface IAALibraryTableViewController : AGTCoreDataTableViewController <IAALibraryTableViewControllerDelegate>
+
+@property (weak, nonatomic) id<IAALibraryTableViewControllerDelegate> delegate;
 @end
