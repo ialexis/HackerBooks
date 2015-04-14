@@ -40,16 +40,17 @@
     
     NSArray *tags= [[aDict objectForKey:@"tags"]componentsSeparatedByString:@", "];
     
+    NSMutableArray *allTags=[NSMutableArray new];
+    
     [tags enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         NSLog(@"tag %lu:%@",(unsigned long)idx,obj);
         
-        [IAATag tagWithName:obj book:book context:book.managedObjectContext];
-            
+      IAATag *tag = [IAATag tagWithName:obj book:book context:book.managedObjectContext];
+        
+        [allTags addObject:tag];
     }];
-    
- 
-
-    
+    book.tags = [NSSet setWithArray:allTags];
+    //[book addTagsObject:tag];
     book.coverURL=[aDict objectForKey:@"image_url"];
     book.pdfURL=[aDict objectForKey:@"pdf_url"];
     book.pdf=[IAAPDF insertInManagedObjectContext:context];
@@ -63,26 +64,7 @@
     
     if (self.coverImage==nil)
     {
-            /*
-             // crear un cola
-             dispatch_queue_t loadCovers = dispatch_queue_create("loadCovers", 0);
-             
-             
-             dispatch_async(loadCovers, ^{
-             
-             [self downloadFile:[NSURL URLWithString:self.coverURL] withFileName:[self discoverFileName:[NSURL URLWithString:self.coverURL]]];
-             
-             NSData *data = [NSData dataWithContentsOfFile:[self discoverFileName:[NSURL URLWithString:self.coverURL]]];
-             
-             
-             // se ejecuta en primer plano
-             dispatch_async(dispatch_get_main_queue(), ^{
-             self.coverImage=data;
-             
-             });
-             });
-             */
-        
+
         
         // Load url image into NSData
         NSError *error;

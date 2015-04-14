@@ -40,10 +40,15 @@
     [self loadJSONData];
     
     // Un fetchRequest
-    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[IAABook entityName]];
-    
+ //   NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[IAABook entityName]];
+    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[IAATag entityName]];
+ 
+//    req.sortDescriptors = @[[NSSortDescriptor
+//                             sortDescriptorWithKey:IAABookAttributes.title
+//                             ascending:YES
+//                             selector:@selector(caseInsensitiveCompare:)]];
     req.sortDescriptors = @[[NSSortDescriptor
-                             sortDescriptorWithKey:IAABookAttributes.title
+                             sortDescriptorWithKey:IAATagAttributes.tag
                              ascending:YES
                              selector:@selector(caseInsensitiveCompare:)]];
     req.fetchBatchSize = 20;
@@ -52,7 +57,7 @@
     NSFetchedResultsController *fc = [[NSFetchedResultsController alloc]
                                       initWithFetchRequest:req
                                       managedObjectContext:self.stack.context
-                                      sectionNameKeyPath:@"tags.tag"
+                                      sectionNameKeyPath:IAATagAttributes.tag
                                       cacheName:nil];
 
     

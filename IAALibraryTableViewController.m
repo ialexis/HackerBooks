@@ -10,6 +10,7 @@
 #import "IAABook.h"
 #import "IAABookViewController.h"
 #import "IAALibraryCellTableViewCell.h"
+#import "IAATag.h"
 
 @interface IAALibraryTableViewController ()
 
@@ -45,8 +46,11 @@
 
 -(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    IAATag *t= [self.fetchedResultsController objectAtIndexPath:indexPath];
+  
     //averiguamos cual es el libro
-    IAABook *b = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    //IAABook *b = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    IAABook *b = [[t.books allObjects] lastObject];
     
     // Crear una celda
     
@@ -93,7 +97,7 @@
         
         // se ejecuta en primer plano
         dispatch_async(dispatch_get_main_queue(), ^{
-            cell.bookCoverImage.image=img;
+           cell.bookCoverImage.image=img;
             
             [cell.activityIndicator stopAnimating];
             
@@ -118,9 +122,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    //cogemos el libro seleccionado
+    IAATag *t= [self.fetchedResultsController objectAtIndexPath:indexPath];
     
-    IAABook *book =[self.fetchedResultsController objectAtIndexPath:indexPath];
+    //averiguamos cual es el libro
+    //IAABook *b = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    IAABook *book = [[t.books allObjects] lastObject];
+
     
     // Crear el controlador
  /*   IAABookViewController *bookVC = [[IAABookViewController alloc] initWithBook:book];
