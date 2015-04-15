@@ -11,7 +11,7 @@
 #import "UIViewController+Navigation.h"
 #import "IAABook.h"
 #import "IAATag.h"
-
+#import "Settings.h"
 #import "IAABookViewController.h"
 #import "IAALibraryTableViewController.h"
 
@@ -39,6 +39,10 @@
     //cargamos los datos del JSON
     [self loadJSONData];
     
+    [self autosave];
+    
+   
+    
     // Un fetchRequest
  //   NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[IAABook entityName]];
     NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[IAATag entityName]];
@@ -47,10 +51,17 @@
 //                             sortDescriptorWithKey:IAABookAttributes.title
 //                             ascending:YES
 //                             selector:@selector(caseInsensitiveCompare:)]];
-    req.sortDescriptors = @[[NSSortDescriptor
-                             sortDescriptorWithKey:IAATagAttributes.tag
+/*    req.sortDescriptors = @[[NSSortDescriptor
+                             sortDescriptorWithKey:IAATagAttributes.priority
                              ascending:YES
-                             selector:@selector(caseInsensitiveCompare:)]];
+                             selector:@selector(caseInsensitiveCompare:)],[NSSortDescriptor
+                                                                           sortDescriptorWithKey:IAATagAttributes.tag
+                                                                           ascending:YES
+                                                                           selector:@selector(caseInsensitiveCompare:)]];*/
+    req.sortDescriptors = @[[NSSortDescriptor
+                                                                           sortDescriptorWithKey:IAATagAttributes.tag
+                                                                           ascending:YES
+                                                                           selector:@selector(caseInsensitiveCompare:)]];
     req.fetchBatchSize = 20;
     
     // FetchedResultsController
@@ -302,4 +313,21 @@
     
     return fileName;
 }
+
+- (void) save
+{
+    [self.stack saveWithErrorBlock:^(NSError *error) {
+        NSLog(@"Error al guardar %s \n\n %@",__func__,error);
+    }];
+}
+-(void) autosave
+{
+  if (AUTO_SAVE)
+  {
+      NSLog(@"Autoguardando...");
+      [self save];
+      [self performSelector:@selector(autosave) withObject:nil afterDelay:AUTO_SAVE_DELAY_IN_SECONDS];
+  }
+}
+
 @end

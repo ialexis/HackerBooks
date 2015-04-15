@@ -23,7 +23,11 @@ extern const struct IAATagRelationships {
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 @property (nonatomic, readonly, strong) IAATagID* objectID;
 
-@property (nonatomic, strong) NSDecimalNumber* priority;
+@property (nonatomic, strong) NSNumber* priority;
+
+@property (atomic) BOOL priorityValue;
+- (BOOL)priorityValue;
+- (void)setPriorityValue:(BOOL)value_;
 
 //- (BOOL)validatePriority:(id*)value_ error:(NSError**)error_;
 
@@ -47,8 +51,11 @@ extern const struct IAATagRelationships {
 
 @interface _IAATag (CoreDataGeneratedPrimitiveAccessors)
 
-- (NSDecimalNumber*)primitivePriority;
-- (void)setPrimitivePriority:(NSDecimalNumber*)value;
+- (NSNumber*)primitivePriority;
+- (void)setPrimitivePriority:(NSNumber*)value;
+
+- (BOOL)primitivePriorityValue;
+- (void)setPrimitivePriorityValue:(BOOL)value_;
 
 - (NSString*)primitiveTag;
 - (void)setPrimitiveTag:(NSString*)value;

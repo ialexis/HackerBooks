@@ -81,7 +81,7 @@
     //sincronizamos vista y modelo
     cell.bookTitle.text=b.title;
     cell.bookAuthors.text = b.authors;
-    
+    cell.bookCoverImage.image = [UIImage imageNamed:@"bookCover.jpg"];
     
     //cargamos la imagen
     

@@ -12,6 +12,8 @@
 +(instancetype) bookWithDictionary: (NSDictionary *)aDict context:(NSManagedObjectContext *) context;
 
 -(NSString *) tagsDescription;
+- (BOOL) isFavoriteWithcontext:(NSManagedObjectContext *) context;
+- (void) setFavorite: (BOOL) value context:(NSManagedObjectContext *) context;
 
 
 @end

@@ -38,10 +38,34 @@ const struct IAATagRelationships IAATagRelationships = {
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 
+	if ([key isEqualToString:@"priorityValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"priority"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+
 	return keyPaths;
 }
 
 @dynamic priority;
+
+- (BOOL)priorityValue {
+	NSNumber *result = [self priority];
+	return [result boolValue];
+}
+
+- (void)setPriorityValue:(BOOL)value_ {
+	[self setPriority:@(value_)];
+}
+
+- (BOOL)primitivePriorityValue {
+	NSNumber *result = [self primitivePriority];
+	return [result boolValue];
+}
+
+- (void)setPrimitivePriorityValue:(BOOL)value_ {
+	[self setPrimitivePriority:@(value_)];
+}
 
 @dynamic tag;
 

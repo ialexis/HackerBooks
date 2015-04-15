@@ -116,4 +116,30 @@
     
 }
 
+- (IAATag *) getTagByName: (NSString *) tagName context:(NSManagedObjectContext *) context
+{
+    
+    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[IAATag entityName]];
+    [req setPredicate:[NSPredicate predicateWithFormat:@"tag == %@", tagName]];
+    NSError *error;
+    NSArray *fetchedObjects = [context executeFetchRequest:req error:&error];
+    
+    IAATag *tagADevolver=nil;
+    for (IAATag *t in fetchedObjects)
+    {
+        tagADevolver = t;
+    }
+    return tagADevolver;
+}
+/*
+- (BOOL) isFavoriteWithcontext:(NSManagedObjectContext *) context
+{
+    //creamos el tag favoritos
+    [IAATag tagWithName:@"Favoritos" book:nil context:context];
+}
+
+- (void) setFavorite: (BOOL) value context:(NSManagedObjectContext *) context;
+{
+    
+}*/
 @end

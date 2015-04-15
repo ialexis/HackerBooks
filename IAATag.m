@@ -12,10 +12,11 @@
 {
     IAATag *t=[self insertInManagedObjectContext:context];
     t.tag = name;
-    
-    
-    
-    
+     [t setPriorityValue:NO];
+    if ([name isEqualToString:@"Favoritos"])
+    {
+       [t setPriorityValue:YES];
+    }
     
     return t;
 }
