@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="6751" systemVersion="14D113c" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="IAABookViewController">
@@ -15,6 +15,7 @@
                 <outlet property="bookTagsLabelLandscape" destination="Uok-5f-6IR" id="DwH-HH-2Ld"/>
                 <outlet property="bookTitleLabel" destination="PPk-6y-Dcc" id="Sgw-9f-NsU"/>
                 <outlet property="bookTitleLabelLandscape" destination="esZ-ra-4PC" id="OCI-zy-atD"/>
+                <outlet property="portraidView" destination="E3N-UE-Unn" id="vwB-b4-j4z"/>
                 <outlet property="toolbarButtomReadBook" destination="1U7-wi-XaB" id="QOD-sJ-gIk"/>
                 <outlet property="toolbarButtonMarkAsFavorite" destination="P7F-Yz-xSr" id="gmt-Fl-CIZ"/>
                 <outlet property="toolbarButtonMarkAsFavoriteLandscape" destination="Fle-QZ-Ud9" id="ka7-GV-Jc5"/>

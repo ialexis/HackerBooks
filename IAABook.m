@@ -1,286 +1,177 @@
-//
-//  IAABook.m
-//  HackerBooks
-//
-//  Created by Ivan on 20/3/15.
-//  Copyright (c) 2015 Ivan. All rights reserved.
-//
-
 #import "IAABook.h"
-#import "Settings.h"
+#import "IAAPDF.h"
+#import "IAATag.h"
 
+@interface IAABook ()
+
+// Private interface goes here.
+
+
+
+@end
 
 @implementation IAABook
 
-@synthesize bookCover=_bookCover;
-@synthesize bookPDF=_bookPDF;
+// Custom logic goes here.
 
-#pragma mark - inicializadores
 
-//iniciador designado
--(id) initWithTitle: (NSString *) aTitle
-            authors: (NSArray *)  arrayOfAuthors
-               tags: (NSArray *)  arrayOfTags
-       bookCoverURL: (NSURL *) aBookCoverURL
-         bookPDFURL: (NSURL *) aBookPDFURL
-         isFavorite:(BOOL)aIsFavorite
+
+
+
+
+
+
+#pragma mark - class methods
++(instancetype) bookWithTitle: (NSString *)title context:(NSManagedObjectContext *) context
 {
-    if (self=[super init]) {
-        _title = aTitle;
-        _authors=arrayOfAuthors;
-        _tags=arrayOfTags;
-        _bookCoverURL=aBookCoverURL;
-        _bookPDFURL=aBookPDFURL;
-        _isFavorite=aIsFavorite;
+    IAABook *book = [self insertInManagedObjectContext:context];
+    book.title = title;
+    
+    return book;
+}
+
++(instancetype) bookWithDictionary: (NSDictionary *)aDict context:(NSManagedObjectContext *) context
+{
+     IAABook *book = [self insertInManagedObjectContext:context];
+    
+    book.title=[aDict objectForKey:@"title"];
+    book.authors=[aDict objectForKey:@"authors"];
+    //NSArray *tags= [NSSet setWithArray:[[aDict objectForKey:@"tags"]componentsSeparatedByString:@", "]];
+    
+    NSArray *tags= [[aDict objectForKey:@"tags"]componentsSeparatedByString:@", "];
+    
+   // NSMutableArray *allTags=[NSMutableArray new];
+    
+    [tags enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        NSLog(@"tag %lu:%@",(unsigned long)idx,obj);
+        
+      IAATag *tag = [IAATag tagWithName:obj book:book context:book.managedObjectContext];
+        
+       // [allTags addObject:tag];
+      [book addTagsObject:tag];
+    }];
+    //book.tags = [NSSet setWithArray:allTags];
+    //[book addTagsObject:tag];
+    book.coverURL=[aDict objectForKey:@"image_url"];
+    book.pdfURL=[aDict objectForKey:@"pdf_url"];
+    book.pdf=[IAAPDF insertInManagedObjectContext:context];
+    
+ 
+    return book;
+}
+
+-(UIImage *) imageBookCover{
+    
+    
+    if (self.coverImage==nil)
+    {
+
+        
+        // Load url image into NSData
+        NSError *error;
+        NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.coverURL]
+                                             options:kNilOptions
+                                               error:&error];
+        if(data==nil)
+        {
+            // Error when loading pdf
+            NSLog(@"Error %@ when loading data within the browser",error.localizedDescription);
+        }
+        self.coverImage=data;
     }
-    return self;
-}
 
-//iniciador de conveniencia
--(id) initWithTitle: (NSString *) aTitle
-{
-    return [self initWithTitle:aTitle authors:nil tags:nil bookCoverURL:nil bookPDFURL:nil isFavorite:false];
+    
+    // Convertir la NSData en UIImage
+    return [UIImage imageWithData:self.coverImage];
 }
 
 
-#pragma mark - inicializador JSON
--(id)initWithDictionary:(NSDictionary *)aDict andMarkAsFavorite: (BOOL) aIsFavorite
-{
-    return [self initWithTitle:[aDict objectForKey:@"title"]
-                       authors:[self extractAuthorsFromJSONString:[aDict objectForKey:@"authors"]]
-                          tags:[self extractTagsFromJSONString:[aDict objectForKey:@"tags"]]
-                  bookCoverURL:[NSURL URLWithString:[aDict objectForKey:@"image_url"]]
-                    bookPDFURL:[NSURL URLWithString:[aDict objectForKey:@"pdf_url"]]
-                    isFavorite:aIsFavorite];
-}
+#pragma mark - utils
 
--(id)initWithDictionary:(NSDictionary *)aDict
++(NSArray *) extractAuthorsFromJSONString:(NSString *) JSONAuthorsString
 {
-    return [self initWithTitle:[aDict objectForKey:@"title"]
-                       authors:[self extractAuthorsFromJSONString:[aDict objectForKey:@"authors"]]
-                          tags:[self extractTagsFromJSONString:[aDict objectForKey:@"tags"]]
-                  bookCoverURL:[NSURL URLWithString:[aDict objectForKey:@"image_url"]]
-                    bookPDFURL:[NSURL URLWithString:[aDict objectForKey:@"pdf_url"]]
-                    isFavorite:false];
-}
--(NSArray *) extractAuthorsFromJSONString:(NSString *) JSONAuthorsString
-{
-      NSArray *authors = [JSONAuthorsString componentsSeparatedByString:@", "];
-
+    NSArray *authors = [JSONAuthorsString componentsSeparatedByString:@", "];
+    
     return authors;
 }
--(NSArray *) extractTagsFromJSONString:(NSString *) JSONTagsString
++(NSArray *) extractTagsFromJSONString:(NSString *) JSONTagsString
 {
     NSArray *tags= [JSONTagsString componentsSeparatedByString:@", "];
     return tags;
 }
 
-
-
-#pragma mark - overwrite bookCover and bookPDF inicializers
--(NSData *) bookCover
-{
-    if (_bookCover==nil)
-    {
-        if(![self isFileDownload:self.bookCoverURL])
-        {
-          
-            
-            /*
-            // crear un cola
-            dispatch_queue_t loadCovers = dispatch_queue_create("loadCovers", 0);
-            
-            
-            dispatch_async(loadCovers, ^{
-                
-                [self downloadFile:self.bookCoverURL withFileName:[self discoverFileName:self.bookCoverURL]];
-                
-                NSData *data = [NSData dataWithContentsOfFile:[self discoverFileName:self.bookCoverURL]];
-                
-                
-                // se ejecuta en primer plano
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    _bookCover=[UIImage imageWithData:data];
-                    
-                });
-            });
-            */
-            [self downloadFile:self.bookCoverURL withFileName:[self discoverFileName:self.bookCoverURL]];
-            
-            NSData *data = [NSData dataWithContentsOfFile:[self discoverFileName:self.bookCoverURL]];
-            _bookCover=data;
-
-            
-        }
-        else
-        {
-            NSData *data = [NSData dataWithContentsOfFile:[self discoverFileName:self.bookCoverURL]];
-            _bookCover=data;
-        }
-    }
-    return _bookCover;
-}
-
-
--(NSString *)bookPDFFileName
-{
-    return [self discoverFileName:self.bookPDFURL];
-}
-
--(NSData *) bookPDF
-{
-    if([self isFileDownload:self.bookPDFURL])
-    {
-        return [NSData dataWithContentsOfFile:[self discoverFileName:self.bookPDFURL]];
-    }
-    else
-    {
-        [self bookPDFDownload];
-        return [NSData dataWithContentsOfFile:[self discoverFileName:self.bookPDFURL]];
-
-    }
-}
-
-
--(void) bookPDFDownload
-{
+-(NSString *) tagsDescription{
+    
    
-        if(![self isFileDownload:self.bookPDFURL])
-        {
-        
-            [self downloadFile:self.bookPDFURL withFileName:self.bookPDFFileName];
-
-            
-        }
+    NSArray *array = [self.tags allObjects];
+    NSMutableArray *arrayTags = [NSMutableArray new];
     
-}
-- (NSString *) discoverFileName: (NSURL *) aURL
-{
-    //vemos cual es la ruta fisica del directorio de cache
-    NSArray *paths=NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-    NSString *cachesDirectory=[paths objectAtIndex: 0];
-    
-    //sacamos el nombre teorico que tendria el fichero si estuviera grabado.
-    
-    NSString *nombreFichero = [aURL absoluteString];
-    
-    nombreFichero = [[[nombreFichero stringByReplacingOccurrencesOfString:@"/"withString:@"_"]stringByReplacingOccurrencesOfString:@":" withString:@"_"]stringByReplacingOccurrencesOfString:@"www." withString:@"www_"];
-    
-    NSString *fileName = [NSString stringWithFormat:@"%@/%@",cachesDirectory,nombreFichero];
-    
-    return fileName;
-}
-
--(BOOL) isFileDownload: (NSURL *) aURL
-{
-    NSString *fileName = [self discoverFileName:aURL];
-    //comprobamos si existe esa ruta
-    
-    NSFileManager *fm = [NSFileManager defaultManager];
-    
-    if ([fm fileExistsAtPath: fileName])
+    for (int i=0; i<[array count]; i++)
     {
-        
+        IAATag *t =[array objectAtIndex:i];
+        [arrayTags addObject: t.tag];
+    }
+    
+    return [arrayTags componentsJoinedByString:@", "];
+    
+}
+
+// Returns an NSData with the serialized URI representation of the
+// objectID. Ready to save it in a NSUserDefaults, for example.
+-(NSData*) archiveURIRepresentation{
+    
+    NSURL *uri = self.objectID.URIRepresentation;
+    return [NSKeyedArchiver archivedDataWithRootObject:uri];
+}
+
+- (IAATag *) getTagByName: (NSString *) tagName context:(NSManagedObjectContext *) context
+{
+    
+    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[IAATag entityName]];
+    [req setPredicate:[NSPredicate predicateWithFormat:@"tag == %@", tagName]];
+    NSError *error;
+    NSArray *fetchedObjects = [context executeFetchRequest:req error:&error];
+    
+    IAATag *tagADevolver=nil;
+    for (IAATag *t in fetchedObjects)
+    {
+        tagADevolver = t;
+    }
+    return tagADevolver;
+}
+
+- (BOOL) isFavoriteWithcontext:(NSManagedObjectContext *) context
+{
+    //creamos el tag favoritos
+   
+    if ([self getTagByName:@"Favoritos" context:context])
+    {
         return true;
     }
-    
     return false;
 }
 
-- (void) downloadFile: (NSURL *) aURL withFileName: (NSString *) aFileName
+- (void) setFavorite: (BOOL) value;
 {
+   //  IAATag *tagFavorito =
     
     
-    // Load pdf into NSData
-    NSError *error;
-    NSData *data = [NSData dataWithContentsOfURL:aURL
-                                            options:kNilOptions
-                                              error:&error];
-    if(data==nil){
-        // Error when loading pdf
-        NSLog(@"Error %@ when loading data within the browser",error.localizedDescription);
-    }
-    
-    
-    /*
-    
-    //grabamos el archivo
- 
-    
-    NSData *data = [NSData dataWithContentsOfURL:aURL];
-    
-  //  NSData *data = [self.PDF dataUsingEncoding:NSUTF8StringEncoding];
-     
-     */
-
-    [data writeToFile:aFileName atomically:TRUE];
-}
-
-//Marca un libro como favorito
--(void) markAsFavoriteWithValue: (BOOL) favoriteValue
-{
-    NSMutableDictionary *favoriteList;
-    NSUserDefaults *defaults= [NSUserDefaults standardUserDefaults];
-    favoriteList= [[defaults objectForKey:@"favorites"] mutableCopy];
-    
-    if (favoriteList==nil)
+    if (value)
     {
-        favoriteList= [[NSMutableDictionary alloc]init];
-    }
-    
-    
-    
-    if (favoriteValue==YES)
-    {
-        [favoriteList setObject:@"YES" forKey:self.title];
+       // [self addTagsObject:tagFavorito];
+        [self addTagsObject:[IAATag tagWithName:@"Favoritos" book:self context:self.managedObjectContext]];
     }
     else
     {
-        [favoriteList removeObjectForKey:self.title];
-    }
-
-    
-    [defaults setObject: favoriteList forKey:@"favorites"];
-    [defaults synchronize];
-
-    self.isFavorite=favoriteValue;
-    
-    
-    // Enviar notificación
-    NSNotification *notificationFavoriteBook = [NSNotification notificationWithName:DID_SELECT_FAVORITE_BOOK_NOTIFICATION_NAME                                                                             object:self                                                                           userInfo:@{@"BOOK": self}];
-    [[NSNotificationCenter defaultCenter] postNotification:notificationFavoriteBook];
-
-}
-
-
-
-//quitamos un titulo de favoritos
--(NSMutableArray *) deleteFromFavoritesArray: (NSMutableArray *)array withTitle:(NSString *) title
-{
-    for(int i=0;i<[array count];i++)
-    {
-        IAABook *elemento= [array objectAtIndex:i];
-        if (elemento.title==title)
+        for (IAATag *tagToDelete in self.tags)
         {
-            [array removeObjectAtIndex:i];
-            break;
+            if ([tagToDelete.tag isEqualToString:@"Favoritos"])
+            {
+                [self.managedObjectContext deleteObject:tagToDelete];
+            }
         }
+       // [self removeTagsObject:[self.managedObjectContext objectWithID:theEmployee.objectID]]];
     }
-    return array;
+    [self setIsFavoriteValue:value];
 }
-
--(NSMutableDictionary *) exportBookAsDictiornary:(IAABook *) book
-{
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
-    
-    [dict setObject: book.title forKey:@"title"];
-    [dict setObject: book.authors forKey:@"authors"];
-    [dict setObject: book.tags forKey:@"tags"];
-    [dict setObject: book.bookCoverURL forKey:@"bookCoverURL"];
-    [dict setObject: book.bookPDFURL forKey:@"bookPDFURL"];
-    
-    return dict;
-
-}
-
 @end

@@ -8,7 +8,7 @@
 
 #import "IAABookViewController.h"
 #import "IAAPDFViewController.h"
-#import "IAALibraryTableViewController.h"
+//#import "IAALibraryTableViewController.h"
 
 @interface IAABookViewController ()
 
@@ -43,13 +43,13 @@
 
 - (IBAction)setFavorite:(id)sender
 {
-    if (self.book.isFavorite)
+    if (self.book.isFavoriteValue)
     {
-        [self.book markAsFavoriteWithValue:NO];
+       [self.book setFavorite:FALSE];
     }
     else
     {
-        [self.book markAsFavoriteWithValue:YES];
+      [self.book setFavorite:TRUE];
     }
     [self syncViewModel];
     
@@ -85,11 +85,14 @@
     
     if (([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft)||([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight))
     {
+       // [self.portraidView removeFromSuperview];
         [self addLandscapeView];
+
         
     }
     else
     {
+      //  [self addPortraitView];
         [self.LandscapeView removeFromSuperview];
     }
     
@@ -97,10 +100,13 @@
 
 - (void)addLandscapeView
 {
-    [self.view addSubview:self.LandscapeView];
+    [self.view.superview addSubview:self.LandscapeView];
 }
 
-
+- (void)addPortraitView
+{
+    [self.view.superview addSubview:self.portraidView];
+}
 
 
 - (void)syncViewModel
@@ -108,28 +114,32 @@
     self.title =self.book.title;
     
     
+
+    
     //sincronizamos vista vertical
-    self.bookCoverImage.image=[UIImage imageWithData:self.book.bookCover];
+    self.bookCoverImage.image=self.book.imageBookCover;
     self.bookTitleLabel.text=self.book.title;
-    self.bookAuthorsLabel.text= [self.book.authors componentsJoinedByString:@", "];
-    self.bookTagsLabel.text= [self.book.tags componentsJoinedByString:@", "];
+    self.bookAuthorsLabel.text=self.book.authors;
+    //self.bookTagsLabel.text= [[self.book.tags allObjects]componentsJoinedByString:@", "];
+     self.bookTagsLabel.text = [self.book tagsDescription];
 
     //sincronizamos vista horizontal
-    self.bookCoverImageLandscape.image=[UIImage imageWithData:self.book.bookCover];
+    self.bookCoverImageLandscape.image=self.book.imageBookCover;
     self.bookTitleLabelLandscape.text=self.book.title;
-    self.bookAuthorsLabelLanscape.text= [self.book.authors componentsJoinedByString:@", "];
-    self.bookTagsLabelLandscape.text= [self.book.tags componentsJoinedByString:@", "];
+    self.bookAuthorsLabelLanscape.text= self.book.authors;
+   // self.bookTagsLabelLandscape.text= [[self.book.tags allObjects]componentsJoinedByString:@", "];
+    self.bookTagsLabelLandscape.text = [self.book tagsDescription];
     
     
-    if (self.book.isFavorite)
+    if (self.book.isFavoriteValue)
     {
-       // [self.favoriteButton setTitle:@"Quitar de Favoritos" forState:UIControlStateNormal];
+        [self.favoriteButton setTitle:@"Quitar de Favoritos" forState:UIControlStateNormal];
         [self.toolbarButtonMarkAsFavorite setTitle:@"Quitar de Favoritos"];
         [self.toolbarButtonMarkAsFavoriteLandscape setTitle:@"Quitar de Favoritos"];
     }
     else
     {
-       // [self.favoriteButton setTitle:@"Poner como Favorito" forState:UIControlStateNormal];
+        [self.favoriteButton setTitle:@"Poner como Favorito" forState:UIControlStateNormal];
         [self.toolbarButtonMarkAsFavorite setTitle:@"Poner como Favorito"];
         [self.toolbarButtonMarkAsFavoriteLandscape setTitle:@"Poner como Favorito"];
     }

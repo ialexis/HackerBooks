@@ -8,13 +8,18 @@
 
 #import <UIKit/UIKit.h>
 #import "IAABook.h"
+
 #import "IAALibraryTableViewController.h"
 
 @interface IAABookViewController : UIViewController <UISplitViewControllerDelegate,IAALibraryTableViewControllerDelegate >
 
-//properties portraid
+//@interface IAABookViewController : UIViewController <UISplitViewControllerDelegate>
+
 
 @property (strong, nonatomic) IAABook *book;
+
+//properties portraid
+@property (strong, nonatomic) IBOutlet UIView *portraidView;
 @property (weak, nonatomic) IBOutlet UIImageView *bookCoverImage;
 @property (weak, nonatomic) IBOutlet UILabel *bookTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *bookAuthorsLabel;
