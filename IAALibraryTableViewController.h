@@ -20,4 +20,5 @@
 @interface IAALibraryTableViewController : AGTCoreDataTableViewController <IAALibraryTableViewControllerDelegate>
 
 @property (weak, nonatomic) id<IAALibraryTableViewControllerDelegate> delegate;
+- (IAABook *)lastSelectedBookWithContext:(NSManagedObjectContext *) context;
 @end

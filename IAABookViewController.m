@@ -43,13 +43,13 @@
 
 - (IBAction)setFavorite:(id)sender
 {
-    if (self.book.isFavorite)
+    if (self.book.isFavoriteValue)
     {
-    //    [self.book markAsFavoriteWithValue:NO];
+       [self.book setFavorite:FALSE];
     }
     else
     {
-     //   [self.book markAsFavoriteWithValue:YES];
+      [self.book setFavorite:TRUE];
     }
     [self syncViewModel];
     
@@ -131,15 +131,15 @@
     self.bookTagsLabelLandscape.text = [self.book tagsDescription];
     
     
-    if (self.book.isFavorite)
+    if (self.book.isFavoriteValue)
     {
-       // [self.favoriteButton setTitle:@"Quitar de Favoritos" forState:UIControlStateNormal];
+        [self.favoriteButton setTitle:@"Quitar de Favoritos" forState:UIControlStateNormal];
         [self.toolbarButtonMarkAsFavorite setTitle:@"Quitar de Favoritos"];
         [self.toolbarButtonMarkAsFavoriteLandscape setTitle:@"Quitar de Favoritos"];
     }
     else
     {
-       // [self.favoriteButton setTitle:@"Poner como Favorito" forState:UIControlStateNormal];
+        [self.favoriteButton setTitle:@"Poner como Favorito" forState:UIControlStateNormal];
         [self.toolbarButtonMarkAsFavorite setTitle:@"Poner como Favorito"];
         [self.toolbarButtonMarkAsFavoriteLandscape setTitle:@"Poner como Favorito"];
     }

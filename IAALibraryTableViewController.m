@@ -173,4 +173,120 @@
     [self.navigationController pushViewController:bookVC
                                          animated:YES];
 }
+
+#pragma mark -  NSUserDefaults
+
+- (NSDictionary *)setDefaults
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    // Por defecto, mostraremos el primero de la seccion de libros (obviando la de favoritos por si no hubiera aun ninguno)
+    NSDictionary *defaultBooksCoords = @{@"SECTION" : @0, @"ROW" : @0};
+    
+    // lo asignamos
+   // [defaults setObject:defaultBooksCoords
+    //             forKey:@"LAST_BOOK_SELECTED"];
+    // guardamos por si las moscas
+   // [defaults synchronize];
+    
+    return defaultBooksCoords;
+    
+}
+
+- (void)saveLastSelectedBook:(IAABook*)book
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    [defaults setObject:book.archiveURIRepresentation
+                 forKey:@"LAST_BOOK_SELECTED"];
+    
+    [defaults synchronize];
+}
+
+// Tries to recover the object from the archived URI representation (that probably
+// comes from some NSUserDefaults). If the object doesn't exist anymore, returns
+// nil.
+-(IAABook *) objectWithArchivedURIRepresentation:(NSData*)archivedURI
+                                            context:(NSManagedObjectContext *) context{
+    
+    NSURL *uri = [NSKeyedUnarchiver unarchiveObjectWithData:archivedURI];
+    if (uri == nil) {
+        return nil;
+    }
+    
+    
+    NSManagedObjectID *nid = [context.persistentStoreCoordinator
+                              managedObjectIDForURIRepresentation:uri];
+    if (nid == nil) {
+        return nil;
+    }
+    
+    
+    NSManagedObject *ob = [context objectWithID:nid];
+    if (ob.isFault) {
+        // Got it!
+        return (IAABook *)ob;
+    }else{
+        // Might not exist anymore. Let's fetch it!
+        NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:ob.entity.name];
+        req.predicate = [NSPredicate predicateWithFormat:@"SELF = %@", ob];
+        
+        NSError *error;
+        NSArray *res = [context executeFetchRequest:req
+                                              error:&error];
+        if (res == nil) {
+            return nil;
+        }else{
+            return [res lastObject];
+        }
+    }
+    
+    
+}
+
+- (IAABook *)lastSelectedBookWithContext:(NSManagedObjectContext *) context;
+
+{
+    NSIndexPath *indexPath = nil;
+    NSDictionary *coords = nil;
+    
+    coords = [[NSUserDefaults standardUserDefaults] objectForKey:@"LAST_BOOK_SELECTED"];
+    
+    if (coords == nil) {
+        // No hay nada bajo la clave LAST_BOOK_SELECTED.
+        // Esto quiere decir que es la primera vez que se llama a la App
+        // Ponemos un valor por defecto: el primero de los libros del listado de Tags
+        coords = [self setDefaults];
+        
+        // Transformamos esas coordenadas en un indexpath
+        indexPath = [NSIndexPath indexPathForRow:[[coords objectForKey: @"ROW"] integerValue]
+                                       inSection:[[coords objectForKey: @"SECTION"] integerValue]];
+
+        IAATag *t= [self.fetchedResultsController objectAtIndexPath:indexPath];
+        
+        //averiguamos cual es el libro
+        //IAABook *b = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        IAABook *book = [[t.books allObjects] lastObject];
+
+        return book;
+        
+        
+    }else{
+        
+        return [self objectWithArchivedURIRepresentation:coords context:context];
+    }
+    
+
+    
+    // devolvemos el libro en cuestión
+    
+    IAABook *book =nil;
+    
+    //book=[self.modelLibrary bookForTag:[self.modelLibrary tagAtIndex:indexPath.section-1] atIndex:indexPath.row];
+    
+    
+    
+    
+    return book;
+}
 @end

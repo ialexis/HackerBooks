@@ -116,6 +116,14 @@
     
 }
 
+// Returns an NSData with the serialized URI representation of the
+// objectID. Ready to save it in a NSUserDefaults, for example.
+-(NSData*) archiveURIRepresentation{
+    
+    NSURL *uri = self.objectID.URIRepresentation;
+    return [NSKeyedArchiver archivedDataWithRootObject:uri];
+}
+
 - (IAATag *) getTagByName: (NSString *) tagName context:(NSManagedObjectContext *) context
 {
     
@@ -131,15 +139,39 @@
     }
     return tagADevolver;
 }
-/*
+
 - (BOOL) isFavoriteWithcontext:(NSManagedObjectContext *) context
 {
     //creamos el tag favoritos
-    [IAATag tagWithName:@"Favoritos" book:nil context:context];
+   
+    if ([self getTagByName:@"Favoritos" context:context])
+    {
+        return true;
+    }
+    return false;
 }
 
-- (void) setFavorite: (BOOL) value context:(NSManagedObjectContext *) context;
+- (void) setFavorite: (BOOL) value;
 {
+   //  IAATag *tagFavorito =
     
-}*/
+    
+    if (value)
+    {
+       // [self addTagsObject:tagFavorito];
+        [self addTagsObject:[IAATag tagWithName:@"Favoritos" book:self context:self.managedObjectContext]];
+    }
+    else
+    {
+        for (IAATag *tagToDelete in self.tags)
+        {
+            if ([tagToDelete.tag isEqualToString:@"Favoritos"])
+            {
+                [self.managedObjectContext deleteObject:tagToDelete];
+            }
+        }
+       // [self removeTagsObject:[self.managedObjectContext objectWithID:theEmployee.objectID]]];
+    }
+    [self setIsFavoriteValue:value];
+}
 @end

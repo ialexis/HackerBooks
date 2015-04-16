@@ -36,6 +36,8 @@
     
     self.stack = [AGTCoreDataStack coreDataStackWithModelName:@"Model"];
     
+    [self.stack zapAllData];
+    
     //cargamos los datos del JSON
     [self loadJSONData];
     
@@ -51,17 +53,17 @@
 //                             sortDescriptorWithKey:IAABookAttributes.title
 //                             ascending:YES
 //                             selector:@selector(caseInsensitiveCompare:)]];
-/*    req.sortDescriptors = @[[NSSortDescriptor
+   req.sortDescriptors = @[[NSSortDescriptor
                              sortDescriptorWithKey:IAATagAttributes.priority
-                             ascending:YES
-                             selector:@selector(caseInsensitiveCompare:)],[NSSortDescriptor
-                                                                           sortDescriptorWithKey:IAATagAttributes.tag
-                                                                           ascending:YES
-                                                                           selector:@selector(caseInsensitiveCompare:)]];*/
-    req.sortDescriptors = @[[NSSortDescriptor
+                             ascending:NO
+                             selector:nil],[NSSortDescriptor
                                                                            sortDescriptorWithKey:IAATagAttributes.tag
                                                                            ascending:YES
                                                                            selector:@selector(caseInsensitiveCompare:)]];
+/*  req.sortDescriptors = @[[NSSortDescriptor
+                                                                           sortDescriptorWithKey:IAATagAttributes.tag
+                                                                           ascending:YES
+                                                                           selector:@selector(caseInsensitiveCompare:)]];*/
     req.fetchBatchSize = 20;
     
     // FetchedResultsController
@@ -132,7 +134,7 @@
 
     
    // IAABookViewController *bookVC = [[IAABookViewController alloc] initWithBook:[lVC lastSelectedBook]];
-     IAABookViewController *bookVC = [[IAABookViewController alloc] initWithBook:nil];
+     IAABookViewController *bookVC = [[IAABookViewController alloc] initWithBook:[lVC lastSelectedBookWithContext:self.stack.context]];
     
     // Combinadores
     UINavigationController *BookNav = [[UINavigationController alloc] initWithRootViewController:bookVC];
