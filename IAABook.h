@@ -5,7 +5,7 @@
 @interface IAABook : _IAABook {}
 // Custom logic goes here.
 
-@property (nonatomic, strong) UIImage *imageBookCover;
+@property (nonatomic, strong, readonly) UIImage *imageBookCover;
 
 
 +(instancetype) bookWithTitle: (NSString *)title context:(NSManagedObjectContext *) context;

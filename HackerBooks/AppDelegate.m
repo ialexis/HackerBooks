@@ -30,16 +30,32 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     // Override point for customization after application launch.
     
-    
+
     
     //creamos una instancia del stack
     
     self.stack = [AGTCoreDataStack coreDataStackWithModelName:@"Model"];
     
-    [self.stack zapAllData];
     
-    //cargamos los datos del JSON
-    [self loadJSONData];
+    
+    //in the first execution, Load the JSON data
+    
+ //   if (![[defaults objectForKey:FIRST_EJECUTION] isEqualToString:@"No"])
+ //   {
+        [self.stack zapAllData];
+    
+        //cargamos los datos del JSON
+        [self loadJSONData];
+
+        [defaults setObject:@"No"
+                     forKey:FIRST_EJECUTION];
+        
+        [defaults synchronize];
+
+   // }
+    
+   
+    
     
     [self autosave];
     
@@ -164,6 +180,7 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    [self save];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
@@ -191,19 +208,9 @@
             //nos aseguramos que el formato del JSON incluye el titulo para evitar algun posible libro en blanco
             if  ([dict objectForKey:@"title"]!=nil)
             {
-                //miro si es un libro favorito
-               // BOOL isFavoriteBook = !![self.favoriteBooksTitles objectForKey:[dict objectForKey:@"title"]];
-                //cargo el libro
-                //IAABook *book = [IAABook bookWithTitle:[dict objectForKey:@"title"] context:self.stack.context];
+
                 [IAABook bookWithDictionary:dict context:self.stack.context];
-                
-                //  else
-                //  {
-                //      [self.books addObject:book];
-                //  }
-                
-                //asigno el libro al los distintos listados de etiquetas que le corresponden
-               // [self asignToTagsArray: book];
+
             }
         }
     }

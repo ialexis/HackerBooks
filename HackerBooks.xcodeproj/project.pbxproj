@@ -32,6 +32,8 @@
 		2CD16DDF1ADADC0700213583 /* UIViewController+Navigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD16DDE1ADADC0700213583 /* UIViewController+Navigation.m */; };
 		2CD16DE51ADB1A8700213583 /* _IAATag.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD16DE21ADB1A8700213583 /* _IAATag.m */; };
 		2CD16DE61ADB1A8700213583 /* IAATag.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD16DE41ADB1A8700213583 /* IAATag.m */; };
+		2CD9107F1AE1236100358819 /* AGTCoreDataCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD9107E1AE1236100358819 /* AGTCoreDataCollectionViewController.m */; };
+		2CD910811AE127A200358819 /* IAAAnotationCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CD910801AE127A200358819 /* IAAAnotationCollectionViewCell.xib */; };
 		2CF055891ABE2E7000CDDEFF /* IAALibraryCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF055871ABE2E7000CDDEFF /* IAALibraryCellTableViewCell.m */; };
 		2CF0558A1ABE2E7000CDDEFF /* IAALibraryCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CF055881ABE2E7000CDDEFF /* IAALibraryCellTableViewCell.xib */; };
 		2CF055931ABE306700CDDEFF /* 721-bookmarks-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CF0558B1ABE306700CDDEFF /* 721-bookmarks-selected.png */; };
@@ -116,6 +118,9 @@
 		2CD16DE21ADB1A8700213583 /* _IAATag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _IAATag.m; sourceTree = "<group>"; };
 		2CD16DE31ADB1A8700213583 /* IAATag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAATag.h; sourceTree = "<group>"; };
 		2CD16DE41ADB1A8700213583 /* IAATag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAATag.m; sourceTree = "<group>"; };
+		2CD9107D1AE1236100358819 /* AGTCoreDataCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGTCoreDataCollectionViewController.h; sourceTree = "<group>"; };
+		2CD9107E1AE1236100358819 /* AGTCoreDataCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGTCoreDataCollectionViewController.m; sourceTree = "<group>"; };
+		2CD910801AE127A200358819 /* IAAAnotationCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IAAAnotationCollectionViewCell.xib; sourceTree = "<group>"; };
 		2CF055861ABE2E7000CDDEFF /* IAALibraryCellTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAALibraryCellTableViewCell.h; sourceTree = "<group>"; };
 		2CF055871ABE2E7000CDDEFF /* IAALibraryCellTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAALibraryCellTableViewCell.m; sourceTree = "<group>"; };
 		2CF055881ABE2E7000CDDEFF /* IAALibraryCellTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IAALibraryCellTableViewCell.xib; sourceTree = "<group>"; };
@@ -284,14 +289,25 @@
 			name = Categories;
 			sourceTree = "<group>";
 		};
+		2CD910821AE128BE00358819 /* Annotation Collection View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				2CD910801AE127A200358819 /* IAAAnotationCollectionViewCell.xib */,
+			);
+			name = "Annotation Collection View Controller";
+			sourceTree = "<group>";
+		};
 		2CF055821ABDCE9600CDDEFF /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				2CD16DD41ADAD20F00213583 /* AGTCoreDataTableViewController.h */,
 				2CD16DD51ADAD20F00213583 /* AGTCoreDataTableViewController.m */,
+				2CD9107D1AE1236100358819 /* AGTCoreDataCollectionViewController.h */,
+				2CD9107E1AE1236100358819 /* AGTCoreDataCollectionViewController.m */,
 				2C6C4F2A1AC2C8DF0085B9E1 /* PDF View Controller */,
 				2CF055A51ABE4B5B00CDDEFF /* Book View Controller */,
 				2CF055A41ABE4B4200CDDEFF /* Library Table View Controller */,
+				2CD910821AE128BE00358819 /* Annotation Collection View Controller */,
 			);
 			name = Controllers;
 			path = ..;
@@ -451,6 +467,7 @@
 				2CF055B31ABECBC400CDDEFF /* 779-users-selected@2x.png in Resources */,
 				2CFB033A1AC8B30E001520AD /* ibooks_logo@2x.png in Resources */,
 				2C0C04D71ADE86D000186658 /* bookCover.jpg in Resources */,
+				2CD910811AE127A200358819 /* IAAAnotationCollectionViewCell.xib in Resources */,
 				2CF055951ABE306700CDDEFF /* 721-bookmarks.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -478,6 +495,7 @@
 				2CD16DBD1AD680A700213583 /* AGTCoreDataStack.m in Sources */,
 				2CD16DD61ADAD20F00213583 /* AGTCoreDataTableViewController.m in Sources */,
 				2CD16DCB1AD68F4B00213583 /* IAABook.m in Sources */,
+				2CD9107F1AE1236100358819 /* AGTCoreDataCollectionViewController.m in Sources */,
 				2C0C04CC1ADDC4E200186658 /* _IAAPhoto.m in Sources */,
 				2CD16DC91AD68F4B00213583 /* _IAABook.m in Sources */,
 				2CD16DCA1AD68F4B00213583 /* _IAAPDF.m in Sources */,

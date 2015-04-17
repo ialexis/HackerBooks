@@ -11,6 +11,8 @@
 #import "IAABookViewController.h"
 #import "IAALibraryCellTableViewCell.h"
 #import "IAATag.h"
+#import "Settings.h"
+
 
 @interface IAALibraryTableViewController ()
 
@@ -156,8 +158,7 @@
      
      */
     
-  //  [self saveLastSelectedBookAtSection:indexPath.section
-                   //                 row:indexPath.row];
+    [self saveLastSelectedBook:book];
 }
 
 #pragma mark -  IAALibraryTableViewControllerDelegate
@@ -178,7 +179,7 @@
 
 - (NSDictionary *)setDefaults
 {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+  //  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     // Por defecto, mostraremos el primero de la seccion de libros (obviando la de favoritos por si no hubiera aun ninguno)
     NSDictionary *defaultBooksCoords = @{@"SECTION" : @0, @"ROW" : @0};
@@ -197,8 +198,8 @@
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    [defaults setObject:book.archiveURIRepresentation
-                 forKey:@"LAST_BOOK_SELECTED"];
+    [defaults setObject:[book archiveURIRepresentation]
+                 forKey:LAST_BOOK_SELECTED];
     
     [defaults synchronize];
 }
@@ -250,7 +251,7 @@
     NSIndexPath *indexPath = nil;
     NSDictionary *coords = nil;
     
-    coords = [[NSUserDefaults standardUserDefaults] objectForKey:@"LAST_BOOK_SELECTED"];
+    NSData * lastBook = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_BOOK_SELECTED];
     
     if (coords == nil) {
         // No hay nada bajo la clave LAST_BOOK_SELECTED.
@@ -273,7 +274,7 @@
         
     }else{
         
-        return [self objectWithArchivedURIRepresentation:coords context:context];
+        return [self objectWithArchivedURIRepresentation:lastBook context:context];
     }
     
 
