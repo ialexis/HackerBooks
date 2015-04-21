@@ -21,6 +21,8 @@
 		2C3BDCDB1ABC9FE70018CE41 /* HackerBooksTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3BDCDA1ABC9FE70018CE41 /* HackerBooksTests.m */; };
 		2C6C4F281AC2C8CE0085B9E1 /* IAAPDFViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C4F261AC2C8CE0085B9E1 /* IAAPDFViewController.m */; };
 		2C6C4F291AC2C8CE0085B9E1 /* IAAPDFViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C6C4F271AC2C8CE0085B9E1 /* IAAPDFViewController.xib */; };
+		2CCAA7051AE6937C0054318C /* IAAAnnotationCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCAA7041AE6937C0054318C /* IAAAnnotationCollectionViewCell.m */; };
+		2CCAA7081AE694790054318C /* IAAAnotationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCAA7071AE694790054318C /* IAAAnotationViewController.m */; };
 		2CD16DBD1AD680A700213583 /* AGTCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD16DBC1AD680A700213583 /* AGTCoreDataStack.m */; };
 		2CD16DC01AD6847C00213583 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2CD16DBE1AD6847C00213583 /* Model.xcdatamodeld */; };
 		2CD16DC91AD68F4B00213583 /* _IAABook.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD16DC21AD68F4B00213583 /* _IAABook.m */; };
@@ -97,6 +99,10 @@
 		2C6C4F251AC2C8CE0085B9E1 /* IAAPDFViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAAPDFViewController.h; sourceTree = "<group>"; };
 		2C6C4F261AC2C8CE0085B9E1 /* IAAPDFViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAAPDFViewController.m; sourceTree = "<group>"; };
 		2C6C4F271AC2C8CE0085B9E1 /* IAAPDFViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IAAPDFViewController.xib; sourceTree = "<group>"; };
+		2CCAA7031AE6937C0054318C /* IAAAnnotationCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAAAnnotationCollectionViewCell.h; sourceTree = "<group>"; };
+		2CCAA7041AE6937C0054318C /* IAAAnnotationCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAAAnnotationCollectionViewCell.m; sourceTree = "<group>"; };
+		2CCAA7061AE694790054318C /* IAAAnotationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAAAnotationViewController.h; sourceTree = "<group>"; };
+		2CCAA7071AE694790054318C /* IAAAnotationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAAAnotationViewController.m; sourceTree = "<group>"; };
 		2CD16DBB1AD680A700213583 /* AGTCoreDataStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGTCoreDataStack.h; sourceTree = "<group>"; };
 		2CD16DBC1AD680A700213583 /* AGTCoreDataStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGTCoreDataStack.m; sourceTree = "<group>"; };
 		2CD16DBF1AD6847C00213583 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
@@ -293,6 +299,10 @@
 			isa = PBXGroup;
 			children = (
 				2CD910801AE127A200358819 /* IAAAnotationCollectionViewCell.xib */,
+				2CCAA7031AE6937C0054318C /* IAAAnnotationCollectionViewCell.h */,
+				2CCAA7041AE6937C0054318C /* IAAAnnotationCollectionViewCell.m */,
+				2CCAA7061AE694790054318C /* IAAAnotationViewController.h */,
+				2CCAA7071AE694790054318C /* IAAAnotationViewController.m */,
 			);
 			name = "Annotation Collection View Controller";
 			sourceTree = "<group>";
@@ -487,6 +497,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C0C04D51ADDC53000186658 /* IAAPhoto.m in Sources */,
+				2CCAA7081AE694790054318C /* IAAAnotationViewController.m in Sources */,
 				2C0C04D31ADDC53000186658 /* IAAAnnotation.m in Sources */,
 				2CD16DDF1ADADC0700213583 /* UIViewController+Navigation.m in Sources */,
 				2C0C04CA1ADDC4E200186658 /* _IAAAnnotation.m in Sources */,
@@ -505,6 +516,7 @@
 				2C6C4F281AC2C8CE0085B9E1 /* IAAPDFViewController.m in Sources */,
 				2CD16DE51ADB1A8700213583 /* _IAATag.m in Sources */,
 				2CD16DC01AD6847C00213583 /* Model.xcdatamodeld in Sources */,
+				2CCAA7051AE6937C0054318C /* IAAAnnotationCollectionViewCell.m in Sources */,
 				2CF0559F1ABE47C600CDDEFF /* IAABookViewController.m in Sources */,
 				2CD16DDC1ADAD33200213583 /* IAALibraryTableViewController.m in Sources */,
 				2C0C04CB1ADDC4E200186658 /* _IAALocation.m in Sources */,

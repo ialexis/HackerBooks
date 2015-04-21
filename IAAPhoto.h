@@ -1,5 +1,11 @@
 #import "_IAAPhoto.h"
+#import <UIKit/UIKit.h>
 
 @interface IAAPhoto : _IAAPhoto {}
-// Custom logic goes here.
+
+@property(nonatomic, strong) UIImage *image;
+
+
++(instancetype) photoWithImage:(UIImage *) image
+                       context:(NSManagedObjectContext *) context;
 @end

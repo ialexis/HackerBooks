@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="6751" systemVersion="14D127a" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="7531" systemVersion="14E7f" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="IAAPDFViewController">
@@ -13,21 +13,22 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+            <rect key="frame" x="0.0" y="0.0" width="768" height="960"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <webView contentMode="scaleToFill" id="CUP-Tx-IMh">
-                    <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                    <rect key="frame" x="0.0" y="0.0" width="768" height="960"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </webView>
                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" id="m73-RF-Rv9">
-                    <rect key="frame" x="366" y="493" width="37" height="37"/>
+                    <rect key="frame" x="366" y="461" width="37" height="37"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                 </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
             <point key="canvasLocation" x="413" y="231"/>
         </view>
     </objects>

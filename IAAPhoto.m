@@ -8,6 +8,44 @@
 
 @implementation IAAPhoto
 
-// Custom logic goes here.
+
+
+
+#pragma mark - Properties
+
+-(void) setImage:(UIImage *)image{
+    
+    // sincronizar con imageData
+    self.photo = UIImagePNGRepresentation(image);
+    
+}
+
+-(UIImage *) image{
+    
+    
+    return [UIImage imageWithData:self.photo];
+    
+}
+
+
+#pragma mark - Class Methods
++(instancetype) photoWithImage:(UIImage *) image
+                       context:(NSManagedObjectContext *) context{
+    
+    IAAPhoto *p = [NSEntityDescription insertNewObjectForEntityForName:[IAAPhoto entityName]
+                                                inManagedObjectContext:context];
+    
+    p.photo = UIImageJPEGRepresentation(image, 0.9);
+    
+    
+    return p;
+    
+}
+
+
+
+
+
+
 
 @end

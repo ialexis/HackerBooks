@@ -23,11 +23,18 @@
     {
         _book=aBook;
         self.title=aBook.title;
+        
+        
     }
     return self;
     
 }
 
+-(void) showAnnotation
+{
+                                                 
+}
+                                             
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
@@ -36,6 +43,12 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
+    
+    
+    //añadirmos esta linea para que muestre el boton de anotaciones
+    UIBarButtonItem* annotationButton = [[UIBarButtonItem alloc]initWithTitle:@"Anotaciones" style:UIBarButtonItemStylePlain target:self action:@selector(showAnnotation)];
+    
+    self.navigationController.navigationItem.rightBarButtonItem = annotationButton;
     
     
     
