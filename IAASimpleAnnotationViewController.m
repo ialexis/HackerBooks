@@ -8,7 +8,7 @@
 
 #import "IAASimpleAnnotationViewController.h"
 #import "IAAPhotoViewController.h"
-#import "IAAPhoto.h";
+#import "IAAPhoto.h"
 
 @interface IAASimpleAnnotationViewController ()
 
@@ -175,8 +175,7 @@
                                 currentFrame.origin.y,
                                 currentFrame.size.width,
                                 currentFrame.size.height -
-                                kbdFrame.size.height +
-                                self.bottomBar.frame.size.height);
+                                kbdFrame.size.height);
     
     [UIView animateWithDuration:duration
                      animations:^{

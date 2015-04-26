@@ -45,14 +45,43 @@
     // Pass the selected object to the new view controller.
 }
 */
+-(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    
+    // Recupero el tag actual
+    
+    IAATag *tag = [self.fetchedResultsController.fetchedObjects objectAtIndex:section];
+    
+    return [tag booksCount];
+    
+}
+
+-(NSString *) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    
+    IAATag *tag = [self.fetchedResultsController.fetchedObjects objectAtIndex:section];
+    
+    return tag.tag;
+}
 
 -(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    IAATag *t= [self.fetchedResultsController objectAtIndexPath:indexPath];
+    /*IAATag *t= [self.fetchedResultsController objectAtIndexPath:indexPath.section];
   
     //averiguamos cual es el libro
     //IAABook *b = [self.fetchedResultsController objectAtIndexPath:indexPath];
     IAABook *b = [[t.books allObjects] lastObject];
+    
+    */
+    
+    IAATag *tag = [self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.section];
+    
+    NSArray *books = [tag booksWithTag];
+    
+    // Recupero el libro actual
+    
+    IAABook *b = [books objectAtIndex:indexPath.row];
+
+    
+    
     
     // Crear una celda
     
@@ -124,12 +153,35 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
+    /*
+    
     IAATag *t= [self.fetchedResultsController objectAtIndexPath:indexPath];
     
     //averiguamos cual es el libro
     //IAABook *b = [self.fetchedResultsController objectAtIndexPath:indexPath];
     IAABook *book = [[t.books allObjects] lastObject];
 
+    
+    */
+    
+    IAATag *tag = [self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.section];
+    
+    NSArray *books = [tag booksWithTag];
+    
+    // Recupero el libro actual
+    
+    IAABook *book = [books objectAtIndex:indexPath.row];
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     // Crear el controlador
  /*   IAABookViewController *bookVC = [[IAABookViewController alloc] initWithBook:book];
@@ -145,9 +197,9 @@
     
     //mandamos una notificacion
     
- //   NSNotification *notificationSelectNewCharacter = [NSNotification notificationWithName:DID_SELECT_NEW_BOOK_NOTIFICATION_NAME object:self                                                                                 userInfo:@{@"NEW_BOOK": book}];
+    NSNotification *notificationSelectNewCharacter = [NSNotification notificationWithName:DID_SELECT_NEW_BOOK_NOTIFICATION_NAME object:self                                                                                 userInfo:@{@"NEW_BOOK": book}];
     
- //   [[NSNotificationCenter defaultCenter] postNotification:notificationSelectNewCharacter];
+    [[NSNotificationCenter defaultCenter] postNotification:notificationSelectNewCharacter];
     
     
     /*

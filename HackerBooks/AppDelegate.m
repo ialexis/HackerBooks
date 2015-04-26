@@ -40,8 +40,8 @@
     
     //in the first execution, Load the JSON data
     
- //   if (![[defaults objectForKey:FIRST_EJECUTION] isEqualToString:@"No"])
- //   {
+   if (![[defaults objectForKey:FIRST_EJECUTION] isEqualToString:@"No"])
+    {
         [self.stack zapAllData];
     
         //cargamos los datos del JSON
@@ -52,7 +52,7 @@
         
         [defaults synchronize];
 
-   // }
+    }
     
    
     
@@ -75,7 +75,7 @@
                              selector:nil],[NSSortDescriptor
                                                                            sortDescriptorWithKey:IAATagAttributes.tag
                                                                            ascending:YES
-                                                                           selector:@selector(caseInsensitiveCompare:)]];
+                                                                           selector:@selector(compare:)]];
 /*  req.sortDescriptors = @[[NSSortDescriptor
                                                                            sortDescriptorWithKey:IAATagAttributes.tag
                                                                            ascending:YES

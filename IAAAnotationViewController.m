@@ -11,6 +11,7 @@
 #import "IAAAnnotationCollectionViewCell.h"
 #import "IAAPhoto.h"
 #import "IAASimpleAnnotationViewController.h"
+#import "Settings.h"
 
 static NSString *cellID = @"annotationCellID";
 @interface IAAAnotationViewController ()
@@ -46,6 +47,16 @@ static NSString *cellID = @"annotationCellID";
     self.navigationItem.rightBarButtonItem = add;
     
     self.collectionView.backgroundColor = [UIColor whiteColor];
+    
+    
+    //nos damos de alta en la notificacion de aviso cuando se cambie de personaje
+    NSNotificationCenter *nCenter = [NSNotificationCenter defaultCenter];
+    [nCenter addObserver:self
+                selector:@selector (notifyBookDidChange:)
+                    name:DID_SELECT_NEW_BOOK_NOTIFICATION_NAME
+                  object:nil];
+
+    
 }
 
 #pragma mark - XIB Registration
@@ -102,4 +113,42 @@ static NSString *cellID = @"annotationCellID";
     
      
 }
+
+#pragma mark - notifications
+
+-(void) notifyBookDidChange: (NSNotification *) notification
+{
+    NSDictionary *dict = [notification userInfo];
+    
+    IAABook *newbook = [dict objectForKey:@"NEW_BOOK"];
+    
+    //actualizamos el modelo
+    self.book=newbook;
+    
+    //Sincronizamos vista y modelo
+    
+    
+    // Fetch request
+    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[IAAAnnotation entityName]];
+    req.predicate = [NSPredicate predicateWithFormat:@"book = %@", self.book];
+    req.sortDescriptors = @[[NSSortDescriptor
+                             sortDescriptorWithKey:IAAAnnotationAttributes.text
+                             ascending:YES]];
+    
+    // Fetched Results Controller
+    NSFetchedResultsController *fc = [[NSFetchedResultsController alloc]
+                                      initWithFetchRequest:req
+                                      managedObjectContext:self.book.managedObjectContext
+                                      sectionNameKeyPath:nil
+                                      cacheName:nil];
+    
+
+    
+    self.fetchedResultsController = fc;
+    
+    
+    [self.collectionView reloadData];
+}
+
+
 @end
