@@ -36,7 +36,7 @@
     
     book.title=[aDict objectForKey:@"title"];
     book.authors=[aDict objectForKey:@"authors"];
-    //NSArray *tags= [NSSet setWithArray:[[aDict objectForKey:@"tags"]componentsSeparatedByString:@", "]];
+
     
     NSArray *tags= [[aDict objectForKey:@"tags"]componentsSeparatedByString:@", "];
     
@@ -45,10 +45,8 @@
     [tags enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         NSLog(@"tag %lu:%@",(unsigned long)idx,obj);
         
-      IAATag *tag = [IAATag tagWithName:obj book:book context:book.managedObjectContext];
-        
-       // [allTags addObject:tag];
-      [book addTagsObject:tag];
+        IAATag *tag = [IAATag tagWithName:obj context:book.managedObjectContext];
+        [book addTagsObject:tag];
     }];
     //book.tags = [NSSet setWithArray:allTags];
     //[book addTagsObject:tag];
@@ -159,7 +157,7 @@
     if (value)
     {
        // [self addTagsObject:tagFavorito];
-        [self addTagsObject:[IAATag tagWithName:@"Favoritos" book:self context:self.managedObjectContext]];
+        [self addTagsObject:[IAATag tagWithName:@"Favoritos" context:self.managedObjectContext]];
     }
     else
     {
