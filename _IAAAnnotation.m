@@ -41,36 +41,12 @@ const struct IAAAnnotationRelationships IAAAnnotationRelationships = {
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 
-	if ([key isEqualToString:@"modificationDateValue"]) {
-		NSSet *affectingKey = [NSSet setWithObject:@"modificationDate"];
-		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
-		return keyPaths;
-	}
-
 	return keyPaths;
 }
 
 @dynamic creationDate;
 
 @dynamic modificationDate;
-
-- (BOOL)modificationDateValue {
-	NSNumber *result = [self modificationDate];
-	return [result boolValue];
-}
-
-- (void)setModificationDateValue:(BOOL)value_ {
-	[self setModificationDate:@(value_)];
-}
-
-- (BOOL)primitiveModificationDateValue {
-	NSNumber *result = [self primitiveModificationDate];
-	return [result boolValue];
-}
-
-- (void)setPrimitiveModificationDateValue:(BOOL)value_ {
-	[self setPrimitiveModificationDate:@(value_)];
-}
 
 @dynamic text;
 

@@ -22,6 +22,15 @@
 
 -(UIImage *) image{
     
+    if (self.photo==nil)
+    {
+        
+        
+        // Load url image into NSData
+        return [UIImage imageNamed:@"noimages.png"];
+    }
+    
+
     
     return [UIImage imageWithData:self.photo];
     

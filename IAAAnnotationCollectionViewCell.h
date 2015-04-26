@@ -11,5 +11,6 @@
 @interface IAAAnnotationCollectionViewCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *photoView;
 @property (weak, nonatomic) IBOutlet UILabel *annotationText;
+@property (weak, nonatomic) IBOutlet UILabel *modificacionDateText;
 
 @end

@@ -7,10 +7,14 @@
 //
 
 #import "IAAPDFViewController.h"
+#import "IAAAnotationViewController.h"
+#import "IAAAnnotation.h"
 #import "IAAPDF.h"
 #import "Settings.h"
+#import "AGTCoreDataStack.h"
 
 @interface IAAPDFViewController ()
+// @property (nonatomic,strong)AGTCoreDataStack *stack;
 
 @end
 
@@ -32,9 +36,42 @@
 
 -(void) showAnnotation
 {
-                                                 
+   
+   // self.stack = [AGTCoreDataStack coreDataStackWithModelName:@"Model"];
+    
+    // Fetch request
+    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:[IAAAnnotation entityName]];
+    req.predicate = [NSPredicate predicateWithFormat:@"book = %@", self.book];
+    req.sortDescriptors = @[[NSSortDescriptor
+                             sortDescriptorWithKey:IAAAnnotationAttributes.text
+                             ascending:YES]];
+                            
+    // Fetched Results Controller
+    NSFetchedResultsController *fc = [[NSFetchedResultsController alloc]
+                                      initWithFetchRequest:req
+                                      managedObjectContext:self.book.managedObjectContext
+                                      sectionNameKeyPath:nil
+                                      cacheName:nil];
+    
+    // layout
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    //layout.scrollDirection = UICollectionViewScrollDirectionVertical;
+    layout.minimumLineSpacing = 10;
+    layout.minimumInteritemSpacing = 5;
+    layout.itemSize = CGSizeMake(120, 150);
+    layout.sectionInset = UIEdgeInsetsMake(5, 10, 5, 10);
+    
+    // View controller
+    IAAAnotationViewController *anvc = [[IAAAnotationViewController alloc] initCoreDataCollectionViewControllerWithFetchedResultsController:fc
+                                                                                                                         layout:layout
+                                                                                                                           book: self.book];
+    
+    // Push it!
+    [self.navigationController pushViewController:anvc
+                                         animated:YES];
+    
 }
-                                             
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
@@ -48,7 +85,7 @@
     //añadirmos esta linea para que muestre el boton de anotaciones
     UIBarButtonItem* annotationButton = [[UIBarButtonItem alloc]initWithTitle:@"Anotaciones" style:UIBarButtonItemStylePlain target:self action:@selector(showAnnotation)];
     
-    self.navigationController.navigationItem.rightBarButtonItem = annotationButton;
+    self.navigationItem.rightBarButtonItem = annotationButton;
     
     
     

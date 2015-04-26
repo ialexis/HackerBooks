@@ -7,7 +7,12 @@
 //
 
 #import "AGTCoreDataCollectionViewController.h"
+#import "IAABook.h"
 
 @interface IAAAnotationViewController : AGTCoreDataCollectionViewController
+
+-(id) initCoreDataCollectionViewControllerWithFetchedResultsController:(NSFetchedResultsController *)aFetchedResultsController
+  layout: (UICollectionViewFlowLayout *) layout
+  book:(IAABook *) book;
 
 @end

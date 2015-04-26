@@ -32,11 +32,7 @@ extern const struct IAAAnnotationRelationships {
 
 //- (BOOL)validateCreationDate:(id*)value_ error:(NSError**)error_;
 
-@property (nonatomic, strong) NSNumber* modificationDate;
-
-@property (atomic) BOOL modificationDateValue;
-- (BOOL)modificationDateValue;
-- (void)setModificationDateValue:(BOOL)value_;
+@property (nonatomic, strong) NSDate* modificationDate;
 
 //- (BOOL)validateModificationDate:(id*)value_ error:(NSError**)error_;
 
@@ -63,11 +59,8 @@ extern const struct IAAAnnotationRelationships {
 - (NSDate*)primitiveCreationDate;
 - (void)setPrimitiveCreationDate:(NSDate*)value;
 
-- (NSNumber*)primitiveModificationDate;
-- (void)setPrimitiveModificationDate:(NSNumber*)value;
-
-- (BOOL)primitiveModificationDateValue;
-- (void)setPrimitiveModificationDateValue:(BOOL)value_;
+- (NSDate*)primitiveModificationDate;
+- (void)setPrimitiveModificationDate:(NSDate*)value;
 
 - (NSString*)primitiveText;
 - (void)setPrimitiveText:(NSString*)value;
